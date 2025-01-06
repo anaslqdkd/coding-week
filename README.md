@@ -36,11 +36,12 @@ Si vous souhaitez recompiler le projet ou régénérer le JAR, procédez comme s
    cd <nom-du-repo>
 
 2. Compiler le projet avec :
-./gradlew clean build
+    '''./gradlew clean build
 
-Le fichier se trouvera dans : app/build/libs/app.jar
+Le fichier se trouvera dans : 
+    '''app/build/libs/app.jar
 
 ## Dans tout les cas : 
 
 **Utilisez la commande suivante pour lancer l'exécution du .jar :**
-java --module-path /chemin/vers/javafx-sdk-23/lib \ --add-modules javafx.controls,javafx.fxml,javafx.media \ -jar app/build/libs/app.jar
+    '''java --module-path /chemin/vers/javafx-sdk-23/lib \ --add-modules javafx.controls,javafx.fxml,javafx.media \ -jar app/build/libs/app.jar
