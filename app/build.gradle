@@ -49,3 +49,8 @@ application {
     mainClass.set("codename.App")
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21) // ou votre version
+    }
+}
