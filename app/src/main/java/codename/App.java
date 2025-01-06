@@ -10,12 +10,12 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/game.fxml");
+        URL fxmlURL = getClass().getResource("/selection_mode.fxml");
         if (fxmlURL == null) {
             System.err.println("Could not find game.fxml");
             System.exit(1);
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_mode.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("CodeName");
         primaryStage.setScene(scene);
