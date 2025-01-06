@@ -151,6 +151,7 @@ gradle-app.setting
 
 .idea/
 .app/build/tmp/compileJava/
+.app/build/classes/java/main/codename/App.class
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,gradle,visualstudiocode
 

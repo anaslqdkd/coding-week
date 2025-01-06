@@ -8,18 +8,36 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/game.fxml");
-        if (fxmlURL == null) {
-            System.err.println("Could not find game.fxml");
+        // Charger la fenêtre des agents
+        URL agentsFXMLURL = getClass().getResource("/gameAgent.fxml");
+        if (agentsFXMLURL == null) {
+            System.err.println("Could not find agents.fxml");
             System.exit(1);
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setTitle("CodeName");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        FXMLLoader agentsLoader = new FXMLLoader(agentsFXMLURL);
+        Scene agentsScene = new Scene(agentsLoader.load());
+        Stage agentsStage = new Stage();
+        agentsStage.setTitle("CodeName - Agents");
+        agentsStage.setScene(agentsScene);
+
+        // Charger la fenêtre des espions
+        URL spiesFXMLURL = getClass().getResource("/gameSpy.fxml");
+        if (spiesFXMLURL == null) {
+            System.err.println("Could not find spies.fxml");
+            System.exit(1);
+        }
+        FXMLLoader spiesLoader = new FXMLLoader(spiesFXMLURL);
+        Scene spiesScene = new Scene(spiesLoader.load());
+        Stage spiesStage = new Stage();
+        spiesStage.setTitle("CodeName - Espions");
+        spiesStage.setScene(spiesScene);
+
+        // Afficher les deux fenêtres
+        agentsStage.show();
+        spiesStage.show();
     }
 
     public static void main(String[] args) {

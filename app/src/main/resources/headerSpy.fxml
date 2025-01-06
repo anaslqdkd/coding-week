@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label alignment="CENTER" prefHeight="16.0" prefWidth="932.0" text="Maitre-Espion : Raf">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+    </children>
+</StackPane>
