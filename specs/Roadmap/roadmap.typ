@@ -14,7 +14,13 @@
   - Contrôleurs pour gérer la logique du jeu.
   - Interface pour la grille de jeu.
 - Planifier les activités de la semaine avec un diagramme Gantt ou un tableau Kanban.
-- *Nouveau :* Installation de Gradle et tests de configuration (builds et dépendances).
+- Installation de Gradle et tests de configuration (builds et dépendances).
+- Première application :
+    - Créer un projet gradle pour avoir une base commune
+    - Créer le layout de l’application
+    - Créer la bd des mots
+    - Créer une première grille du jeu, ça sera pour après de pouvoir fixer la grille
+    - Créer deux fenêtres pour les deux grilles
 
 === Livrables
 - README initial contenant une présentation du projet, les instructions pour configurer l'environnement et les rôles de l'équipe.
@@ -37,9 +43,9 @@
   - Interaction des joueurs pour deviner les mots.
   - Gérer les conséquences des choix : points gagnés, fin de partie si l'assassin est trouvé.
 - Tester l'application pour s'assurer que les règles de base fonctionnent correctement.
-- *Nouveau :*
-  - Création d'une fenêtre de menu pour paramétrer la partie (ex. nombre de joueurs, thématique).
-  - Gestion de l'affichage des rôles (fenêtre des maîtres et fenêtre des espions distinctes).
+
+- Création d'une fenêtre de menu pour paramétrer la partie (ex. nombre de joueurs, thématique).
+- Gestion de l'affichage des rôles (fenêtre des maîtres et fenêtre des espions distinctes).
 
 === Livrables
 - Une interface fonctionnelle permettant de créer une partie avec tous les paramètres.
@@ -58,8 +64,8 @@
 - Permettre l'édition et le choix des cartes thématiques :
   - Interface pour ajouter de nouveaux mots ou importer une liste prédéfinie.
   - Gestion des erreurs (mots en double, entrées invalides).
-- *Nouveau :*
-  - Utilisation d'une base de données pour générer des mots aléatoires ou des images (cartes "Nom de Code").
+
+- Utilisation d'une base de données pour générer des mots aléatoires ou des images (cartes "Nom de Code").
 
 === Livrables
 - Sauvegarde et rechargement fonctionnels.
@@ -70,7 +76,6 @@
 
 === Objectifs
 - Développer un mode solo avec des indices préprogrammés :
-  - Intelligence artificielle basique pour fournir des indices cohérents.
   - Ajuster la difficulté (niveau facile, moyen, difficile).
 - Ajouter un mode "images" :
   - Conversion des cartes textuelles en cartes visuelles (illustrations).
@@ -81,7 +86,7 @@
 - Effectuer des tests approfondis pour assurer la stabilité et corriger les bugs.
 
 === Livrables
-- Mode solo avec intelligence artificielle fonctionnelle.
+- Mode solo pour jouer l'agent espion.
 - Support des cartes avec images, incluant un exemple prédéfini.
 - Tableau des statistiques accessible depuis le menu principal.
 
