@@ -19,6 +19,7 @@ public class App extends Application {
     primaryStage.setTitle("Basic JavaFX App");
     primaryStage.setScene(scene);
     primaryStage.show();
+    // commentaires
   }
 
   public static void main(String[] args) {
