@@ -16,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/game.fxml");
+        URL fxmlURL = getClass().getResource("/Nb_joueurs.fxml");
         if (fxmlURL == null) {
             System.err.println("Could not find game.fxml");
             System.exit(1);
@@ -28,6 +28,7 @@ public class App extends Application {
 
 
         Scene scene = new Scene(root);
+
         primaryStage.setTitle("CodeName");
         primaryStage.setScene(scene);
         primaryStage.show();
