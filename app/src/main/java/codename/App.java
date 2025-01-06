@@ -1,28 +1,28 @@
 package codename;
 
+import java.net.URL;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        URL fxmlURL = getClass().getResource("/game.fxml");
+        if (fxmlURL == null) {
+            System.err.println("Could not find game.fxml");
+            System.exit(1);
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        Scene scene = new Scene(loader.load());
+        primaryStage.setTitle("CodeName");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-  @Override
-  public void start(Stage primaryStage) {
-    Label label = new Label("Hello, JavaFX!");
-
-    StackPane root = new StackPane(label);
-
-    Scene scene = new Scene(root, 400, 300);
-
-    primaryStage.setTitle("Basic JavaFX App");
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    // commentaires
-  }
-
-  public static void main(String[] args) {
-    launch(args);
-  }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
