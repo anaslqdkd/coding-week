@@ -10,12 +10,12 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/menu.fxml");
+        URL fxmlURL = getClass().getResource("/game.fxml");
         if (fxmlURL == null) {
-            System.err.println("Could not find menu.fxml");
+            System.err.println("Could not find game.fxml");
             System.exit(1);
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("CodeName");
         primaryStage.setScene(scene);
