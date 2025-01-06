@@ -38,6 +38,7 @@ public class App extends Application {
         // Afficher les deux fenêtres
         agentsStage.show();
         spiesStage.show();
+        
     }
 
     public static void main(String[] args) {
