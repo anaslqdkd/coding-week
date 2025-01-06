@@ -24,7 +24,7 @@ public class GameController {
         }
 
         // Décrémenter les clics restants
-        game.clicksRemaining--;
+        game.decrementClicksRemaining();
 
         // Vérifier si la partie est terminée
         if (game.isGameOver()) {
