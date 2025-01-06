@@ -7,6 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import codename.controllers.GameController;
+import codename.controllers.GridController;
+import codename.Observer;
+import javafx.scene.layout.BorderPane;
+
 
 public class App extends Application {
     @Override
@@ -18,6 +23,9 @@ public class App extends Application {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
         Parent root = loader.load();
+
+        GameController game_controller = loader.getController();
+
 
         Scene scene = new Scene(root);
         primaryStage.setTitle("CodeName");
