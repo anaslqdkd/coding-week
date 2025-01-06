@@ -6,17 +6,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import codename.controllers.GameController;
+import codename.controllers.GridController;
+import codename.Observer;
+import javafx.scene.layout.BorderPane;
+
 
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/game.fxml");
-        if (fxmlURL == null) {
-            System.err.println("Could not find game.fxml");
-            System.exit(1);
-        }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
-        Scene scene = new Scene(loader.load());
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+    BorderPane root = loader.load();
+
+    GameController game_controller = loader.getController();
+
+
+        Scene scene = new Scene(root);
         primaryStage.setTitle("CodeName");
         primaryStage.setScene(scene);
         primaryStage.show();
