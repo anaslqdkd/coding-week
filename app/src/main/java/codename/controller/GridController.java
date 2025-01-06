@@ -1,4 +1,4 @@
-package codename.controllers;
+package codename.controller;
 
 import codename.Observer;
 import javafx.fxml.FXML;

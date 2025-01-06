@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import codename.controllers.GameController;
-import codename.controllers.GridController;
 import codename.Observer;
+import codename.controller.GameController;
+import codename.controller.GridController;
 import javafx.scene.layout.BorderPane;
 
 
