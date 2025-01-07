@@ -26,40 +26,10 @@ public class SelectionEquipeController {
     @FXML
     private Button randomButton;
 
+    @FXML
+    private Button confirmButton;
+
     private Game game;
-
-public void initialize() {
-    randomButton.setOnAction(event -> {
-        // Effacer les équipes existantes
-        updateTeams();
-        // Mélanger la liste des joueurs
-        List<Player> shuffledPlayerList = new ArrayList<>(game.getParameters().getPlayers());
-        Collections.shuffle(shuffledPlayerList);
-
-        // Déterminer la taille de chaque équipe
-        int totalPlayers = shuffledPlayerList.size();
-        int redTeamSize = totalPlayers / 2 + (totalPlayers % 2); // Si impair, équipe rouge en a un de plus
-        int blueTeamSize = totalPlayers / 2;
-
-        // Ajouter les joueurs à l'équipe rouge
-        for (int i = 0; i < redTeamSize; i++) {
-            Player player = shuffledPlayerList.get(i);
-            Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
-            moveToTeam(playerLabel, redTeam);
-        }
-
-        // Ajouter les joueurs restants à l'équipe bleue
-        for (int i = redTeamSize; i < totalPlayers; i++) {
-            Player player = shuffledPlayerList.get(i);
-            Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
-            moveToTeam(playerLabel, blueTeam);
-        }
-    });
-
-    }
-
     public void setGame(Game game) {
         this.game = game;
         updateTeams();
@@ -77,17 +47,15 @@ public void initialize() {
             Button redButton = new Button("Rouge");
             redButton.setPrefWidth(100);
             redButton.setOnAction(event -> {
-                if (playerLabel.getParent() != redTeam) {
-                    moveToTeam(playerLabel, redTeam);
-                }
+                redTeam.getChildren().add(playerLabel);
+                leftTeam.getChildren().remove(playerLabel);
             });
 
             Button blueButton = new Button("Bleu");
             blueButton.setPrefWidth(100);
             blueButton.setOnAction(event -> {
-                if (playerLabel.getParent() != blueTeam) {
-                    moveToTeam(playerLabel, blueTeam);
-                }
+                blueTeam.getChildren().add(playerLabel);
+                leftTeam.getChildren().remove(playerLabel);
             });
 
             HBox playerBox = new HBox(20, blueButton, playerLabel, redButton);
@@ -95,7 +63,66 @@ public void initialize() {
             leftTeam.getChildren().add(playerBox);
         }
     }
+
+    @FXML
+    private void initialize() {
+        confirmButton.setOnAction(event -> {
+            game.getRedTeam().clear();
+            game.getBlueTeam().clear();
+
+            for (int i = 0; i < redTeam.getChildren().size(); i++) {
+                Label playerLabel = (Label) redTeam.getChildren().get(i);
+                String playerName = playerLabel.getText();
+                game.addPlayerToRedTeam(new Player(playerName, false));
+            }
+
+            for (int i = 0; i < blueTeam.getChildren().size(); i++) {
+                Label playerLabel = (Label) blueTeam.getChildren().get(i);
+                String playerName = playerLabel.getText();
+                game.addPlayerToBlueTeam(new Player(playerName, false));
+            }
+
+            System.out.println("Composition de l'équipe rouge :");
+            for (Player player : game.getRedTeam().getPlayers()) {
+                System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
+            }
+
+            System.out.println("Composition de l'équipe bleue :");
+            for (Player player : game.getBlueTeam().getPlayers()) {
+                System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
+            }
+        });
+
+        randomButton.setOnAction(event -> {
+            // Effacer les équipes existantes
+            updateTeams();
+            // Mélanger la liste des joueurs
+            List<Player> shuffledPlayerList = new ArrayList<>(game.getParameters().getPlayers());
+            Collections.shuffle(shuffledPlayerList);
     
+            // Déterminer la taille de chaque équipe
+            int totalPlayers = shuffledPlayerList.size();
+            int redTeamSize = totalPlayers / 2 + (totalPlayers % 2); // Si impair, équipe rouge en a un de plus
+            int blueTeamSize = totalPlayers / 2;
+    
+            // Ajouter les joueurs à l'équipe rouge
+            for (int i = 0; i < redTeamSize; i++) {
+                Player player = shuffledPlayerList.get(i);
+                Label playerLabel = new Label(player.getName());
+                playerLabel.setStyle("-fx-font-size: 18px;");
+                moveToTeam(playerLabel, redTeam);
+            }
+    
+            // Ajouter les joueurs restants à l'équipe bleue
+            for (int i = redTeamSize; i < totalPlayers; i++) {
+                Player player = shuffledPlayerList.get(i);
+                Label playerLabel = new Label(player.getName());
+                playerLabel.setStyle("-fx-font-size: 18px;");
+                moveToTeam(playerLabel, blueTeam);
+            }
+        });
+    }
+
     private void moveToTeam(Label playerLabel, VBox targetTeam) {
         // Supprimer le joueur des autres équipes
         leftTeam.getChildren().remove(playerLabel);
@@ -105,5 +132,4 @@ public void initialize() {
         // Ajouter le joueur à l'équipe cible
         targetTeam.getChildren().add(playerLabel);
     }
-    
 }
