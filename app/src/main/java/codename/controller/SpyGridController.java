@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class SpyGridController implements Observer {
+  private GameController gameController;
 
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridSpy;
@@ -63,7 +64,11 @@ public class SpyGridController implements Observer {
   }
 
   public void setGame(Game game) {
-    this.game = game;
+    this.game = gameController.getGame();
+  }
+
+  public void setGameController(GameController gameController) {
+    this.gameController = gameController;
   }
 
   public static List<String> getWordList(int nb) throws IOException {

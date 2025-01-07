@@ -14,6 +14,8 @@ import javafx.scene.shape.Rectangle;
 
 public class AgentGridController implements Observer {
 
+  private GameController gameController;
+
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridAgent;
   private Game game;
@@ -56,7 +58,12 @@ public class AgentGridController implements Observer {
   }
 
   public void setGame(Game game) {
-    this.game = game;
+    System.out.println("here");
+    this.game = gameController.getGame();
+  }
+
+  public void setGameController(GameController gameController) {
+    this.gameController = gameController;
   }
 
   public void generate_grid_agent(GridPane gridPane) {

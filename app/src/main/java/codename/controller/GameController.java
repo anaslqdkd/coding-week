@@ -1,10 +1,16 @@
 package codename.controller;
 
 import codename.Observer;
+import codename.model.Game;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.GridPane;
 
 public class GameController implements Observer {
-  // private GridController gridController;
+  private Game game;
 
   @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
 
@@ -30,6 +36,57 @@ public class GameController implements Observer {
 
   @FXML
   private void initialize() {
+    try {
+      System.out.println("game controller initialised");
+      List<String> words =
+          Arrays.asList(
+              "Anchor",
+              "Beacon",
+              "Castle",
+              "Desert",
+              "Eclipse",
+              "Falcon",
+              "Glacier",
+              "Harbor",
+              "Ivory",
+              "Jaguar",
+              "Kingdom",
+              "Lantern",
+              "Mirage",
+              "Nebula",
+              "Oasis",
+              "Prism",
+              "Quasar",
+              "Raven",
+              "Summit",
+              "Twilight",
+              "Umbra",
+              "Vortex",
+              "Warden",
+              "Xenon",
+              "Zephyr");
+      FXMLLoader gridAgentLoader = new FXMLLoader(getClass().getResource("/gridAgent.fxml"));
+      GridPane gridPaneAgent = gridAgentLoader.load();
+      agentGridController = gridAgentLoader.getController();
+
+      FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
+      GridPane gridPaneSpy = gridSpyLoader.load();
+      spyGridController = gridSpyLoader.getController();
+
+      System.out.println(words.size());
+      game = new Game(words);
+      if (game != null) {
+        System.out.println("game is not null");
+        agentGridController.setGame(game);
+        spyGridController.setGame(game);
+      } else {
+        System.out.println("game is null");
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     // try {
     //  FXMLLoader gridLoader = new FXMLLoader(getClass().getResource("/grid.fxml"));
     //  GridPane grid = gridLoader.load();
@@ -62,7 +119,10 @@ public class GameController implements Observer {
     // }
   }
 
+  public Game getGame() {
+    return game;
+  }
+
   @Override
   public void update() {}
 }
-

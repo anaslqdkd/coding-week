@@ -1,11 +1,8 @@
 package codename;
 
-import codename.controller.AgentGridController;
 import codename.controller.ClueAgentController;
 import codename.controller.ClueSpyController;
 import codename.controller.GameController;
-import codename.controller.SpyGridController;
-import codename.model.Game;
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
@@ -45,7 +42,7 @@ public class App extends Application {
               "Warden",
               "Xenon",
               "Zephyr");
-      Game game = new Game(words);
+      // Game game = new Game(words);
 
       // Charger la fenêtre des agents (gameAgent.fxml)
       FXMLLoader agentsLoader = new FXMLLoader(getClass().getResource("/gameAgent.fxml"));
@@ -71,14 +68,15 @@ public class App extends Application {
       ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
       ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
 
-      SpyGridController spyGridController = gameSpyController.getSpyGridController();
-      AgentGridController agentGridController = gameAgentController.getAgentGridController();
-      spyGridController.setGame(game);
-      agentGridController.setGame(game);
+      // SpyGridController spyGridController = gameSpyController.getSpyGridController();
+      // AgentGridController agentGridController = gameAgentController.getAgentGridController();
 
       // Connecter les sous-contrôleurs entre eux
       clueSpyController.setClueAgentController(clueAgentController);
       clueAgentController.setClueSpyController(clueSpyController);
+
+      // spyGridController.setGameController(gameSpyController);
+      // agentGridController.setGameController(gameAgentController);
 
       // Afficher les deux fenêtres
       agentsStage.show();
