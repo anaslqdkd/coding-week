@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
+  private static Game instance;
   private final Board board;
   private final Team redTeam;
   private final Team blueTeam;
@@ -20,6 +21,13 @@ public class Game {
     this.currentClue = null;
     this.maxClicks = 0;
     this.clicksRemaining = 0;
+  }
+
+  public static synchronized Game getInstance(List<String> words) {
+    if (instance == null) {
+      instance = new Game(words);
+    }
+    return instance;
   }
 
   public Board getBoard() {
