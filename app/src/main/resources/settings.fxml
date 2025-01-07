@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;">
+            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" fx:controller="codename.controller.SettingsController">
     <top>
         <VBox alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <Label text="Paramètres" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #004d40;" alignment="CENTER" />
@@ -37,8 +37,8 @@
     <bottom>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" />
-                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
+                <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" onAction="#saveSettings"/>
+                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" onAction="#saveSettings"/>
             </HBox>
         </VBox>
     </bottom>

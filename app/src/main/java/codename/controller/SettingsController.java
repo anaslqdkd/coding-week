@@ -1,10 +1,27 @@
+/*
+Pour fonctionner, a besoin de :
+
+SettingsController controller = loader.getController();
+        GridController grid_controller = new GridController();
+        grid_controller.getWordList(25);
+
+*/
+
 package codename.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+
+
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
+
+
 
 public class SettingsController {
 
@@ -12,55 +29,35 @@ public class SettingsController {
     private Slider gridLinesSlider;
 
     @FXML
-    private Slider gridColumnsSlider;
-
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private CheckBox darkModeCheckbox;
+    private Button cancelSettingsButton;
 
     @FXML
     private Button saveSettingsButton;
 
     @FXML
-    private Button cancelSettingsButton;
+    private Slider gridColumnsSlider;
 
     @FXML
-    public void initialize() {
-        // Force gridLinesSlider to move in integer steps
-        gridLinesSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            gridLinesSlider.setValue(Math.round(newValue.doubleValue()));
-        });
+    private CheckBox darkModeCheckbox;
 
-        // Force gridColumnsSlider to move in integer steps
-        gridColumnsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            gridColumnsSlider.setValue(Math.round(newValue.doubleValue()));
-        });
-    }
 
     @FXML
-    private void saveSettings() {
-        int gridLines = (int) gridLinesSlider.getValue();
-        int gridColumns = (int) gridColumnsSlider.getValue();
-        String username = usernameField.getText();
-        boolean darkMode = darkModeCheckbox.isSelected();
+    public void saveSettings() {
+        try {
+            System.out.println("Chargement de menu.fxml");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            Parent root = loader.load();
 
-        // Example of saving settings (replace with real logic)
-        System.out.println("Settings saved:");
-        System.out.println("Grid Lines: " + gridLines);
-        System.out.println("Grid Columns: " + gridColumns);
-        System.out.println("Username: " + username);
-        System.out.println("Dark Mode: " + darkMode);
+            // Obtenir la scène actuelle
+            Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menu");
+            System.out.println("Navigation vers le menu réussie.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de la page menu.fxml");
+        }
+
+
     }
-
-    @FXML
-    private void cancelSettings() {
-        System.out.println("Settings changes canceled.");
-        gridLinesSlider.setValue(5); // Reset to default
-        gridColumnsSlider.setValue(5); // Reset to default
-        usernameField.setText(""); // Clear the username field
-        darkModeCheckbox.setSelected(false); // Uncheck dark mode
-    }
-
 }
