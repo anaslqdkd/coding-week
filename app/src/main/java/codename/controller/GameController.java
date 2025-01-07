@@ -2,6 +2,8 @@ package codename.controller;
 
 import codename.Observer;
 import codename.model.Game;
+import codename.model.WordList;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -10,34 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 
 public class GameController implements Observer {
-  List<String> words =
-      Arrays.asList(
-          "Anchor",
-          "Beacon",
-          "Castle",
-          "Desert",
-          "Eclipse",
-          "Falcon",
-          "Glacier",
-          "Harbor",
-          "Ivory",
-          "Jaguar",
-          "Kingdom",
-          "Lantern",
-          "Mirage",
-          "Nebula",
-          "Oasis",
-          "Prism",
-          "Quasar",
-          "Raven",
-          "Summit",
-          "Twilight",
-          "Umbra",
-          "Vortex",
-          "Warden",
-          "Xenon",
-          "Zephyr");
-
   @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
 
   @FXML private ClueSpyController clueSpyController; // Injecté automatiquement via fx:include
@@ -71,35 +45,10 @@ public class GameController implements Observer {
   private void initialize() {
     try {
       System.out.println("GameController initialized");
-
+      List<String> words = WordList.getWordList(25,"database.txt");
+    
       // Initialize the singleton game instance
-      List<String> words =
-          Arrays.asList(
-              "Anchor",
-              "Beacon",
-              "Castle",
-              "Desert",
-              "Eclipse",
-              "Falcon",
-              "Glacier",
-              "Harbor",
-              "Ivory",
-              "Jaguar",
-              "Kingdom",
-              "Lantern",
-              "Mirage",
-              "Nebula",
-              "Oasis",
-              "Prism",
-              "Quasar",
-              "Raven",
-              "Summit",
-              "Twilight",
-              "Umbra",
-              "Vortex",
-              "Warden",
-              "Xenon",
-              "Zephyr");
+    
 
       Game game = Game.getInstance(words);
       game.add_observer(this);

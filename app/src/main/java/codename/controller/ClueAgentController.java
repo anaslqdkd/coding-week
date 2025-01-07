@@ -1,13 +1,13 @@
 package codename.controller;
 
 import codename.model.Clue;
-
+import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class ClueAgentController {
-    private Clue clue;
+    private Game game;
 
     private ClueSpyController clueSpyController; 
 
@@ -19,6 +19,7 @@ public class ClueAgentController {
     
     @FXML
     public void initialize() {
+        this.game = Game.getInstance();
         // Initialiser le label
         clueLabel.setText("En attente...");
 
@@ -35,11 +36,11 @@ public class ClueAgentController {
     }
 
     public void getClue(Clue clue) {
-        String text = clue.getText();
-        Integer number = clue.getNumber();
+        String text = game.getClue().getText();
+        Integer number = game.getClue().getNumber();
 
         if (text != null && !text.isEmpty() && number != null) {
-            clueLabel.setText("Indice donné : " + text + " - " + number);
+            clueLabel.setText(text + " - " + number);
         } else {
             clueLabel.setText("En attente...");
         }

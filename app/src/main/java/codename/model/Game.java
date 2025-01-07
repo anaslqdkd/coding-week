@@ -11,7 +11,7 @@ public class Game {
   private final Team redTeam;
   private final Team blueTeam;
   private Team currentTurn;
-  private String currentClue;
+  private Clue currentClue;
   private int maxClicks;
   private int clicksRemaining;
   private ArrayList<Observer> observers = new ArrayList<>(10);
@@ -72,20 +72,24 @@ public class Game {
     clicksRemaining--;
   }
 
-  public void proposeClue(String clue, int number) {
-    if (!isValidClue(clue)) {
+  public void proposeClue(Clue clue) {
+    if (!isValidClue(clue.getText())) {
       throw new IllegalArgumentException("Le mot-clé est invalide.");
     }
-    if (number < 1 || number > 25) {
+    if (clue.getNumber() < 1 || clue.getNumber() > 25) {
       throw new IllegalArgumentException("Le nombre doit être compris entre 1 et 25.");
     }
     this.currentClue = clue;
-    this.maxClicks = number + 1;
+    this.maxClicks = clue.getNumber() + 1;
     this.clicksRemaining = this.maxClicks;
   }
 
   private boolean isValidClue(String clue) {
-    return clue != null && clue.matches("^[a-zA-Z]+$");
+    return clue != null && clue.matches("^[A-Z]+$");
+  }
+
+  public Clue getClue() {
+    return this.currentClue;
   }
 
   public void revealCard(int row, int col) {

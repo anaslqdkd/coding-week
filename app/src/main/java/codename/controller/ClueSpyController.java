@@ -6,12 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+import codename.model.Game;
 import codename.model.Clue;
 import codename.controller.ClueAgentController;
 
 public class ClueSpyController {
 
     private ClueAgentController clueAgentController;
+    private Game game;
 
     @FXML
     private TextField textField;
@@ -24,6 +26,7 @@ public class ClueSpyController {
 
     @FXML
     public void initialize() {
+        this.game = Game.getInstance();
         // Interdire les espaces dans le TextField
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.contains(" ")) {
@@ -49,7 +52,7 @@ public class ClueSpyController {
     public void setClueAgentController(ClueAgentController controller) {
         this.clueAgentController = controller;
     }
-
+    
     private void updateLabel() {
         String text = textField.getText();
         Integer number = choiceBox.getValue();
@@ -76,7 +79,8 @@ public class ClueSpyController {
                     textField.setDisable(true);
                     labelIndice.setText("Indice : " + text + " - " + number);
                 }
-                this.clueAgentController.getClue(new Clue(text, number));
+                this.game.proposeClue(new Clue(text, number));
+                clueAgentController.getClue(game.getClue());
                 break;
             default:
                 break;
