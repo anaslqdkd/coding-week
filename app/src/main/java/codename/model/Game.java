@@ -1,9 +1,8 @@
 package codename.model;
 
-import java.util.List;
-
 public class Game {
-    private final Board board;
+    private Parameters parameters;
+    private Board board;
     private final Team redTeam;
     private final Team blueTeam;
     private Team currentTurn;
@@ -11,14 +10,23 @@ public class Game {
     private int maxClicks;
     private int clicksRemaining;
 
-    public Game(List<String> words) {
-        this.board = new Board(words);
+    public Game() {
+        this.parameters = new Parameters();
+        this.board = null;
         this.redTeam = new Team("Red");
         this.blueTeam = new Team("Blue");
         this.currentTurn = redTeam;
         this.currentClue = null;
         this.maxClicks = 0;
         this.clicksRemaining = 0;
+    }
+
+    public Parameters getParameters() {
+        return parameters;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public Board getBoard() {

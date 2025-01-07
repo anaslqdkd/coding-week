@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 
+import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,12 +15,22 @@ public class MenuController {
     @FXML
     private Button playButton;
 
+    private Game game;
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     @FXML
     private void initialize() {
         playButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Nb_joueurs.fxml"));
                 Parent root = loader.load();
+
+                NbJoueursController nbJoueursController = loader.getController();
+                nbJoueursController.setGame(game);
+
                 Stage stage = (Stage) playButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();

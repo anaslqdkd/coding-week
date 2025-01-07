@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 
+import codename.model.Game;
 import codename.model.Parameters;
 import codename.model.Player;
 import javafx.fxml.FXML;
@@ -29,14 +30,22 @@ public class NbJoueursController {
     @FXML
     private Button confirmButton;
 
-    private Parameters parameters;
+    private Game game;
+    private Parameters parameters; // Déclarez parameters ici
+
+    public void setGame(Game game) {
+        this.game = game;
+        initializeParameters();
+    }
+
+    private void initializeParameters() {
+        parameters = game.getParameters(); // Initialisez parameters ici
+        parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
+        updateDynamicPlayers();
+    }
 
     @FXML
     public void initialize() {
-        parameters = new Parameters();
-        parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
-        updateDynamicPlayers();
-
         addPlayerButton.setOnAction(event -> {
             if (parameters.getNumberOfPlayers() < 8) {
                 parameters.setNumberOfPlayers(parameters.getNumberOfPlayers() + 1);
@@ -77,10 +86,14 @@ public class NbJoueursController {
                 for (Player player : parameters.getPlayers()) {
                     System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
                 }
-                // Charger et afficher selection_mode.fxml
+                // Charger et afficher selection_equipe.fxml
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_mode.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_equipe.fxml"));
                     Parent root = loader.load();
+
+                    SelectionEquipeController controller = loader.getController();
+                    controller.setGame(game);
+
                     Stage stage = (Stage) confirmButton.getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();
