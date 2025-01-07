@@ -1,7 +1,6 @@
 package codename;
 
 import codename.controller.*;
-import codename.controller.GameController;
 import codename.model.Game;
 
 import java.util.Arrays;
@@ -67,15 +66,9 @@ public class App extends Application {
       spiesStage.setScene(spiesScene);
 
       // Récupérer les GameController des deux scènes
-      GameController gameAgentController = agentsLoader.getController();
-      GameController gameSpyController = spiesLoader.getController();
 
-      // Accéder aux sous-contrôleurs ClueAgentController et ClueSpyController
-      ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
-      ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
-
-      clueSpyController.setClueAgentController(clueAgentController);
-      clueAgentController.setClueSpyController(clueSpyController);
+      ManagerController controllerManager = new ManagerController(spiesLoader.getController(), agentsLoader.getController());
+      controllerManager.setUpClueController();
 
       agentsStage.show();
       spiesStage.show();
