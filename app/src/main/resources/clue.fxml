@@ -18,7 +18,7 @@
                     <children>
                         <StackPane prefHeight="149.0" prefWidth="652.0">
                             <children>
-                                <TextField prefHeight="24.0" prefWidth="378.0" fx:id="textField"/>
+                                <TextField prefHeight="24.0" prefWidth="378.0" fx:id="textField" promptText="Écrire un indice"/>
                             </children>
                         </StackPane>
                         <StackPane prefHeight="25.0" prefWidth="571.0">
