@@ -150,6 +150,8 @@ gradle-app.setting
 *.hprof
 
 .idea/
+app/bin/main/*.fxml
+app/bin/main/*.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,gradle,visualstudiocode
 

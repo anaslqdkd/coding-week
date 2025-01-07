@@ -51,6 +51,6 @@ application {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21) // ou votre version
+        languageVersion = JavaLanguageVersion.of(21) 
     }
 }
