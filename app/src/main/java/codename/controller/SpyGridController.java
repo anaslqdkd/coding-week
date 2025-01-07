@@ -60,11 +60,13 @@ public class SpyGridController implements Observer {
     // if (game == null) {
     //  throw new IllegalStateException("Game instance not set for SpyGridController");
     // }
+    this.game = Game.getInstance();
+    System.out.println(game);
     generate_grid_spy(gridSpy);
   }
 
   public void setGame(Game game) {
-    this.game = gameController.getGame();
+    this.game = game;
   }
 
   public void setGameController(GameController gameController) {
@@ -97,7 +99,8 @@ public class SpyGridController implements Observer {
   public void generate_grid_spy(GridPane gridpane) {
     final int rows = 5;
     final int columns = 5;
-    Card[][] matrix = this.game.getBoard().getCards();
+    Card[][] matrix = game.getBoard().getCards();
+    System.out.println("print in generate grid");
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {

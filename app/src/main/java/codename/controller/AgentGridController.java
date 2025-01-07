@@ -53,13 +53,15 @@ public class AgentGridController implements Observer {
     // if (game == null) {
     //  throw new IllegalStateException("Game instance not set for AgentGridController");
     // }
+    this.game = Game.getInstance();
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
   }
 
   public void setGame(Game game) {
-    System.out.println("here");
-    this.game = gameController.getGame();
+    System.out.println("in setGame in agent grid controller");
+    // this.game = Game.getInstance();
+    // this.game = game;
   }
 
   public void setGameController(GameController gameController) {

@@ -1,8 +1,7 @@
 package codename;
 
-import codename.controller.ClueAgentController;
-import codename.controller.ClueSpyController;
 import codename.controller.GameController;
+import codename.model.Game;
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
@@ -12,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
+  private Game game;
+
   @Override
   public void start(Stage primaryStage) {
     try {
@@ -43,6 +44,7 @@ public class App extends Application {
               "Xenon",
               "Zephyr");
       // Game game = new Game(words);
+      this.game = Game.getInstance(words);
 
       // Charger la fenêtre des agents (gameAgent.fxml)
       FXMLLoader agentsLoader = new FXMLLoader(getClass().getResource("/gameAgent.fxml"));
@@ -61,19 +63,19 @@ public class App extends Application {
       spiesStage.setScene(spiesScene);
 
       // Récupérer les GameController des deux scènes
-      GameController gameAgentController = agentsLoader.getController();
+      // GameController gameAgentController = agentsLoader.getController();
       GameController gameSpyController = spiesLoader.getController();
 
       // Accéder aux sous-contrôleurs ClueAgentController et ClueSpyController
-      ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
-      ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
+      // ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
+      // ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
 
       // SpyGridController spyGridController = gameSpyController.getSpyGridController();
       // AgentGridController agentGridController = gameAgentController.getAgentGridController();
 
       // Connecter les sous-contrôleurs entre eux
-      clueSpyController.setClueAgentController(clueAgentController);
-      clueAgentController.setClueSpyController(clueSpyController);
+      // clueSpyController.setClueAgentController(clueAgentController);
+      // clueAgentController.setClueSpyController(clueSpyController);
 
       // spyGridController.setGameController(gameSpyController);
       // agentGridController.setGameController(gameAgentController);

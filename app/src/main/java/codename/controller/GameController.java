@@ -10,12 +10,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 
 public class GameController implements Observer {
-  private Game game;
+  List<String> words =
+      Arrays.asList(
+          "Anchor",
+          "Beacon",
+          "Castle",
+          "Desert",
+          "Eclipse",
+          "Falcon",
+          "Glacier",
+          "Harbor",
+          "Ivory",
+          "Jaguar",
+          "Kingdom",
+          "Lantern",
+          "Mirage",
+          "Nebula",
+          "Oasis",
+          "Prism",
+          "Quasar",
+          "Raven",
+          "Summit",
+          "Twilight",
+          "Umbra",
+          "Vortex",
+          "Warden",
+          "Xenon",
+          "Zephyr");
+  // Game game = Game.getInstance(words);
 
   @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
 
   @FXML private ClueSpyController clueSpyController; // Injecté automatiquement via fx:include
   @FXML private AgentGridController agentGridController; // Injecté automatiquement via fx:include
+
   @FXML private SpyGridController spyGridController; // Injecté automatiquement via fx:include
 
   public ClueAgentController getClueAgentController() {
@@ -37,7 +65,9 @@ public class GameController implements Observer {
   @FXML
   private void initialize() {
     try {
-      System.out.println("game controller initialised");
+      System.out.println("GameController initialized");
+
+      // Initialize the singleton game instance
       List<String> words =
           Arrays.asList(
               "Anchor",
@@ -65,6 +95,12 @@ public class GameController implements Observer {
               "Warden",
               "Xenon",
               "Zephyr");
+
+      Game game = Game.getInstance(words); // Initialize the singleton
+
+      System.out.println("Game initialized: " + game);
+
+      System.out.println("game controller initialised");
       FXMLLoader gridAgentLoader = new FXMLLoader(getClass().getResource("/gridAgent.fxml"));
       GridPane gridPaneAgent = gridAgentLoader.load();
       agentGridController = gridAgentLoader.getController();
@@ -72,13 +108,17 @@ public class GameController implements Observer {
       FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
       GridPane gridPaneSpy = gridSpyLoader.load();
       spyGridController = gridSpyLoader.getController();
+      // agentGridController.setGame(Game.getInstance());
+
+      // spyGridController.setGame(game);
+      agentGridController.setGameController(this);
+      spyGridController.setGameController(this);
+      agentGridController.setGame(game);
+      spyGridController.setGame(game);
 
       System.out.println(words.size());
-      game = new Game(words);
       if (game != null) {
         System.out.println("game is not null");
-        agentGridController.setGame(game);
-        spyGridController.setGame(game);
       } else {
         System.out.println("game is null");
       }
@@ -119,9 +159,9 @@ public class GameController implements Observer {
     // }
   }
 
-  public Game getGame() {
-    return game;
-  }
+  // public Game getGame() {
+  //  return game;
+  // }
 
   @Override
   public void update() {}
