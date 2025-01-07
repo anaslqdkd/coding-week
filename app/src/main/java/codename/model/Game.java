@@ -1,5 +1,7 @@
 package codename.model;
 
+import codename.Observer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,8 +14,10 @@ public class Game {
   private String currentClue;
   private int maxClicks;
   private int clicksRemaining;
+  private ArrayList<Observer> observers = new ArrayList<>(10);
 
   public Game(List<String> words) {
+    this.observers = new ArrayList<>();
     this.board = new Board(words);
     this.redTeam = new Team("Red");
     this.blueTeam = new Team("Blue");
@@ -21,6 +25,16 @@ public class Game {
     this.currentClue = null;
     this.maxClicks = 0;
     this.clicksRemaining = 0;
+  }
+
+  public void add_observer(Observer observer) {
+    observers.add(observer);
+  }
+
+  public void notify_observator() {
+    for (Observer observers : this.observers) {
+      observers.update();
+    }
   }
 
   public static synchronized Game getInstance(List<String> words) {

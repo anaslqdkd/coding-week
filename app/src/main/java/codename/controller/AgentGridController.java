@@ -54,6 +54,7 @@ public class AgentGridController implements Observer {
     //  throw new IllegalStateException("Game instance not set for AgentGridController");
     // }
     this.game = Game.getInstance();
+    game.add_observer(this);
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
   }
@@ -131,12 +132,12 @@ public class AgentGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    update();
+    // update();
+    game.notify_observator();
   }
 
   @Override
   public void update() {
-    // generate_grid_agent(gridAgent);
-    // generate_grid_spy(gridSpy);
+    generate_grid_agent(gridAgent);
   }
 }

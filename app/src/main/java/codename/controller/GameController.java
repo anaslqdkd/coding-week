@@ -97,6 +97,7 @@ public class GameController implements Observer {
               "Zephyr");
 
       Game game = Game.getInstance(words); // Initialize the singleton
+      game.add_observer(this);
 
       System.out.println("Game initialized: " + game);
 
@@ -164,5 +165,8 @@ public class GameController implements Observer {
   // }
 
   @Override
-  public void update() {}
+  public void update() {
+    agentGridController.update();
+    spyGridController.update();
+  }
 }

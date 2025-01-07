@@ -81,6 +81,7 @@ public class App extends Application {
       // agentGridController.setGameController(gameAgentController);
 
       // Afficher les deux fenêtres
+      // game.notify_observator();
       agentsStage.show();
       spiesStage.show();
     } catch (Exception e) {

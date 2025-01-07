@@ -61,6 +61,7 @@ public class SpyGridController implements Observer {
     //  throw new IllegalStateException("Game instance not set for SpyGridController");
     // }
     this.game = Game.getInstance();
+    game.add_observer(this);
     System.out.println(game);
     generate_grid_spy(gridSpy);
   }
@@ -157,12 +158,12 @@ public class SpyGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    update();
+    // update();
+    game.notify_observator();
   }
 
   @Override
   public void update() {
-    // generate_grid_agent(gridAgent);
-    // generate_grid_spy(gridSpy);
+    generate_grid_spy(gridSpy);
   }
 }
