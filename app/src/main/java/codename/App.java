@@ -7,24 +7,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import codename.Observer;
-import codename.controller.GameController;
-import codename.controller.GridController;
-import javafx.scene.layout.BorderPane;
 
 
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/Nb_joueurs.fxml");
+        URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
             System.err.println("Could not find game.fxml");
             System.exit(1);
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = loader.load();
 
-        GameController game_controller = loader.getController();
+        // GameController game_controller = loader.getController();
 
 
         Scene scene = new Scene(root);
