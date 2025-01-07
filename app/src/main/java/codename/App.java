@@ -3,8 +3,11 @@ package codename;
 import codename.controller.*;
 import codename.controller.GameController;
 import codename.model.Game;
+
 import java.util.Arrays;
 import java.util.List;
+
+import codename.model.WordList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
