@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="800.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="info" prefHeight="800.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.InfoController">
     <children>
         <StackPane prefHeight="31.0" prefWidth="341.0">
             <children>
@@ -23,7 +23,7 @@
         <VBox alignment="BOTTOM_CENTER" prefHeight="160.0" prefWidth="340.0" />
         <StackPane alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="182.0">
             <children>
-                <Label prefHeight="16.0" prefWidth="122.0" text="Equipe Rouge : 9">
+                <Label fx:id="redScore" prefHeight="16.0" prefWidth="122.0" text="Equipe Rouge : 9">
                     <StackPane.margin>
                         <Insets top="200.0" />
                     </StackPane.margin>
@@ -32,7 +32,7 @@
         </StackPane>
         <StackPane alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="182.0">
             <children>
-                <Label prefHeight="16.0" prefWidth="121.0" text="Equipe Bleue : 7">
+                <Label fx:id="blueScore" prefHeight="16.0" prefWidth="121.0" text="Equipe Bleue : 7">
                     <StackPane.margin>
                         <Insets />
                     </StackPane.margin>
