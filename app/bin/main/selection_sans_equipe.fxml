@@ -27,7 +27,13 @@
         </VBox>
     </left>
 
+<<<<<<< HEAD
     <right>
         <VBox
     </right>
+=======
+    <center>
+        <!-- Ajouter du contenu au centre si nécessaire -->
+    </center>
+>>>>>>> main
 </BorderPane>
