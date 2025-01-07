@@ -1,14 +1,15 @@
 package codename;
 
+import codename.controller.GameController;
+import codename.controller.GridController;
 import java.net.URL;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Charger la fenêtre des agents
@@ -22,6 +23,10 @@ public class App extends Application {
         Stage agentsStage = new Stage();
         agentsStage.setTitle("CodeName - Agents");
         agentsStage.setScene(agentsScene);
+
+        GameController game_controller = loader.getController();
+        GridController grid_controller = new GridController();
+        grid_controller.getWordList(25);
 
         // Charger la fenêtre des espions
         URL spiesFXMLURL = getClass().getResource("/gameSpy.fxml");
@@ -40,8 +45,7 @@ public class App extends Application {
         spiesStage.show();
         
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+    launch(args);
+  }
 }
