@@ -37,7 +37,6 @@ public class GameController implements Observer {
           "Warden",
           "Xenon",
           "Zephyr");
-  // Game game = Game.getInstance(words);
 
   @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
 
@@ -96,12 +95,9 @@ public class GameController implements Observer {
               "Xenon",
               "Zephyr");
 
-      Game game = Game.getInstance(words); // Initialize the singleton
+      Game game = Game.getInstance(words);
       game.add_observer(this);
 
-      System.out.println("Game initialized: " + game);
-
-      System.out.println("game controller initialised");
       FXMLLoader gridAgentLoader = new FXMLLoader(getClass().getResource("/gridAgent.fxml"));
       GridPane gridPaneAgent = gridAgentLoader.load();
       agentGridController = gridAgentLoader.getController();
@@ -109,20 +105,6 @@ public class GameController implements Observer {
       FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
       GridPane gridPaneSpy = gridSpyLoader.load();
       spyGridController = gridSpyLoader.getController();
-      // agentGridController.setGame(Game.getInstance());
-
-      // spyGridController.setGame(game);
-      agentGridController.setGameController(this);
-      spyGridController.setGameController(this);
-      agentGridController.setGame(game);
-      spyGridController.setGame(game);
-
-      System.out.println(words.size());
-      if (game != null) {
-        System.out.println("game is not null");
-      } else {
-        System.out.println("game is null");
-      }
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -160,8 +142,6 @@ public class GameController implements Observer {
     // }
   }
 
-  // public Game getGame() {
-  //  return game;
   // }
 
   @Override

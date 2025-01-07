@@ -3,15 +3,8 @@ package codename.controller;
 import codename.Observer;
 import codename.model.Card;
 import codename.model.Game;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -20,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class SpyGridController implements Observer {
-  private GameController gameController;
 
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridSpy;
@@ -57,9 +49,6 @@ public class SpyGridController implements Observer {
   @FXML
   private void initialize() {
     System.out.println("SpyGridController initialized");
-    // if (game == null) {
-    //  throw new IllegalStateException("Game instance not set for SpyGridController");
-    // }
     this.game = Game.getInstance();
     game.add_observer(this);
     System.out.println(game);
@@ -68,33 +57,6 @@ public class SpyGridController implements Observer {
 
   public void setGame(Game game) {
     this.game = game;
-  }
-
-  public void setGameController(GameController gameController) {
-    this.gameController = gameController;
-  }
-
-  public static List<String> getWordList(int nb) throws IOException {
-    InputStream inputStream =
-        SpyGridController.class.getClassLoader().getResourceAsStream(FILE_NAME);
-
-    if (inputStream == null) {
-      System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
-      return Collections.emptyList();
-    }
-
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-      List<String> words = reader.lines().collect(Collectors.toList());
-      Collections.shuffle(words, new Random());
-      List<String> selectedWords = words.stream().distinct().limit(nb).collect(Collectors.toList());
-
-      for (String word : selectedWords) {
-        System.out.println(word + "\n");
-      }
-      System.out.println("Liste de " + selectedWords.size() + " mots générée avec succès !");
-
-      return selectedWords;
-    }
   }
 
   public void generate_grid_spy(GridPane gridpane) {
@@ -139,27 +101,10 @@ public class SpyGridController implements Observer {
         if (!card.isRevealed()) {
           stackPane.getChildren().add(label);
         }
-        stackPane.setOnMouseClicked(
-            event -> {
-              handleCardClick(currentRow, currentCol); // Handle click event with card position
-            });
 
         gridpane.add(stackPane, col, row);
       }
     }
-  }
-
-  public void handleCardClick(int row, int col) {
-    Card[][] cards = game.getBoard().getCards();
-    Card clickedCard = cards[row][col]; // Get the clicked card
-    if (!clickedCard.isRevealed()) {
-      clickedCard.reveal();
-      System.out.println("Card revealed: " + clickedCard.getWord());
-    } else {
-      System.out.println("Card already revealed: " + clickedCard.getWord());
-    }
-    // update();
-    game.notify_observator();
   }
 
   @Override

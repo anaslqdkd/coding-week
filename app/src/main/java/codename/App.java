@@ -1,5 +1,6 @@
 package codename;
 
+import codename.controller.*;
 import codename.controller.GameController;
 import codename.model.Game;
 import java.util.Arrays;
@@ -63,25 +64,16 @@ public class App extends Application {
       spiesStage.setScene(spiesScene);
 
       // Récupérer les GameController des deux scènes
-      // GameController gameAgentController = agentsLoader.getController();
+      GameController gameAgentController = agentsLoader.getController();
       GameController gameSpyController = spiesLoader.getController();
 
       // Accéder aux sous-contrôleurs ClueAgentController et ClueSpyController
-      // ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
-      // ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
+      ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
+      ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
 
-      // SpyGridController spyGridController = gameSpyController.getSpyGridController();
-      // AgentGridController agentGridController = gameAgentController.getAgentGridController();
+      clueSpyController.setClueAgentController(clueAgentController);
+      clueAgentController.setClueSpyController(clueSpyController);
 
-      // Connecter les sous-contrôleurs entre eux
-      // clueSpyController.setClueAgentController(clueAgentController);
-      // clueAgentController.setClueSpyController(clueSpyController);
-
-      // spyGridController.setGameController(gameSpyController);
-      // agentGridController.setGameController(gameAgentController);
-
-      // Afficher les deux fenêtres
-      // game.notify_observator();
       agentsStage.show();
       spiesStage.show();
     } catch (Exception e) {

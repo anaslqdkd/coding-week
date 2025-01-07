@@ -14,8 +14,6 @@ import javafx.scene.shape.Rectangle;
 
 public class AgentGridController implements Observer {
 
-  private GameController gameController;
-
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridAgent;
   private Game game;
@@ -50,9 +48,6 @@ public class AgentGridController implements Observer {
 
   @FXML
   private void initialize() {
-    // if (game == null) {
-    //  throw new IllegalStateException("Game instance not set for AgentGridController");
-    // }
     this.game = Game.getInstance();
     game.add_observer(this);
     System.out.println("AgentGridController initialized");
@@ -61,12 +56,6 @@ public class AgentGridController implements Observer {
 
   public void setGame(Game game) {
     System.out.println("in setGame in agent grid controller");
-    // this.game = Game.getInstance();
-    // this.game = game;
-  }
-
-  public void setGameController(GameController gameController) {
-    this.gameController = gameController;
   }
 
   public void generate_grid_agent(GridPane gridPane) {
@@ -125,14 +114,13 @@ public class AgentGridController implements Observer {
 
   public void handleCardClick(int row, int col) {
     Card[][] cards = game.getBoard().getCards();
-    Card clickedCard = cards[row][col]; // Get the clicked card
+    Card clickedCard = cards[row][col];
     if (!clickedCard.isRevealed()) {
       clickedCard.reveal();
       System.out.println("Card revealed: " + clickedCard.getWord());
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    // update();
     game.notify_observator();
   }
 
