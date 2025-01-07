@@ -45,6 +45,14 @@ public class Game {
         return clicksRemaining;
     }
 
+    public int getMaxClicks() {
+        return maxClicks;
+    }
+
+    public void decrementClicksRemaining() {
+        clicksRemaining--;
+    }
+
     public void proposeClue(String clue, int number) {
         if (!isValidClue(clue)) {
             throw new IllegalArgumentException("Le mot-clé est invalide.");

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GameController">
+   <center>
+      <fx:include source="gridAgent.fxml" />
+   </center>
+   <left>
+      <fx:include source="infoAgent.fxml" />
+   </left>
+   <top>
+      <fx:include source="headerAgent.fxml" />
+   </top>
+   <bottom>
+      <fx:include source="clueAgent.fxml" fx:id="clueAgent" />
+   </bottom>
+</BorderPane>
