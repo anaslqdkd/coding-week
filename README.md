@@ -43,5 +43,6 @@ Le fichier se trouvera dans :
 ## Dans tout les cas : 
 
 **Utilisez la commande suivante pour lancer l'exécution du .jar :**
-java  --module-path "path to javafx"/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics -jar app/exec/codenames.jar
+java --module-path "path_to_javafx"/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics -jar app/exec/codenames.jar
+
 
