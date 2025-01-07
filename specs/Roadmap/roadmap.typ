@@ -24,8 +24,7 @@
 
 === Livrables
 - README initial contenant une présentation du projet, les instructions pour configurer l'environnement et les rôles de l'équipe.
-- Grille statique démontrant la faisabilité de l'affichage.
-- Diagramme d'architecture initial.
+- Diagramme d'architecture initial. (voir xml)
 
 == Jour 2 : Mardi 07/01 - Fonctionnalités de Base
 
