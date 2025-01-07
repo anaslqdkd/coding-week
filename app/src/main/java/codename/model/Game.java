@@ -1,5 +1,6 @@
 package codename.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -29,20 +30,12 @@ public class Game {
     return redTeam;
   }
 
-  public Team getBlueTeam() {
-    return blueTeam;
+  public int getMaxClicks() {
+    return maxClicks;
   }
 
-  public Team getCurrentTurn() {
-    return currentTurn;
-  }
-
-  public String getCurrentClue() {
-    return currentClue;
-  }
-
-  public int getClicksRemaining() {
-    return clicksRemaining;
+  public void decrementClicksRemaining() {
+    clicksRemaining--;
   }
 
   public void proposeClue(String clue, int number) {
@@ -61,38 +54,42 @@ public class Game {
     return clue != null && clue.matches("^[a-zA-Z]+$");
   }
 
-  // public void revealCard(int index) {
-  //    Card card = board.getCards().get(index);
-  //    if (card.isRevealed()) {
-  //        throw new IllegalArgumentException("Cette carte est déjà révélée.");
-  //    }
-  //    card.reveal();
-  //
-  //    // Mettre à jour les scores
-  //    if (card.getColor().equalsIgnoreCase(currentTurn.getColor())) {
-  //        currentTurn.incrementScore();
-  //    }
-  // }
-  //
-  // public boolean isGameOver() {
-  //    return checkWinCondition();
-  // }
-  //
-  // public void switchTurn() {
-  //    currentTurn = (currentTurn == redTeam) ? blueTeam : redTeam;
-  //    currentClue = null;
-  //    maxClicks = 0;
-  //    clicksRemaining = 0;
-  // }
-  //
-  // private boolean checkWinCondition() {
-  //    long redLeft = board.getCards().stream()
-  //            .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
-  //            .count();
-  //    long blueLeft = board.getCards().stream()
-  //            .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
-  //            .count();
-  //
-  //    return redLeft == 0 || blueLeft == 0;
-  // }
+  public void revealCard(int row, int col) {
+    Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
+    if (card.isRevealed()) {
+      throw new IllegalArgumentException("Cette carte est déjà révélée.");
+    }
+    card.reveal();
+
+    if (card.getColor().equalsIgnoreCase(currentTurn.getColor())) {
+      currentTurn.incrementScore();
+    }
+  }
+
+  public boolean isGameOver() {
+    return checkWinCondition();
+  }
+
+  public void switchTurn() {
+    currentTurn = (currentTurn == redTeam) ? blueTeam : redTeam;
+    currentClue = null;
+    maxClicks = 0;
+    clicksRemaining = 0;
+  }
+
+  private boolean checkWinCondition() {
+    long redLeft =
+        Arrays.stream(board.getCards())
+            .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+            .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
+            .count();
+
+    long blueLeft =
+        Arrays.stream(board.getCards())
+            .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+            .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
+            .count();
+
+    return redLeft == 0 || blueLeft == 0;
+  }
 }
