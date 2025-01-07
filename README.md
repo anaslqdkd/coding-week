@@ -39,9 +39,9 @@ Si vous souhaitez recompiler le projet ou régénérer le JAR, procédez comme s
     '''./gradlew clean build
 
 Le fichier se trouvera dans : 
-    '''app/build/libs/app.jar
-
+    '''app/exec/codenames.jar
 ## Dans tout les cas : 
 
 **Utilisez la commande suivante pour lancer l'exécution du .jar :**
-    '''java --module-path /chemin/vers/javafx-sdk-23/lib \ --add-modules javafx.controls,javafx.fxml,javafx.media \ -jar app/build/libs/app.jar
+java  --module-path "path to javafx"/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics -jar app/exec/codenames.jar
+

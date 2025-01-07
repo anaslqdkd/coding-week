@@ -54,3 +54,19 @@ java {
         languageVersion = JavaLanguageVersion.of(21) 
     }
 }
+jar {
+    archiveBaseName.set('codenames') 
+    archiveVersion.set('')
+    manifest {
+        attributes(
+            'Main-Class': 'codename.App' 
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory.set(file("exec/"))
+
+}
+
