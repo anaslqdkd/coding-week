@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <Button fx:id="settingsButton" text="Paramètres" prefWidth="100" prefHeight="30" />
+    </top>
+
+    <left>
+        <VBox spacing="10" alignment="CENTER">
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="bleu1" text="Bleu" prefWidth="100" prefHeight="30" />
+                <Label text="Joueur 1:" style="-fx-font-size: 18px;" />
+
+                <Button fx:id="rouge1" text="Rouge" prefWidth="100" prefHeight="30" />
+            </HBox>
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="bleu2" text="Bleu" prefWidth="100" prefHeight="30" />
+                <Label text="Joueur 2:" style="-fx-font-size: 18px;" />
+
+                <Button fx:id="rouge2" text="Rouge" prefWidth="100" prefHeight="30" />
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <!-- Ajouter du contenu au centre si nécessaire -->
+    </center>
+</BorderPane>
