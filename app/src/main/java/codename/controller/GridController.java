@@ -21,27 +21,7 @@ public class GridController implements Observer {
         System.out.println("GridController initialized");
     }
 
-    public static List<String> getWordList(int nb) throws IOException {
-        InputStream inputStream = GridController.class.getClassLoader().getResourceAsStream(FILE_NAME);
 
-        if (inputStream == null) {
-            System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
-            return Collections.emptyList();
-        }
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            List<String> words = reader.lines().collect(Collectors.toList());
-            Collections.shuffle(words, new Random());
-            List<String> selectedWords =  words.stream().distinct().limit(nb).collect(Collectors.toList());
-
-            for (String word : selectedWords) {
-                System.out.println(word +"\n");
-            }
-            System.out.println("Liste de " + selectedWords.size() +" mots générée avec succès !");
-
-            return selectedWords;
-        }
-    }
 
     @Override
     public void update() {

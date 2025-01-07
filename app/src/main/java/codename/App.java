@@ -22,7 +22,6 @@ public class App extends Application {
 
     GameController game_controller = loader.getController();
     GridController grid_controller = new GridController();
-    grid_controller.getWordList(25);
 
     Scene scene = new Scene(root);
 
