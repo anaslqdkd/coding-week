@@ -34,6 +34,10 @@ public class Team {
         score++;
     }
 
+    public void clear() {
+        players.clear();
+    }
+
     @Override
     public String toString() {
         return "Team{" +

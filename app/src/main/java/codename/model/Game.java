@@ -41,6 +41,14 @@ public class Game {
         return blueTeam;
     }
 
+    public void addPlayerToRedTeam(Player player) {
+        redTeam.addPlayer(player);
+    }
+
+    public void addPlayerToBlueTeam(Player player) {
+        blueTeam.addPlayer(player);
+    }
+
     public Team getCurrentTurn() {
         return currentTurn;
     }

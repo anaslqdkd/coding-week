@@ -19,6 +19,9 @@ public class SelectionEquipeController {
     @FXML
     private VBox blueTeam;
 
+    @FXML
+    private Button confirmButton;
+
     private Game game;
 
     public void setGame(Game game) {
@@ -53,5 +56,35 @@ public class SelectionEquipeController {
             playerBox.setAlignment(javafx.geometry.Pos.CENTER);
             leftTeam.getChildren().add(playerBox);
         }
+    }
+
+    @FXML
+    private void initialize() {
+        confirmButton.setOnAction(event -> {
+            game.getRedTeam().clear();
+            game.getBlueTeam().clear();
+
+            for (int i = 0; i < redTeam.getChildren().size(); i++) {
+                Label playerLabel = (Label) redTeam.getChildren().get(i);
+                String playerName = playerLabel.getText();
+                game.addPlayerToRedTeam(new Player(playerName, false));
+            }
+
+            for (int i = 0; i < blueTeam.getChildren().size(); i++) {
+                Label playerLabel = (Label) blueTeam.getChildren().get(i);
+                String playerName = playerLabel.getText();
+                game.addPlayerToBlueTeam(new Player(playerName, false));
+            }
+
+            System.out.println("Composition de l'équipe rouge :");
+            for (Player player : game.getRedTeam().getPlayers()) {
+                System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
+            }
+
+            System.out.println("Composition de l'équipe bleue :");
+            for (Player player : game.getBlueTeam().getPlayers()) {
+                System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
+            }
+        });
     }
 }
