@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueAgentController">
     <children>
         <!-- Espacement gauche -->
         <Region prefWidth="50.0" />
@@ -19,12 +19,12 @@
                 <!-- Bandeau informatif -->
                 <HBox prefHeight="50.0" spacing="20" alignment="CENTER_LEFT">
                     <children>
-                        <Label text="Indice :" prefWidth="100.0">
+                        <Label text="Indice : " prefWidth="100.0">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="clueLabel" text="Chaussette 4" prefWidth="400.0">
+                        <Label fx:id="clueLabel" text="En attente..." prefWidth="400.0">
                             <font>
                                 <Font size="20.0" />
                             </font>
