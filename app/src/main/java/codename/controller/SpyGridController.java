@@ -23,7 +23,7 @@ public class SpyGridController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridSpy;
-  private static Game game;
+  private Game game;
   List<String> words =
       Arrays.asList(
           "apple",
@@ -55,11 +55,15 @@ public class SpyGridController implements Observer {
 
   @FXML
   private void initialize() {
-    if (game == null) {
-      game = Game.getInstance(words);
-    }
     System.out.println("SpyGridController initialized");
+    if (game == null) {
+      throw new IllegalStateException("Game instance not set for SpyGridController");
+    }
     generate_grid_spy(gridSpy);
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 
   public static List<String> getWordList(int nb) throws IOException {

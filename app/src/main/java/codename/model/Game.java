@@ -30,6 +30,14 @@ public class Game {
     return instance;
   }
 
+  public static Game getInstance() {
+    if (instance == null) {
+      throw new IllegalStateException(
+          "Game not initialized. Call getInstance(List<String>) first.");
+    }
+    return instance;
+  }
+
   public Board getBoard() {
     return board;
   }

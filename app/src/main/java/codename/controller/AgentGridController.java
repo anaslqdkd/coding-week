@@ -16,7 +16,7 @@ public class AgentGridController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridAgent;
-  private static Game game;
+  private Game game;
   List<String> words =
       Arrays.asList(
           "apple",
@@ -49,10 +49,14 @@ public class AgentGridController implements Observer {
   @FXML
   private void initialize() {
     if (game == null) {
-      game = Game.getInstance(words);
+      throw new IllegalStateException("Game instance not set for AgentGridController");
     }
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 
   public void generate_grid_agent(GridPane gridPane) {
