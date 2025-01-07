@@ -3,9 +3,15 @@ package codename.controller;
 import codename.model.Game;
 import codename.model.Player;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SelectionEspionController {
 
@@ -23,6 +29,11 @@ public class SelectionEspionController {
     @FXML
     private VBox playerList;
 
+
+    private void setgame(Game game) {
+        this.game = game;
+    }
+
     /**
      * Initialise le contrôleur après le chargement du fichier FXML.
      */
@@ -31,7 +42,28 @@ public class SelectionEspionController {
         // Configuration des actions des boutons
         settingsButton.setOnAction(event -> openSettings());
         randomButton.setOnAction(event -> randomizeSelection());
-        confirmButton.setOnAction(event -> confirmSelection());
+        confirmButton.setOnAction(event -> {
+            try {
+                // Charger le fichier FXML
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+                Parent root = loader.load();
+
+                // Configurer le contrôleur
+                GameController controller = loader.getController();
+                controller.setGame(this.game);
+
+                // Configurer la nouvelle scène et l'afficher
+                Stage currentStage = (Stage) confirmButton.getScene().getWindow();
+                Scene newScene = new Scene(root);
+                currentStage.setScene(newScene);
+                currentStage.show();
+
+            } catch (IOException e) {
+                System.err.println("Erreur lors du chargement de la vue 'selection_equipe.fxml'.");
+                e.printStackTrace();
+                // Optionnel : afficher une alerte à l'utilisateur
+            }
+        });
     }
 
     /**
