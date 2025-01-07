@@ -43,6 +43,9 @@ public class GameController implements Observer {
   //       game.switchTurn();
   //   }
   // }
-
+  }
+  
+  @Override
   public void update() {}
+
 }

@@ -24,9 +24,6 @@ public class App extends Application {
         agentsStage.setTitle("CodeName - Agents");
         agentsStage.setScene(agentsScene);
 
-        GameController game_controller = loader.getController();
-        GridController grid_controller = new GridController();
-        grid_controller.getWordList(25);
 
         // Charger la fenêtre des espions
         URL spiesFXMLURL = getClass().getResource("/gameSpy.fxml");
