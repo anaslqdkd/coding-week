@@ -48,9 +48,9 @@ public class AgentGridController implements Observer {
 
   @FXML
   private void initialize() {
-    if (game == null) {
-      throw new IllegalStateException("Game instance not set for AgentGridController");
-    }
+    // if (game == null) {
+    //  throw new IllegalStateException("Game instance not set for AgentGridController");
+    // }
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
   }

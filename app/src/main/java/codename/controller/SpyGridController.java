@@ -56,9 +56,9 @@ public class SpyGridController implements Observer {
   @FXML
   private void initialize() {
     System.out.println("SpyGridController initialized");
-    if (game == null) {
-      throw new IllegalStateException("Game instance not set for SpyGridController");
-    }
+    // if (game == null) {
+    //  throw new IllegalStateException("Game instance not set for SpyGridController");
+    // }
     generate_grid_spy(gridSpy);
   }
 
