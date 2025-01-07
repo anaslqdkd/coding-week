@@ -1,14 +1,17 @@
-package codename.controller;
+package codename;
 
 
+import codename.controller.ClueAgentController;
+import codename.controller.ClueSpyController;
+import codename.controller.GameController;
 import codename.model.Game;
 
 
-public class ManagerController {
+public class Manager {
     private GameController gameSpyController;
     private GameController gameAgentController;
 
-    public ManagerController(GameController gameSpyController, GameController gameAgentController) {
+    public Manager(GameController gameSpyController, GameController gameAgentController) {
         this.gameSpyController = gameSpyController;
         this.gameAgentController = gameAgentController;
     }
