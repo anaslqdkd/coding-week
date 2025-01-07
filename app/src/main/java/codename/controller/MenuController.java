@@ -1,9 +1,13 @@
 package codename.controller;
+import java.io.IOException;
 
-import codename.App;
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import codename.App;
 
 public class MenuController {
     private App app;
@@ -23,4 +27,25 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+
+
+
+    @FXML
+    private Button playButton;
+
+    @FXML
+    private void initialize() {
+        playButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Nb_joueurs.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) playButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }
+

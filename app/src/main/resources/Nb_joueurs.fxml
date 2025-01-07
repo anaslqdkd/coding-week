@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;">
+            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;"
+            fx:controller="codename.controller.NbJoueursController">
 
     <!-- Barre supérieure avec un bouton pour les paramètres -->
     <top>
