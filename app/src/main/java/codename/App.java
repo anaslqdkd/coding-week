@@ -3,6 +3,8 @@ package codename;
 import codename.controller.GameController;
 import codename.controller.GridController;
 import java.net.URL;
+
+import codename.controller.SettingsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,15 +14,15 @@ import javafx.stage.Stage;
 public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
-    URL fxmlURL = getClass().getResource("/selection_sans_equipe.fxml");
+    URL fxmlURL = getClass().getResource("/settings.fxml");
     if (fxmlURL == null) {
       System.err.println("Could not find game.fxml");
       System.exit(1);
     }
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_sans_equipe.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/settings.fxml"));
     Parent root = loader.load();
 
-    GameController game_controller = loader.getController();
+    SettingsController controller = loader.getController();
     GridController grid_controller = new GridController();
     grid_controller.getWordList(25);
 
