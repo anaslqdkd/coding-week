@@ -45,6 +45,8 @@ public class GameController implements Observer {
 
   @FXML private SpyGridController spyGridController; // Injecté automatiquement via fx:include
 
+  @FXML private InfoController infoController;
+
   public ClueAgentController getClueAgentController() {
     return clueAgentController;
   }
@@ -59,6 +61,10 @@ public class GameController implements Observer {
 
   public SpyGridController getSpyGridController() {
     return spyGridController;
+  }
+
+  public InfoController getInfoController() {
+    return infoController;
   }
 
   @FXML
@@ -104,6 +110,8 @@ public class GameController implements Observer {
 
       FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
       GridPane gridPaneSpy = gridSpyLoader.load();
+      FXMLLoader infoLoader = new FXMLLoader(getClass().getResource("/infoAgent.fxml"));
+      infoController = infoLoader.getController();
       spyGridController = gridSpyLoader.getController();
 
     } catch (IOException e) {

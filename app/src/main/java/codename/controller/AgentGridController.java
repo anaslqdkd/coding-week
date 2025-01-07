@@ -116,6 +116,15 @@ public class AgentGridController implements Observer {
     Card[][] cards = game.getBoard().getCards();
     Card clickedCard = cards[row][col];
     if (!clickedCard.isRevealed()) {
+      String color = clickedCard.getColor();
+      if (color == "Red") {
+        int score = game.getRedTeam().getScore();
+        game.getRedTeam().setScore(score - 1);
+      }
+      if (color == "Blue") {
+        int score = game.getBlueTeam().getScore();
+        game.getBlueTeam().setScore(score - 1);
+      }
       clickedCard.reveal();
       System.out.println("Card revealed: " + clickedCard.getWord());
     } else {

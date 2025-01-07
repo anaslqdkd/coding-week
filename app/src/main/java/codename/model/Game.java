@@ -60,6 +60,10 @@ public class Game {
     return redTeam;
   }
 
+  public Team getBlueTeam() {
+    return blueTeam;
+  }
+
   public int getMaxClicks() {
     return maxClicks;
   }

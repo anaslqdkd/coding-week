@@ -71,6 +71,8 @@ public class App extends Application {
       ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
       ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
 
+      InfoController infoController = gameAgentController.getInfoController();
+
       clueSpyController.setClueAgentController(clueAgentController);
       clueAgentController.setClueSpyController(clueSpyController);
 
