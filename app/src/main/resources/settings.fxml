@@ -37,8 +37,8 @@
     <bottom>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" onAction="#saveSettings"/>
-                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" onAction="#saveSettings"/>
+                <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" onAction="#goBackToMenu"/>
+                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" onAction="#goBackToMenu"/>
             </HBox>
         </VBox>
     </bottom>

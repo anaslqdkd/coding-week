@@ -9,6 +9,7 @@ SettingsController controller = loader.getController();
 
 package codename.controller;
 
+import codename.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -40,6 +41,24 @@ public class SettingsController {
     @FXML
     private CheckBox darkModeCheckbox;
 
+    @FXML
+    private App app;
+
+    @FXML
+    private Button backButton;
+
+    public void setApp(App app) {
+        this.app = app;
+    }
+
+    @FXML
+    private void goBackToMenu() {
+        try {
+            app.showMenu();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void saveSettings() {
