@@ -5,27 +5,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.SelectionEquipeController">
 
     <top>
         <Button fx:id="settingsButton" text="Paramètres" prefWidth="120" prefHeight="40" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
     </top>
 
     <left>
-        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
-            <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="bleu1" text="Bleu" prefWidth="100" prefHeight="30" />
-                <Label text="Joueur 1:" style="-fx-font-size: 18px;" />
-                <Button fx:id="rouge1" text="Rouge" prefWidth="100" prefHeight="30" />
-            </HBox>
-            <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="bleu2" text="Bleu" prefWidth="100" prefHeight="30" />
-                <Label text="Joueur 2:" style="-fx-font-size: 18px;" />
-                <Button fx:id="rouge2" text="Rouge" prefWidth="100" prefHeight="30" />
-            </HBox>
+        <VBox fx:id="leftTeam" spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+            <!-- Les joueurs seront ajoutés dynamiquement ici -->
         </VBox>
     </left>
-
 
     <right>
         <VBox spacing="30" alignment="CENTER" style="-fx-padding: 20;">
@@ -33,7 +23,7 @@
             <VBox style="-fx-border-color: red; -fx-padding: 15; -fx-background-color: #ffe6e6; -fx-border-width: 3;" prefWidth="250" prefHeight="200">
                 <Label text="Équipe Rouge :" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: red;" />
                 <VBox fx:id="redTeam" spacing="10" alignment="CENTER">
-                    <!-- Les joueurs de l'équipe rouge -->
+                    <!-- Les joueurs de l'équipe rouge seront ajoutés dynamiquement ici -->
                 </VBox>
             </VBox>
 
@@ -41,7 +31,7 @@
             <VBox style="-fx-border-color: blue; -fx-padding: 15; -fx-background-color: #e6f3ff; -fx-border-width: 3;" prefWidth="250" prefHeight="200">
                 <Label text="Équipe Bleue :" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: blue;" />
                 <VBox fx:id="blueTeam" spacing="10" alignment="CENTER">
-                    <!-- Les joueurs de l'équipe bleue -->
+                    <!-- Les joueurs de l'équipe bleue seront ajoutés dynamiquement ici -->
                 </VBox>
             </VBox>
         </VBox>

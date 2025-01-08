@@ -1,5 +1,10 @@
 package codename.controller;
 
-public class ModeController {
+import codename.Observer;
+
+public class ModeController implements Observer {
+    @Override
+    public void update() {
+    }
     
 }

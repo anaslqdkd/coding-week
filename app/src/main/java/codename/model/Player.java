@@ -2,7 +2,7 @@ package codename.model;
 
 public class Player {
     private final String name;
-    private final boolean isSpymaster;
+    private boolean isSpymaster;
 
     public Player(String name, boolean isSpymaster) {
         this.name = name;
@@ -15,6 +15,10 @@ public class Player {
 
     public boolean isSpymaster() {
         return isSpymaster;
+    }
+
+    public void setSpymaster(boolean isSpymaster) {
+        this.isSpymaster = isSpymaster;
     }
 
     @Override

@@ -1,56 +1,81 @@
 package codename.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Board {
-    private final List<Card> cards;
+  private final Card[][] cards;
 
-    public Board(List<String> words) {
-        this.cards = new ArrayList<>();
-        initializeBoard(words);
+  public Board(List<String> words) {
+    if (words.size() < 25) {
+      throw new IllegalArgumentException("La liste de mots doit contenir au moins 25 mots.");
     }
 
-    private void initializeBoard(List<String> words) {
-        if (words.size() < 25) {
-            throw new IllegalArgumentException("La liste de mots doit contenir au moins 25 mots.");
+    cards = new Card[5][5];
+    initializeBoard(words);
+  }
+
+  private void initializeBoard(List<String> words) {
+    Collections.shuffle(words);
+
+    for (int i = 0; i < 25; i++) {
+      String color;
+      if (i < 9) color = "Red";
+      else if (i < 17) color = "Blue";
+      else if (i < 24) color = "Neutral";
+      else color = "Assassin";
+
+      int row = i / 5;
+      int col = i % 5;
+      cards[row][col] = new Card(words.get(i), color);
+    }
+
+    shuffleBoard();
+  }
+
+  private void shuffleBoard() {
+    List<Card> cardList = new java.util.ArrayList<>();
+    for (Card[] row : cards) {
+      Collections.addAll(cardList, row);
+    }
+
+    Collections.shuffle(cardList);
+    for (int i = 0; i < 25; i++) {
+      cards[i / 5][i % 5] = cardList.get(i);
+    }
+  }
+
+  public Card[][] getCards() {
+    return cards;
+  }
+
+  public void revealCard(int row, int col) {
+    if (row < 0 || row >= 5 || col < 0 || col >= 5) {
+      throw new IllegalArgumentException("Coordonnées de carte invalides.");
+    }
+    cards[row][col].reveal();
+  }
+
+  public boolean isAssassinRevealed() {
+    for (Card[] row : cards) {
+      for (Card card : row) {
+        if (card.getColor().equals("Assassin") && card.isRevealed()) {
+          return true;
         }
-
-        Collections.shuffle(words);
-
-        // Ajouter les cartes selon les couleurs
-        for (int i = 0; i < 25; i++) {
-            String color;
-            if (i < 9) color = "Red";         // 9 mots rouges
-            else if (i < 17) color = "Blue";  // 8 mots bleus
-            else if (i < 24) color = "Neutral"; // 7 mots neutres
-            else color = "Assassin";          // 1 mot assassin
-
-            cards.add(new Card(words.get(i), color));
-        }
-
-        // Mélanger les cartes pour leur emplacement final
-        Collections.shuffle(cards);
+      }
     }
+    return false;
+  }
 
-    public List<Card> getCards() {
-        return cards;
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (Card[] row : cards) {
+      for (Card card : row) {
+        sb.append(card).append("\t");
+      }
+      sb.append("\n");
     }
-
-    public void revealCard(int index) {
-        if (index < 0 || index >= cards.size()) {
-            throw new IllegalArgumentException("Index de carte invalide.");
-        }
-        cards.get(index).reveal();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Card card : cards) {
-            sb.append(card).append("\n");
-        }
-        return sb.toString();
-    }
+    return sb.toString();
+  }
 }

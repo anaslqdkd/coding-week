@@ -2,6 +2,8 @@ package codename.controller;
 
 import java.io.IOException;
 
+import codename.Observer;
+import codename.model.Game;
 import codename.model.Parameters;
 import codename.model.Player;
 import javafx.fxml.FXML;
@@ -15,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class NbJoueursController {
+public class NbJoueursController implements Observer{
 
     @FXML
     private VBox dynamicPlayers;
@@ -29,13 +31,21 @@ public class NbJoueursController {
     @FXML
     private Button confirmButton;
 
-    private Parameters parameters;
+    private Game game;
+    private Parameters parameters; // Déclarez parameters ici
+
+    private void initializeParameters() {
+        parameters = game.getParameters(); // Initialisez parameters ici
+        parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
+        updateDynamicPlayers();
+    }
 
     @FXML
     public void initialize() {
-        parameters = new Parameters();
-        parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
-        updateDynamicPlayers();
+        System.out.println("initialize NbJoueursController");
+        this.game = Game.getInstance();
+        initializeParameters();
+        game.add_observer(this);
 
         addPlayerButton.setOnAction(event -> {
             if (parameters.getNumberOfPlayers() < 8) {
@@ -77,10 +87,11 @@ public class NbJoueursController {
                 for (Player player : parameters.getPlayers()) {
                     System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
                 }
-                // Charger et afficher selection_mode.fxml
+                // Charger et afficher selection_equipe.fxml
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_mode.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_equipe.fxml"));
                     Parent root = loader.load();
+
                     Stage stage = (Stage) confirmButton.getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -105,5 +116,9 @@ public class NbJoueursController {
             playerBox.getChildren().addAll(playerLabel, playerField);
             dynamicPlayers.getChildren().add(playerBox);
         }
+    }
+
+    @Override
+    public void update() {
     }
 }

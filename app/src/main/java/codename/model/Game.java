@@ -1,99 +1,182 @@
 package codename.model;
 
+import codename.Observer;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private final Board board;
-    private final Team redTeam;
-    private final Team blueTeam;
-    private Team currentTurn;
-    private String currentClue;
-    private int maxClicks;
-    private int clicksRemaining;
+  private static Game instance;
+  private Parameters parameters;
+  private final Board board;
+  private final Team redTeam;
+  private final Team blueTeam;
+  private Team currentTurn;
+  private Clue currentClue;
+  private int maxClicks;
+  private int clicksRemaining;
+  private boolean isGameOver;
+  private Team winner;
+  private int rows = 5;
+  private int columns = 5;
+  private ArrayList<Observer> observers = new ArrayList<>(10);
 
-    public Game(List<String> words) {
-        this.board = new Board(words);
-        this.redTeam = new Team("Red");
-        this.blueTeam = new Team("Blue");
-        this.currentTurn = redTeam;
-        this.currentClue = null;
-        this.maxClicks = 0;
-        this.clicksRemaining = 0;
+  public Game(List<String> words) {
+    this.observers = new ArrayList<>();
+    this.parameters = new Parameters();
+    this.board = new Board(words);
+    this.redTeam = new Team("Red");
+    this.blueTeam = new Team("Blue");
+    this.currentTurn = redTeam;
+    this.currentClue = null;
+    this.maxClicks = 0;
+    this.clicksRemaining = 0;
+    this.isGameOver = false;
+    this.winner = null;
+  }
+
+  public void add_observer(Observer observer) {
+    observers.add(observer);
+  }
+
+  public Parameters getParameters() {
+    return parameters;
+  }
+
+  public void notify_observator() {
+    for (Observer observers : this.observers) {
+      observers.update();
+    }
+  }
+
+  public static synchronized Game getInstance(List<String> words) {
+    if (instance == null) {
+      instance = new Game(words);
+    }
+    return instance;
+  }
+
+  public static Game getInstance() {
+    if (instance == null) {
+      throw new IllegalStateException(
+          "Game not initialized. Call getInstance(List<String>) first.");
+    }
+    return instance;
+  }
+
+  // public void setBoard(Board board) {
+  //     this.board = board;
+  // }
+
+  public Board getBoard() {
+    return board;
+  }
+
+  public Team getRedTeam() {
+    return redTeam;
+  }
+
+  public Team getBlueTeam() {
+    return blueTeam;
+  }
+
+  public void addPlayerToRedTeam(Player player) {
+    redTeam.addPlayer(player);
+  }
+
+  public void addPlayerToBlueTeam(Player player) {
+    blueTeam.addPlayer(player);
+  }
+
+  public int getMaxClicks() {
+    return maxClicks;
+  }
+
+  public void decrementClicksRemaining() {
+    clicksRemaining--;
+  }
+
+  public void proposeClue(Clue clue) {
+    if (!isValidClue(clue.getText())) {
+      throw new IllegalArgumentException("Le mot-clé est invalide.");
+    }
+    if (clue.getNumber() < 1 || clue.getNumber() > 25) {
+      throw new IllegalArgumentException("Le nombre doit être compris entre 1 et 25.");
+    }
+    this.currentClue = clue;
+    this.maxClicks = clue.getNumber() + 1;
+    this.clicksRemaining = this.maxClicks;
+  }
+
+  private boolean isValidClue(String clue) {
+    return clue != null && clue.matches("^[a-zA-Z\\-]+$");
+  }
+
+  public Clue getClue() {
+    return this.currentClue;
+  }
+
+  public void revealCard(int row, int col) {
+    Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
+    if (card.isRevealed()) {
+      throw new IllegalArgumentException("Cette carte est déjà révélée.");
+    }
+    card.reveal();
+
+    if (card.getColor().equalsIgnoreCase(currentTurn.getColor())) {
+      currentTurn.incrementScore();
+    }
+  }
+
+  public boolean isGameOver() {
+    return this.isGameOver;
+  }
+
+  public void switchTurn() {
+    currentTurn = (currentTurn == redTeam) ? blueTeam : redTeam;
+    currentClue = null;
+    maxClicks = 0;
+    clicksRemaining = 0;
+  }
+
+  public Team whosTurn() {
+    return currentTurn;
+  }
+
+  public Team getWinner() {
+    return this.winner;
+  }
+
+  public void checkWinCondition() {
+    if (redTeam.getScore() == 0) {
+      System.out.println("L'équipe rouge a gagné !");
+      this.winner = redTeam;
+      this.isGameOver = true;
+    } else if (blueTeam.getScore() == 0) {
+      System.out.println("L'équipe bleue a gagné !");
+      this.winner = blueTeam;
+      this.isGameOver = true;
+    } else if (this.board.isAssassinRevealed()) {
+      System.out.println(
+          "L'assassin a été révélé . L'équipe " + currentTurn.getColor() + " a gagné.");
+      this.winner = currentTurn;
+      this.isGameOver = true;
+    } else {
+      this.isGameOver = false;
     }
 
-    public Board getBoard() {
-        return board;
-    }
+    System.out.println("Le jeu est fini : " + this.isGameOver);
+  }
 
-    public Team getRedTeam() {
-        return redTeam;
-    }
+  public void setGridSize(int rows, int columns) {
+    this.rows = rows;
+    this.columns = columns;
+  }
 
-    public Team getBlueTeam() {
-        return blueTeam;
-    }
+  public int getRows() {
+    return this.rows;
+  }
 
-    public Team getCurrentTurn() {
-        return currentTurn;
-    }
-
-    public String getCurrentClue() {
-        return currentClue;
-    }
-
-    public int getClicksRemaining() {
-        return clicksRemaining;
-    }
-
-    public void proposeClue(String clue, int number) {
-        if (!isValidClue(clue)) {
-            throw new IllegalArgumentException("Le mot-clé est invalide.");
-        }
-        if (number < 1 || number > 25) {
-            throw new IllegalArgumentException("Le nombre doit être compris entre 1 et 25.");
-        }
-        this.currentClue = clue;
-        this.maxClicks = number + 1;
-        this.clicksRemaining = this.maxClicks;
-    }
-
-    private boolean isValidClue(String clue) {
-        return clue != null && clue.matches("^[a-zA-Z]+$");
-    }
-
-    public void revealCard(int index) {
-        Card card = board.getCards().get(index);
-        if (card.isRevealed()) {
-            throw new IllegalArgumentException("Cette carte est déjà révélée.");
-        }
-        card.reveal();
-
-        // Mettre à jour les scores
-        if (card.getColor().equalsIgnoreCase(currentTurn.getColor())) {
-            currentTurn.incrementScore();
-        }
-    }
-
-    public boolean isGameOver() {
-        return checkWinCondition();
-    }
-
-    public void switchTurn() {
-        currentTurn = (currentTurn == redTeam) ? blueTeam : redTeam;
-        currentClue = null;
-        maxClicks = 0;
-        clicksRemaining = 0;
-    }
-
-    private boolean checkWinCondition() {
-        long redLeft = board.getCards().stream()
-                .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
-                .count();
-        long blueLeft = board.getCards().stream()
-                .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
-                .count();
-
-        return redLeft == 0 || blueLeft == 0;
-    }
+  public int getColumns() {
+    return this.columns;
+  }
 }
-
