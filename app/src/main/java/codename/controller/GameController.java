@@ -1,10 +1,11 @@
 package codename.controller;
 
+import java.io.IOException;
+
 import codename.Observer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
-import java.io.IOException;
 
 
 

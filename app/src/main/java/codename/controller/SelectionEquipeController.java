@@ -1,5 +1,6 @@
 package codename.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,10 +8,14 @@ import java.util.List;
 import codename.model.Game;
 import codename.model.Player;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class SelectionEquipeController {
 
@@ -90,6 +95,21 @@ public class SelectionEquipeController {
             System.out.println("Composition de l'équipe bleue :");
             for (Player player : game.getBlueTeam().getPlayers()) {
                 System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
+            }
+
+            // Charger et afficher selection_espion.fxml
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_espion.fxml"));
+                Parent root = loader.load();
+
+                SelectionEspionController controller = loader.getController();
+                controller.setGame(game);
+
+                Stage stage = (Stage) confirmButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
