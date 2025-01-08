@@ -4,6 +4,7 @@ import codename.Observer;
 import codename.model.Card;
 import codename.model.Clue;
 import codename.model.Game;
+import codename.model.Team;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -111,14 +112,22 @@ public class GridAgentController implements Observer {
 
       Card[][] cards = game.getBoard().getCards();
       Card clickedCard = cards[row][col];
+      Team currentTeam = game.whosTurn();
+      String colorTeam = currentTeam.getColor();
 
       if (!clickedCard.isRevealed()) {
         String color = clickedCard.getColor();
 
         if (color.equals("Red")) {
+          if (colorTeam == "Blue") {
+            game.switchTurn();
+          }
           int score = game.getRedTeam().getScore();
           game.getRedTeam().setScore(score - 1);
         } else if (color.equals("Blue")) {
+          if (colorTeam == "Red") {
+            game.switchTurn();
+          }
           int score = game.getBlueTeam().getScore();
           game.getBlueTeam().setScore(score - 1);
         }
