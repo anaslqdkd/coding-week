@@ -3,6 +3,7 @@ package codename.controller;
 import java.io.IOException;
 import java.util.List;
 
+import codename.Manager;
 import codename.Observer;
 import codename.model.Game;
 import codename.model.Player;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 
 public class SelectionEspionController implements Observer {
 
@@ -97,16 +99,36 @@ public class SelectionEspionController implements Observer {
                 System.out.println("Espion de l'équipe rouge : " + redSpymaster.getName());
                 System.out.println("Espion de l'équipe bleue : " + blueSpymaster.getName());
 
-                // Charger et afficher gameTest.fxml
+                // Charger et lancer le jeu
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gameTest.fxml"));
-                    Parent root = loader.load();
+                    // Charger la fenêtre des agents (gameAgent.fxml)
+                    FXMLLoader agentsLoader = new FXMLLoader(getClass().getResource("/gameAgent.fxml"));
+                    Parent agentsRoot = agentsLoader.load();
+                    Scene agentsScene = new Scene(agentsRoot);
+                    Stage agentsStage = new Stage();
+                    agentsStage.setTitle("CodeName - Agents");
+                    agentsStage.setScene(agentsScene);
 
-                    Stage stage = (Stage) confirmButton.getScene().getWindow();
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    // Charger la fenêtre des espions (gameSpy.fxml)
+                    FXMLLoader spiesLoader = new FXMLLoader(getClass().getResource("/gameSpy.fxml"));
+                    Parent spiesRoot = spiesLoader.load();
+                    Scene spiesScene = new Scene(spiesRoot);
+                    Stage spiesStage = new Stage();
+                    spiesStage.setTitle("CodeName - Espions");
+                    spiesStage.setScene(spiesScene);
+
+                    // Récupérer les GameController des deux scènes
+
+                    Manager controllerManager =
+                        new Manager(spiesLoader.getController(), agentsLoader.getController());
+                    controllerManager.setUpClueController();
+                    controllerManager.setUpGridController();
+
+                    agentsStage.show();
+                    spiesStage.show();
+                } catch (Exception e) {
+                e.printStackTrace(); // Afficher tous les détails de l'erreur
+                System.exit(1);
                 }
             } else {
                 System.out.println("Chaque équipe doit avoir un espion.");

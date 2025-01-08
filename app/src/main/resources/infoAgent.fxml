@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="info" prefHeight="800.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.InfoController">
+    <children>
+        <StackPane prefHeight="31.0" prefWidth="341.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="40.0" prefWidth="376.0" text="Au tour de l'équipe :" />
+            </children>
+            <VBox.margin>
+                <Insets top="100.0" />
+            </VBox.margin>
+        </StackPane>
+        <StackPane prefHeight="24.0" prefWidth="163.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="40.0" prefWidth="376.0" text="Rouge" fx:id="currentTeam"/>
+            </children>
+        </StackPane>
+        <VBox alignment="BOTTOM_CENTER" prefHeight="160.0" prefWidth="340.0" />
+        <StackPane alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="182.0">
+            <children>
+                <Label fx:id="redScore" prefHeight="16.0" prefWidth="122.0" text="Equipe Rouge : 9">
+                    <StackPane.margin>
+                        <Insets top="200.0" />
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <StackPane  alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="182.0">
+            <children>
+                <Label fx:id="blueScore" prefHeight="16.0" prefWidth="121.0" text="Equipe Bleue : 7">
+                    <StackPane.margin>
+                        <Insets />
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+    </children>
+</VBox>

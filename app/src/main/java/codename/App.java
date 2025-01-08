@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import codename.model.Game;
+import codename.model.WordList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,6 +46,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        List<String> words = WordList.getWordList(25, "database.txt");
         this.game = Game.getInstance(words);; // Create a new game
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
