@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import codename.controller.SpyGridController;
-
 public class WordList {
   private List<String> words;
 
@@ -31,7 +29,7 @@ public class WordList {
   }
 
   public static List<String> getWordList(int nb, String FILE_NAME) throws IOException {
-    InputStream inputStream = SpyGridController.class.getClassLoader().getResourceAsStream(FILE_NAME);
+    InputStream inputStream = WordList.class.getClassLoader().getResourceAsStream(FILE_NAME);
   
     if (inputStream == null) {
       System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
@@ -45,9 +43,7 @@ public class WordList {
 
       for (String word : selectedWords) {
         System.out.println(word + "\n");
-      }
-      System.out.println("Liste de " + selectedWords.size() + " mots générée avec succès !");
-    
+      }    
       return selectedWords;
    }
   }
