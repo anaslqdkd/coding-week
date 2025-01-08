@@ -1,6 +1,7 @@
 package codename.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import codename.Observer;
@@ -110,15 +111,13 @@ public class Game {
         return clue != null && clue.matches("^[a-zA-Z]+$");
     }
 
-    public void revealCard(int index) {
-        Card card = board.getCards().get(index);
-        // Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
+    public void revealCard(int row, int col) {
+        Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
         if (card.isRevealed()) {
             throw new IllegalArgumentException("Cette carte est déjà révélée.");
         }
         card.reveal();
 
-        // Mettre à jour les scores
         if (card.getColor().equalsIgnoreCase(currentTurn.getColor())) {
             currentTurn.incrementScore();
         }
@@ -136,30 +135,19 @@ public class Game {
     }
 
     private boolean checkWinCondition() {
-        long redLeft = board.getCards().stream()
-                .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
-                .count();
-        long blueLeft = board.getCards().stream()
-                .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
-                .count();
+        long redLeft =
+                Arrays.stream(board.getCards())
+                        .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+                        .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
+                        .count();
+
+        long blueLeft =
+                Arrays.stream(board.getCards())
+                        .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+                        .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
+                        .count();
 
         return redLeft == 0 || blueLeft == 0;
     }
-
-    // private boolean checkWinCondition() {
-    //     long redLeft =
-    //             Arrays.stream(board.getCards())
-    //                     .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
-    //                     .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
-    //                     .count();
-
-    //     long blueLeft =
-    //             Arrays.stream(board.getCards())
-    //                     .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
-    //                     .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
-    //                     .count();
-
-    //     return redLeft == 0 || blueLeft == 0;
-    // }
 }
 

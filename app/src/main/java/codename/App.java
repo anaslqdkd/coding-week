@@ -1,6 +1,8 @@
 package codename;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import codename.controller.MenuController;
 import codename.model.Game;
@@ -13,9 +15,38 @@ import javafx.stage.Stage;
 public class App extends Application {
     private Game game; 
 
+    private List<String> words = Arrays.asList(
+        "Avion",
+        "Banane",
+        "Château",
+        "Forêt",
+        "Fusée",
+        "Pyramide",
+        "Robot",
+        "Glace",
+        "Océan",
+        "Marteau",
+        "Étoile",
+        "Camion",
+        "Plume",
+        "Dragon",
+        "Temple",
+        "Sirène",
+        "Diamant",
+        "Ciel",
+        "Désert",
+        "Lune",
+        "Soleil",
+        "Bateau",
+        "Volcan",
+        "Feuille",
+        "Requin"
+    );
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        game = new Game(); // Create a new game
+        game = new Game(words); // Create a new game
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
