@@ -51,14 +51,15 @@ public class ClueAgentController implements Observer {
   }
 
   public void switchTeam() {
+    System.out.println(lastTeam.getColor());
+    System.out.println(game.whosTurn().getColor());
     if (this.lastTeam != game.whosTurn()) {
       switchButton();
       this.clueSpyController.reset();
-    } else {
-      this.endTurnButton.setDisable(true);
     }
   }
 
+  
   public void setClueSpyController(ClueSpyController clueSpyController) {
     this.clueSpyController = clueSpyController;
   }
