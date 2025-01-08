@@ -2,6 +2,8 @@ package codename;
 
 import codename.controller.*;
 import codename.model.Game;
+import codename.model.WordList;
+
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;

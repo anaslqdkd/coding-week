@@ -20,34 +20,6 @@ public class GridAgentController implements Observer {
   @FXML GridPane gridAgent;
   private String clue;
   private Game game;
-  List<String> words =
-      Arrays.asList(
-          "apple",
-          "banana",
-          "cherry",
-          "date",
-          "elderberry",
-          "fig",
-          "grape",
-          "honeydew",
-          "kiwi",
-          "lemon",
-          "mango",
-          "nectarine",
-          "orange",
-          "papaya",
-          "quince",
-          "raspberry",
-          "strawberry",
-          "tangerine",
-          "ugli",
-          "vanilla",
-          "watermelon",
-          "xigua",
-          "yam",
-          "zucchini",
-          "acorn",
-          "almond");
 
   @FXML
   private void initialize() {
