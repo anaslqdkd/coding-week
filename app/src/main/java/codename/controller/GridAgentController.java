@@ -26,7 +26,6 @@ public class GridAgentController implements Observer {
   private void initialize() {
     this.game = Game.getInstance();
     game.add_observer(this);
-    System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
   }
 
@@ -119,13 +118,15 @@ public class GridAgentController implements Observer {
         String color = clickedCard.getColor();
 
         if (color.equals("Red")) {
-          if (colorTeam == "Blue") {
+          if (colorTeam != "Red") {
+            System.out.println("Switching turn");
             game.switchTurn();
           }
           int score = game.getRedTeam().getScore();
           game.getRedTeam().setScore(score - 1);
         } else if (color.equals("Blue")) {
-          if (colorTeam == "Red") {
+          if (colorTeam != "Blue") {
+            System.out.println("Switching turn");
             game.switchTurn();
           }
           int score = game.getBlueTeam().getScore();
@@ -133,7 +134,8 @@ public class GridAgentController implements Observer {
         }
 
         clickedCard.reveal();
-        System.out.println("carde revelée" + clickedCard.getWord());
+        System.out.println("Couleur revelée : " + color);
+        System.out.println("Team: " + colorTeam);
         this.clickCount++;
 
       } else {

@@ -15,8 +15,6 @@ public class InfoController implements Observer {
 
   @FXML
   private void initialize() {
-    System.out.println("-----------------------------------------");
-    System.out.println("in initialise info controller");
     this.game = Game.getInstance();
     game.add_observer(this);
     System.out.println(game);
@@ -33,9 +31,11 @@ public class InfoController implements Observer {
 
   public void updateCurrentTeam() {
     if (game.whosTurn().getColor().equals("Red")) {
+      System.out.println("Red Team is now playing");
       currentTeam.setText("Rouge");
     } else {
       currentTeam.setText("Bleu");
+      System.out.println("Blue Team is now playing");
     }
   }
 

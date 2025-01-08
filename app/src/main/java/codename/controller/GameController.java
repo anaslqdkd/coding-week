@@ -39,17 +39,17 @@ public class GameController implements Observer {
 
   @FXML
   private void initialize() {
-    try {
-      List<String> words = WordList.getWordList(25, "database.txt");
+    // try {
+    //   // List<String> words = WordList.getWordList(25, "database.txt");
 
-      // Initialize the singleton game instance
+    //   // // Initialize the singleton game instance
 
-      Game game = Game.getInstance(words);
-      game.add_observer(this);
+    //   // Game game = Game.getInstance();
+    //   // game.add_observer(this);
 
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    // } catch (IOException e) {
+    //   e.printStackTrace();
+    // }
 
     // try {
     //  FXMLLoader gridLoader = new FXMLLoader(getClass().getResource("/grid.fxml"));
