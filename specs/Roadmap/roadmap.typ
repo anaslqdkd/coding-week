@@ -31,9 +31,7 @@
 === Objectifs
 - Permettre la création d'une partie avec les paramètres suivants :
   - Taille de la grille (par défaut : 5x5).
-  - Liste de mots thématiques.
   - Nombre de joueurs et rôles (maître-espion, équipe).
-  - Limitation de temps (on/off).
 - Implémenter la logique de sélection des cartes "Nom de Code" :
   - Assignation aléatoire des équipes (rouge, bleu, neutre, assassin).
   - Affichage masqué pour les joueurs sauf pour le maître-espion.
@@ -76,6 +74,9 @@
 === Objectifs
 - Développer un mode solo avec des indices préprogrammés :
   - Ajuster la difficulté (niveau facile, moyen, difficile).
+- Possibilité de choisir une liste de mots thématiques.
+- Limitation de temps (on/off).
+
 - Ajouter un mode "images" :
   - Conversion des cartes textuelles en cartes visuelles (illustrations).
   - Interface pour créer et importer des cartes images.
