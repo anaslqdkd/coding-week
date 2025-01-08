@@ -34,11 +34,6 @@ public class NbJoueursController implements Observer{
     private Game game;
     private Parameters parameters; // Déclarez parameters ici
 
-    public void setGame(Game game) {
-        this.game = game;
-        initializeParameters();
-    }
-
     private void initializeParameters() {
         parameters = game.getParameters(); // Initialisez parameters ici
         parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
@@ -47,6 +42,11 @@ public class NbJoueursController implements Observer{
 
     @FXML
     public void initialize() {
+        System.out.println("initialize NbJoueursController");
+        this.game = Game.getInstance();
+        initializeParameters();
+        game.add_observer(this);
+
         addPlayerButton.setOnAction(event -> {
             if (parameters.getNumberOfPlayers() < 8) {
                 parameters.setNumberOfPlayers(parameters.getNumberOfPlayers() + 1);
@@ -91,9 +91,6 @@ public class NbJoueursController implements Observer{
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_equipe.fxml"));
                     Parent root = loader.load();
-
-                    SelectionEquipeController controller = loader.getController();
-                    controller.setGame(game);
 
                     Stage stage = (Stage) confirmButton.getScene().getWindow();
                     stage.setScene(new Scene(root));

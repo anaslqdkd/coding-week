@@ -29,11 +29,6 @@ public class SelectionEspionController implements Observer {
 
     private Game game;
 
-    public void setGame(Game game) {
-        this.game = game;
-        updateTeams();
-    }
-
     private void updateTeams() {
         redTeam.getChildren().clear();
         blueTeam.getChildren().clear();
@@ -70,6 +65,11 @@ public class SelectionEspionController implements Observer {
 
     @FXML
     private void initialize() {
+        System.out.println("initialize SelectionEspionController");
+        this.game = Game.getInstance();
+        updateTeams();
+        game.add_observer(this);
+
         confirmButton.setOnAction(event -> {
             boolean redTeamHasSpymaster = false;
             boolean blueTeamHasSpymaster = false;
@@ -101,9 +101,6 @@ public class SelectionEspionController implements Observer {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/gameTest.fxml"));
                     Parent root = loader.load();
-
-                    GameTestController controller = loader.getController();
-                    controller.setGame(game);
 
                     Stage stage = (Stage) confirmButton.getScene().getWindow();
                     stage.setScene(new Scene(root));

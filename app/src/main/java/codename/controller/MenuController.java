@@ -18,19 +18,17 @@ public class MenuController implements Observer{
 
     private Game game;
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     @FXML
     private void initialize() {
+
+        System.out.println("initialize MenuController");
+        this.game = Game.getInstance();
+        game.add_observer(this);
+
         playButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Nb_joueurs.fxml"));
                 Parent root = loader.load();
-
-                NbJoueursController nbJoueursController = loader.getController();
-                nbJoueursController.setGame(game);
 
                 Stage stage = (Stage) playButton.getScene().getWindow();
                 stage.setScene(new Scene(root));

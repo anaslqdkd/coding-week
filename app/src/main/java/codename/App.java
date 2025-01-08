@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import codename.controller.MenuController;
 import codename.model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        game = new Game(words); // Create a new game
+        this.game = Game.getInstance(words);; // Create a new game
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
@@ -55,9 +54,6 @@ public class App extends Application {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = loader.load();
-
-        MenuController menuController = loader.getController();
-        menuController.setGame(game);
 
         Scene scene = new Scene(root);
 
