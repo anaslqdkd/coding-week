@@ -124,7 +124,8 @@ public class GridAgentController implements Observer {
           }
           int score = game.getRedTeam().getScore();
           game.getRedTeam().setScore(score - 1);
-        } else if (color.equals("Blue")) {
+        }
+        if (color.equals("Blue")) {
           if (colorTeam == "Red") {
             game.switchTurn();
           }
