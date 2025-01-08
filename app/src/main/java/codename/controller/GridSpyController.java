@@ -21,7 +21,6 @@ public class GridSpyController implements Observer {
 
   @FXML
   private void initialize() {
-    System.out.println("GridSpyController initialized");
     this.game = Game.getInstance();
     game.add_observer(this);
     System.out.println(game);
@@ -40,7 +39,6 @@ public class GridSpyController implements Observer {
     final int rows = 5;
     final int columns = 5;
     Card[][] matrix = game.getBoard().getCards();
-    System.out.println("print in generate grid");
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {

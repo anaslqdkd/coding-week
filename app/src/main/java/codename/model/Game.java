@@ -16,6 +16,8 @@ public class Game {
   private Clue currentClue;
   private int maxClicks;
   private int clicksRemaining;
+  private boolean isGameOver;
+  private Team winner;
   private ArrayList<Observer> observers = new ArrayList<>(10);
 
   public Game(List<String> words) {
@@ -28,6 +30,8 @@ public class Game {
     this.currentClue = null;
     this.maxClicks = 0;
     this.clicksRemaining = 0;
+    this.isGameOver = false;
+    this.winner = null;
   }
 
   public void add_observer(Observer observer) {
@@ -59,6 +63,10 @@ public class Game {
     return instance;
   }
 
+// public void setBoard(Board board) {
+//     this.board = board;
+// }
+
   public Board getBoard() {
     return board;
   }
@@ -67,9 +75,17 @@ public class Game {
     return redTeam;
   }
 
-  public Team getBlueTeam() {
-    return blueTeam;
-  }
+    public Team getBlueTeam() {
+        return blueTeam;
+    }
+
+    public void addPlayerToRedTeam(Player player) {
+        redTeam.addPlayer(player);
+    }
+
+    public void addPlayerToBlueTeam(Player player) {
+        blueTeam.addPlayer(player);
+    }
 
   public int getMaxClicks() {
     return maxClicks;
@@ -92,8 +108,9 @@ public class Game {
   }
 
   private boolean isValidClue(String clue) {
-    return clue != null && clue.matches("^[A-Z]+$");
-  }
+    return clue != null && clue.matches("^[a-zA-Z\\-]+$");
+  } 
+
 
   public Clue getClue() {
     return this.currentClue;
@@ -112,7 +129,7 @@ public class Game {
   }
 
   public boolean isGameOver() {
-    return checkWinCondition();
+    return this.isGameOver;
   }
 
   public void switchTurn() {
@@ -126,19 +143,28 @@ public class Game {
     return currentTurn;
   }
 
-  private boolean checkWinCondition() {
-    long redLeft =
-        Arrays.stream(board.getCards())
-            .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
-            .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
-            .count();
+  public Team getWinner() {
+    return this.winner;
+  }
 
-    long blueLeft =
-        Arrays.stream(board.getCards())
-            .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
-            .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
-            .count();
 
-    return redLeft == 0 || blueLeft == 0;
+  public void checkWinCondition() {
+    if (redTeam.getScore() == 0) {
+      System.out.println("L'équipe rouge a gagné !");
+      this.winner = redTeam;
+      this.isGameOver = true;
+    } else if (blueTeam.getScore() == 0) {
+      System.out.println("L'équipe bleue a gagné !");
+      this.winner = blueTeam;
+      this.isGameOver = true;
+    } else if (this.board.isAssassinRevealed()) {
+      System.out.println("L'assassin a été révélé . L'équipe " + currentTurn.getColor() + " a gagné.");
+      this.winner = currentTurn;
+      this.isGameOver = true;
+    } else {
+      this.isGameOver = false;
+    }
+    
+    System.out.println("Le jeu est fini : " + this.isGameOver);
   }
 }

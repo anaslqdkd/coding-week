@@ -26,7 +26,6 @@ public class GridAgentController implements Observer {
   private void initialize() {
     this.game = Game.getInstance();
     game.add_observer(this);
-    System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
   }
 
@@ -102,49 +101,56 @@ public class GridAgentController implements Observer {
     if (clue == null) {
       System.out.println("Pas de clue");
       return;
-    } else {
-      int maxClicks = clue.getNumber() + 1;
-
-      if (this.clickCount < maxClicks) {
-        String label = clue.getText();
-        System.out.println("Label: " + label);
-        System.out.println("Max Clicks: " + maxClicks);
-
-        Card[][] cards = game.getBoard().getCards();
-        Card clickedCard = cards[row][col];
-        Team currentTeam = game.whosTurn();
-        String colorTeam = currentTeam.getColor();
-
-        if (!clickedCard.isRevealed()) {
-          String color = clickedCard.getColor();
-
-          if (color.equals("Red")) {
-            if (colorTeam == "Blue") {
-              game.switchTurn();
-            }
-            int score = game.getRedTeam().getScore();
-            game.getRedTeam().setScore(score - 1);
-          }
-          if (color.equals("Blue")) {
-            if (colorTeam == "Red") {
-              game.switchTurn();
-            }
-            int score = game.getBlueTeam().getScore();
-            game.getBlueTeam().setScore(score - 1);
-          }
-
-          clickedCard.reveal();
-          System.out.println("carde revelée" + clickedCard.getWord());
-          this.clickCount++;
-
-        } else {
-          System.out.println("carte déjà revelée: " + clickedCard.getWord());
-        }
-      } else {
-        System.out.println("nb max de clicks(" + maxClicks + ").");
-      }
     }
 
+    int maxClicks = clue.getNumber() + 1;
+
+    if (this.clickCount < maxClicks) {
+      String label = clue.getText();
+      System.out.println("Label: " + label);
+      System.out.println("Max Clicks: " + maxClicks);
+
+      Card[][] cards = game.getBoard().getCards();
+      Card clickedCard = cards[row][col];
+      Team currentTeam = game.whosTurn();
+      String colorTeam = currentTeam.getColor();
+
+      if (!clickedCard.isRevealed()) {
+        String color = clickedCard.getColor();
+
+        if (color.equals("Red")) {
+          if (colorTeam != "Red") {
+            System.out.println("Switching turn");
+            game.switchTurn();
+          }
+          int score = game.getRedTeam().getScore();
+          game.getRedTeam().setScore(score - 1);
+        } else if (color.equals("Blue")) {
+          if (colorTeam != "Blue") {
+            System.out.println("Switching turn");
+            game.switchTurn();
+          }
+          int score = game.getBlueTeam().getScore();
+          game.getBlueTeam().setScore(score - 1);
+        } else if (color.equals("Neutral")) {
+          System.out.println("Carte neutre");
+          game.switchTurn();
+        } else if (color.equals("Assassin")) {
+          System.out.println("Assassin");
+          game.switchTurn();
+        }
+
+        clickedCard.reveal();
+        System.out.println("Couleur revelée : " + color);
+        System.out.println("Team: " + colorTeam);
+        this.clickCount++;
+
+      } else {
+        System.out.println("carte déjà revelée: " + clickedCard.getWord());
+      }
+    } else {
+      System.out.println("nb max de clicks(" + maxClicks + ").");
+    }
     game.notify_observator();
   }
 
@@ -155,5 +161,6 @@ public class GridAgentController implements Observer {
   @Override
   public void update() {
     generate_grid_agent(gridAgent);
+    this.game.checkWinCondition();
   }
 }

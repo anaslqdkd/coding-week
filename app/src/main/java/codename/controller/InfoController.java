@@ -12,13 +12,13 @@ public class InfoController implements Observer {
   @FXML Label currentTeam;
   @FXML Label redScore;
   @FXML Label blueScore;
+  @FXML Label win;
 
   @FXML
   private void initialize() {
-    System.out.println("-----------------------------------------");
-    System.out.println("in initialise info controller");
     this.game = Game.getInstance();
     game.add_observer(this);
+    win.setText("");
     System.out.println(game);
   }
 
@@ -33,9 +33,23 @@ public class InfoController implements Observer {
 
   public void updateCurrentTeam() {
     if (game.whosTurn().getColor().equals("Red")) {
+      System.out.println("Red Team is now playing");
       currentTeam.setText("Rouge");
     } else {
       currentTeam.setText("Bleu");
+      System.out.println("Blue Team is now playing");
+    }
+  }
+
+  public void updateWinLabel() {
+    if (this.game.isGameOver()) {
+      if (game.getWinner().getColor().equals("Red")) {
+        String winnerName = "Rouge";
+        win.setText("L'équipe " + winnerName + " a gagné !");
+      } else {
+        String winnerName = "Bleue";
+        win.setText("L'équipe " + winnerName + " a gagné !");
+      }
     }
   }
 
@@ -43,5 +57,6 @@ public class InfoController implements Observer {
   public void update() {
     updateScores(redScore, blueScore);
     updateCurrentTeam();
+    updateWinLabel();
   }
 }
