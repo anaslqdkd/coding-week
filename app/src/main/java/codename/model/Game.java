@@ -1,6 +1,12 @@
 package codename.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import codename.Observer;
+
 public class Game {
+    private static Game instance;
     private Parameters parameters;
     private Board board;
     private final Team redTeam;
@@ -9,16 +15,43 @@ public class Game {
     private String currentClue;
     private int maxClicks;
     private int clicksRemaining;
+    private ArrayList<Observer> observers = new ArrayList<>(10);
 
-    public Game() {
+    public Game(List<String> words) {
         this.parameters = new Parameters();
-        this.board = null;
+        this.observers = new ArrayList<>();
+        this.board = new Board(words);
         this.redTeam = new Team("Red");
         this.blueTeam = new Team("Blue");
         this.currentTurn = redTeam;
         this.currentClue = null;
         this.maxClicks = 0;
         this.clicksRemaining = 0;
+    }
+
+    public void add_observer(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notify_observator() {
+        for (Observer observers : this.observers) {
+            observers.update();
+        }
+    }
+
+    public static synchronized Game getInstance(List<String> words) {
+        if (instance == null) {
+            instance = new Game(words);
+        }
+        return instance;
+    }
+
+    public static Game getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException(
+                    "Game not initialized. Call getInstance(List<String>) first.");
+        }
+        return instance;
     }
 
     public Parameters getParameters() {
@@ -79,6 +112,7 @@ public class Game {
 
     public void revealCard(int index) {
         Card card = board.getCards().get(index);
+        // Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
         if (card.isRevealed()) {
             throw new IllegalArgumentException("Cette carte est déjà révélée.");
         }
@@ -111,5 +145,21 @@ public class Game {
 
         return redLeft == 0 || blueLeft == 0;
     }
+
+    // private boolean checkWinCondition() {
+    //     long redLeft =
+    //             Arrays.stream(board.getCards())
+    //                     .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+    //                     .filter(card -> card.getColor().equals("Red") && !card.isRevealed())
+    //                     .count();
+
+    //     long blueLeft =
+    //             Arrays.stream(board.getCards())
+    //                     .flatMap(Arrays::stream) // Flatten the 2D array to a stream of cards
+    //                     .filter(card -> card.getColor().equals("Blue") && !card.isRevealed())
+    //                     .count();
+
+    //     return redLeft == 0 || blueLeft == 0;
+    // }
 }
 
