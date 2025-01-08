@@ -86,8 +86,5 @@ public class GameController implements Observer {
   // }
 
   @Override
-  public void update() {
-    // gridSpyController.update();
-    // gridAgentController.update();
-  }
+  public void update() {}
 }

@@ -124,6 +124,13 @@ public class GridAgentController implements Observer {
   }
 
   public void handleCardClick(int row, int col) {
+    String label = clueAgentController.getClueLabel();
+    System.out.println(label);
+
+    if (label.equals("En attente...")) {
+      System.out.println("Card click ignored: Label is 'En attente...'");
+      return;
+    }
     Card[][] cards = game.getBoard().getCards();
     Card clickedCard = cards[row][col];
     if (!clickedCard.isRevealed()) {
@@ -141,11 +148,7 @@ public class GridAgentController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    if (clueAgentController == null) {
-      System.out.println("ùùùùùùùùùùùùùùùùùùùùùùùùùùù");
-    }
-    String label = clueAgentController.getClueLabel();
-    System.out.println(label);
+
     game.notify_observator();
   }
 
