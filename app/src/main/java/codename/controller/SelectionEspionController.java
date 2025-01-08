@@ -3,6 +3,7 @@ package codename.controller;
 import java.io.IOException;
 import java.util.List;
 
+import codename.Observer;
 import codename.model.Game;
 import codename.model.Player;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SelectionEspionController {
+public class SelectionEspionController implements Observer {
 
     @FXML
     private VBox redTeam;
@@ -114,5 +115,9 @@ public class SelectionEspionController {
                 System.out.println("Chaque équipe doit avoir un espion.");
             }
         });
+    }
+
+    @Override
+    public void update() {
     }
 }

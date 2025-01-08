@@ -1,10 +1,11 @@
 package codename.controller;
 
+import codename.Observer;
 import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class GameTestController {
+public class GameTestController implements Observer {
 
     @FXML
     private Label gameStatusLabel;
@@ -19,4 +20,7 @@ public class GameTestController {
     private void updateGameStatus() {
         gameStatusLabel.setText("Le jeu a commencé !");
     }
+
+    @Override
+    public void update() {}
 }

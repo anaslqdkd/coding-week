@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 
+import codename.Observer;
 import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class MenuController implements Observer{
 
     @FXML
     private Button playButton;
@@ -38,5 +39,9 @@ public class MenuController {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void update() {
     }
 }

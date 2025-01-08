@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import codename.Observer;
 import codename.model.Game;
 import codename.model.Player;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SelectionEquipeController {
+public class SelectionEquipeController implements Observer {
 
     @FXML
     private VBox leftTeam;
@@ -151,5 +152,9 @@ public class SelectionEquipeController {
     
         // Ajouter le joueur à l'équipe cible
         targetTeam.getChildren().add(playerLabel);
+    }
+
+    @Override
+    public void update() {
     }
 }

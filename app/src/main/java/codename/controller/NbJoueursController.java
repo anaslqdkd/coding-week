@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 
+import codename.Observer;
 import codename.model.Game;
 import codename.model.Parameters;
 import codename.model.Player;
@@ -16,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class NbJoueursController {
+public class NbJoueursController implements Observer{
 
     @FXML
     private VBox dynamicPlayers;
@@ -118,5 +119,9 @@ public class NbJoueursController {
             playerBox.getChildren().addAll(playerLabel, playerField);
             dynamicPlayers.getChildren().add(playerBox);
         }
+    }
+
+    @Override
+    public void update() {
     }
 }
