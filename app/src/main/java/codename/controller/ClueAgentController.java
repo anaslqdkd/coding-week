@@ -1,25 +1,35 @@
 package codename.controller;
 
+import codename.Observer;
+import codename.model.Team;
 import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ClueAgentController {
+
+
+public class ClueAgentController implements Observer {
   private Game game;
 
   private ClueSpyController clueSpyController;
+
+  private Team lastTeam;
 
   @FXML private Label clueLabel;
 
   @FXML private Button endTurnButton;
 
+
+
   @FXML
   public void initialize() {
     this.game = Game.getInstance();
     // Initialiser le label
+    this.game.add_observer(this);
     clueLabel.setText("En attente...");
     endTurnButton.setDisable(true);
+    this.lastTeam = game.whosTurn();
 
     endTurnButton.setOnAction(
         event -> {
@@ -35,6 +45,15 @@ public class ClueAgentController {
   public void switchButton() {
     if (this.endTurnButton.isDisable()) {
       this.endTurnButton.setDisable(false);
+    } else {
+      this.endTurnButton.setDisable(true);
+    }
+  }
+
+  public void switchTeam() {
+    if (this.lastTeam != game.whosTurn()) {
+      switchButton();
+      this.clueSpyController.reset();
     } else {
       this.endTurnButton.setDisable(true);
     }
@@ -57,5 +76,10 @@ public class ClueAgentController {
     } else {
       clueLabel.setText("En attente...");
     }
+  }
+
+  @Override
+  public void update() {
+    switchTeam();
   }
 }
