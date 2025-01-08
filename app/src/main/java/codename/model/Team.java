@@ -38,9 +38,13 @@ public class Team {
     players.add(player);
   }
 
-  public void incrementScore() {
-    score++;
-  }
+    public void incrementScore() {
+        score++;
+    }
+
+    public void clear() {
+        players.clear();
+    }
 
   @Override
   public String toString() {

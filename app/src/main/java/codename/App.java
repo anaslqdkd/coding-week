@@ -1,11 +1,11 @@
 package codename;
 
-import codename.controller.*;
-import codename.model.Game;
-import codename.model.WordList;
-
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+
+import codename.model.Game;
+import codename.model.WordList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,47 +13,59 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-  private Game game;
+    private Game game; 
 
-  @Override
-  public void start(Stage primaryStage) {
-    try {
-      List<String> words = WordList.getWordList(25, "database.txt");
-      // Game game = new Game(words);
-      this.game = Game.getInstance(words);
+    private List<String> words = Arrays.asList(
+        "Avion",
+        "Banane",
+        "Château",
+        "Forêt",
+        "Fusée",
+        "Pyramide",
+        "Robot",
+        "Glace",
+        "Océan",
+        "Marteau",
+        "Étoile",
+        "Camion",
+        "Plume",
+        "Dragon",
+        "Temple",
+        "Sirène",
+        "Diamant",
+        "Ciel",
+        "Désert",
+        "Lune",
+        "Soleil",
+        "Bateau",
+        "Volcan",
+        "Feuille",
+        "Requin"
+    );
 
-      // Charger la fenêtre des agents (gameAgent.fxml)
-      FXMLLoader agentsLoader = new FXMLLoader(getClass().getResource("/gameAgent.fxml"));
-      Parent agentsRoot = agentsLoader.load();
-      Scene agentsScene = new Scene(agentsRoot);
-      Stage agentsStage = new Stage();
-      agentsStage.setTitle("CodeName - Agents");
-      agentsStage.setScene(agentsScene);
 
-      // Charger la fenêtre des espions (gameSpy.fxml)
-      FXMLLoader spiesLoader = new FXMLLoader(getClass().getResource("/gameSpy.fxml"));
-      Parent spiesRoot = spiesLoader.load();
-      Scene spiesScene = new Scene(spiesRoot);
-      Stage spiesStage = new Stage();
-      spiesStage.setTitle("CodeName - Espions");
-      spiesStage.setScene(spiesScene);
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        List<String> words = WordList.getWordList(25, "database.txt");
+        this.game = Game.getInstance(words);; // Create a new game
 
-      // Récupérer les GameController des deux scènes
+        URL fxmlURL = getClass().getResource("/menu.fxml");
+        if (fxmlURL == null) {
+            System.err.println("Could not find menu.fxml");
+            System.exit(1);
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+        Parent root = loader.load();
 
-      Manager controllerManager =
-          new Manager(spiesLoader.getController(), agentsLoader.getController());
-      controllerManager.setUpClueController();
-      controllerManager.setUpGridController();
+        Scene scene = new Scene(root);
 
-      agentsStage.show();
-      spiesStage.show();
-    } catch (Exception e) {
-      e.printStackTrace(); // Afficher tous les détails de l'erreur
-      System.exit(1);
+        primaryStage.setTitle("CodeName");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
-  }
 
-  public static void main(String[] args) {
-    launch(args);
-  }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
+

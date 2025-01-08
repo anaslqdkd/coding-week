@@ -63,6 +63,10 @@ public class Game {
     return instance;
   }
 
+// public void setBoard(Board board) {
+//     this.board = board;
+// }
+
   public Board getBoard() {
     return board;
   }
@@ -71,9 +75,17 @@ public class Game {
     return redTeam;
   }
 
-  public Team getBlueTeam() {
-    return blueTeam;
-  }
+    public Team getBlueTeam() {
+        return blueTeam;
+    }
+
+    public void addPlayerToRedTeam(Player player) {
+        redTeam.addPlayer(player);
+    }
+
+    public void addPlayerToBlueTeam(Player player) {
+        blueTeam.addPlayer(player);
+    }
 
   public int getMaxClicks() {
     return maxClicks;

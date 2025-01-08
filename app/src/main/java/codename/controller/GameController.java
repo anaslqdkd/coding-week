@@ -1,5 +1,7 @@
 package codename.controller;
 
+import java.io.IOException;
+
 import codename.Observer;
 import codename.model.Game;
 import codename.model.WordList;
@@ -39,52 +41,12 @@ public class GameController implements Observer {
 
   @FXML
   private void initialize() {
-    // try {
-    //   // List<String> words = WordList.getWordList(25, "database.txt");
 
-    //   // // Initialize the singleton game instance
-
-    //   // Game game = Game.getInstance();
-    //   // game.add_observer(this);
-
-    // } catch (IOException e) {
-    //   e.printStackTrace();
-    // }
-
-    // try {
-    //  FXMLLoader gridLoader = new FXMLLoader(getClass().getResource("/grid.fxml"));
-    //  GridPane grid = gridLoader.load();
-    //  gridController = gridLoader.getController();
-    //
-    // } catch (IOException e) {
-    //  e.printStackTrace();
-    // }
-    //       try {
-    //       game.revealCard(cardIndex);
-    //   } catch (IllegalArgumentException e) {
-    //       System.out.println("Erreur : " + e.getMessage());
-    //       return;
-    //   }
-
-    //   // Décrémenter les clics restants
-    //   game.decrementClicksRemaining();
-
-    //   // Vérifier si la partie est terminée
-    //   if (game.isGameOver()) {
-    //       System.out.println("L'équipe " + game.getCurrentTurn().getColor() + " a gagné !");
-    //       return;
-    //   }
-
-    //   // Si clics épuisés, changer de tour
-    //   if (game.getClicksRemaining() == 0) {
-    //       System.out.println("Clics maximum atteints. Tour terminé.");
-    //       game.switchTurn();
-    //   }
-    // }
   }
-
-  // }
-
+   
+  
   @Override
-  public void update() {}
+  public void update() {
+
+  }
 }
