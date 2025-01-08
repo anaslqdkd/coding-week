@@ -2,9 +2,8 @@ package codename.controller;
 
 import codename.Observer;
 import codename.model.Card;
+import codename.model.Clue;
 import codename.model.Game;
-import java.util.Arrays;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -20,34 +19,7 @@ public class GridAgentController implements Observer {
   @FXML GridPane gridAgent;
   private String clue;
   private Game game;
-  List<String> words =
-      Arrays.asList(
-          "apple",
-          "banana",
-          "cherry",
-          "date",
-          "elderberry",
-          "fig",
-          "grape",
-          "honeydew",
-          "kiwi",
-          "lemon",
-          "mango",
-          "nectarine",
-          "orange",
-          "papaya",
-          "quince",
-          "raspberry",
-          "strawberry",
-          "tangerine",
-          "ugli",
-          "vanilla",
-          "watermelon",
-          "xigua",
-          "yam",
-          "zucchini",
-          "acorn",
-          "almond");
+  private int clickCount = 0;
 
   @FXML
   private void initialize() {
@@ -80,7 +52,7 @@ public class GridAgentController implements Observer {
 
         Card card = matrix[row][col];
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: black;");
+        label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: black;");
 
         stackPane.setPrefSize(100, 100);
         final int currentRow = row;
@@ -101,7 +73,7 @@ public class GridAgentController implements Observer {
           }
           if (color == "Assassin") {
             rectangle.setFill(Color.BLACK);
-            label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;");
+            label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: white;");
             // mourir xd
           }
           if (color == "Neutral") {
@@ -124,29 +96,42 @@ public class GridAgentController implements Observer {
   }
 
   public void handleCardClick(int row, int col) {
-    String label = clueAgentController.getClueLabel();
-    System.out.println(label);
-
-    if (label.equals("En attente...")) {
-      System.out.println("Card click ignored: Label is 'En attente...'");
+    Clue clue = game.getClue();
+    if (clue == null) {
+      System.out.println("Pas de clue");
       return;
     }
-    Card[][] cards = game.getBoard().getCards();
-    Card clickedCard = cards[row][col];
-    if (!clickedCard.isRevealed()) {
-      String color = clickedCard.getColor();
-      if (color == "Red") {
-        int score = game.getRedTeam().getScore();
-        game.getRedTeam().setScore(score - 1);
+
+    int maxClicks = clue.getNumber() + 1;
+
+    if (this.clickCount < maxClicks) {
+      String label = clue.getText();
+      System.out.println("Label: " + label);
+      System.out.println("Max Clicks: " + maxClicks);
+
+      Card[][] cards = game.getBoard().getCards();
+      Card clickedCard = cards[row][col];
+
+      if (!clickedCard.isRevealed()) {
+        String color = clickedCard.getColor();
+
+        if (color.equals("Red")) {
+          int score = game.getRedTeam().getScore();
+          game.getRedTeam().setScore(score - 1);
+        } else if (color.equals("Blue")) {
+          int score = game.getBlueTeam().getScore();
+          game.getBlueTeam().setScore(score - 1);
+        }
+
+        clickedCard.reveal();
+        System.out.println("carde revelée" + clickedCard.getWord());
+        this.clickCount++;
+
+      } else {
+        System.out.println("carte déjà revelée: " + clickedCard.getWord());
       }
-      if (color == "Blue") {
-        int score = game.getBlueTeam().getScore();
-        game.getBlueTeam().setScore(score - 1);
-      }
-      clickedCard.reveal();
-      System.out.println("Card revealed: " + clickedCard.getWord());
     } else {
-      System.out.println("Card already revealed: " + clickedCard.getWord());
+      System.out.println("nb max de clicks(" + maxClicks + ").");
     }
 
     game.notify_observator();
