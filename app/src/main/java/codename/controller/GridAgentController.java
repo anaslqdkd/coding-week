@@ -12,11 +12,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class AgentGridController implements Observer {
+public class GridAgentController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
   private ClueAgentController clueAgentController;
+  private GridSpyController gridSpyController;
   @FXML GridPane gridAgent;
+  private String clue;
   private Game game;
   List<String> words =
       Arrays.asList(
@@ -56,8 +58,11 @@ public class AgentGridController implements Observer {
   }
 
   public void setClueAgentController(ClueAgentController clueAgentController) {
-    System.out.println("333333333333");
     this.clueAgentController = clueAgentController;
+  }
+
+  public void setGridSpyController(GridSpyController gridSpyController) {
+    this.gridSpyController = gridSpyController;
   }
 
   public void setGame(Game game) {
@@ -136,9 +141,11 @@ public class AgentGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    Label clueLabel = clueAgentController.getClueLabel();
-    System.out.println("$$$$$$$$$$$$$$$$$$$");
-    System.out.println("the clue label is" + clueLabel);
+    if (clueAgentController == null) {
+      System.out.println("ùùùùùùùùùùùùùùùùùùùùùùùùùùù");
+    }
+    String label = clueAgentController.getClueLabel();
+    System.out.println(label);
     game.notify_observator();
   }
 

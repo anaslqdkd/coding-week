@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane fx:id="gridAgent" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.AgentGridController" hgap="10.0" vgap="10.0">
+<GridPane fx:id="gridAgent" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GridAgentController" hgap="10.0" vgap="10.0">
     <padding>
         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
     </padding>

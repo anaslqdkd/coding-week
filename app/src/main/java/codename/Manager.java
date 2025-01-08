@@ -1,9 +1,10 @@
 package codename;
 
-import codename.controller.AgentGridController;
 import codename.controller.ClueAgentController;
 import codename.controller.ClueSpyController;
 import codename.controller.GameController;
+import codename.controller.GridAgentController;
+import codename.controller.GridSpyController;
 
 public class Manager {
   private GameController gameSpyController;
@@ -18,16 +19,16 @@ public class Manager {
     ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
     ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
 
-    AgentGridController agentGridController = gameAgentController.getAgentGridController();
-    agentGridController.setClueAgentController(clueAgentController);
     clueSpyController.setClueAgentController(clueAgentController);
     clueAgentController.setClueSpyController(clueSpyController);
   }
 
-  // TODO: à mettre les controlleurs de grille dans Manager
-  // public void setUpGridController() {
-  //  AgentGridController agentGridController = gameAgentController.getAgentGridController();
-  //  SpyGridController spyGridController = gameAgentController.getSpyGridController();
-  // }
+  public void setUpGridController() {
+    ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
+    GridAgentController gridAgentController = gameAgentController.getGridAgentController();
+    GridSpyController gridSpyController = gameSpyController.getGridSpyController();
+    gridSpyController.setGridAgentController(gridAgentController);
+    gridAgentController.setGridSpyController(gridSpyController);
+    gridAgentController.setClueAgentController(clueAgentController);
+  }
 }
-

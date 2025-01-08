@@ -1,6 +1,5 @@
 package codename.controller;
 
-import codename.model.Clue;
 import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,11 +33,11 @@ public class ClueAgentController {
     this.clueSpyController = clueSpyController;
   }
 
-  public Label getClueLabel() {
-    return this.clueLabel;
+  public String getClueLabel() {
+    return this.clueLabel.getText();
   }
 
-  public void getClue(Clue clue) {
+  public void getClue() {
     String text = game.getClue().getText();
     Integer number = game.getClue().getNumber();
 

@@ -64,8 +64,10 @@ public class App extends Application {
 
       // Récupérer les GameController des deux scènes
 
-      Manager controllerManager = new Manager(spiesLoader.getController(), agentsLoader.getController());
+      Manager controllerManager =
+          new Manager(spiesLoader.getController(), agentsLoader.getController());
       controllerManager.setUpClueController();
+      controllerManager.setUpGridController();
 
       agentsStage.show();
       spiesStage.show();
