@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 public class InfoController implements Observer {
   private Game game;
   @FXML VBox info;
+  @FXML Label currentTeam;
   @FXML Label redScore;
   @FXML Label blueScore;
 
@@ -30,8 +31,17 @@ public class InfoController implements Observer {
     }
   }
 
+  public void updateCurrentTeam() {
+    if (game.whosTurn().getColor().equals("Red")) {
+      currentTeam.setText("Rouge");
+    } else {
+      currentTeam.setText("Bleu");
+    }
+  }
+
   @Override
   public void update() {
     updateScores(redScore, blueScore);
+    updateCurrentTeam();
   }
 }

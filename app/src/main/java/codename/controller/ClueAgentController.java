@@ -19,14 +19,25 @@ public class ClueAgentController {
     this.game = Game.getInstance();
     // Initialiser le label
     clueLabel.setText("En attente...");
+    endTurnButton.setDisable(true);
 
     endTurnButton.setOnAction(
         event -> {
           clueLabel.setText("En attente..."); // Réinitialiser le label
           if (clueSpyController != null) {
-            clueSpyController.reset(); // Informer ClueSpyController
+            clueSpyController.reset();
+            this.game.notify_observator();
+            this.switchButton();
           }
         });
+  }
+
+  public void switchButton() {
+    if (this.endTurnButton.isDisable()) {
+      this.endTurnButton.setDisable(false);
+    } else {
+      this.endTurnButton.setDisable(true);
+    }
   }
 
   public void setClueSpyController(ClueSpyController clueSpyController) {

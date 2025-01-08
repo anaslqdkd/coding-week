@@ -84,6 +84,7 @@ public class ClueSpyController {
           textField.clear();
           textField.setDisable(true);
           labelIndice.setText("Indice : " + text + " - " + number);
+          clueAgentController.switchButton();
         }
         this.game.proposeClue(new Clue(text, number));
         clueAgentController.getClue();
@@ -98,7 +99,7 @@ public class ClueSpyController {
     textField.clear();
     choiceBox.setValue(null);
     labelIndice.setText("Indice :");
-    this.game.removeClue();
+    this.game.switchTurn();
     gridAgentController.resetClickCount();
   }
 }
