@@ -36,11 +36,13 @@ public class ClueAgentController implements Observer {
           clueLabel.setText("En attente..."); // Réinitialiser le label
           if (clueSpyController != null) {
             clueSpyController.reset();
+            this.game.switchTurn();
             this.game.notify_observator();
             this.switchButton();
           }
         });
   }
+
 
   public void switchButton() {
     if (this.endTurnButton.isDisable()) {
@@ -51,10 +53,10 @@ public class ClueAgentController implements Observer {
   }
 
   public void switchTeam() {
-    System.out.println(lastTeam.getColor());
-    System.out.println(game.whosTurn().getColor());
     if (this.lastTeam != game.whosTurn()) {
+      System.out.println("Switching team");
       switchButton();
+      this.lastTeam = game.whosTurn();
       this.clueSpyController.reset();
     }
   }
@@ -69,18 +71,31 @@ public class ClueAgentController implements Observer {
   }
 
   public void getClue() {
-    String text = game.getClue().getText();
-    Integer number = game.getClue().getNumber();
+    if (game.getClue() != null) {
+      String text = game.getClue().getText();
+      Integer number = game.getClue().getNumber();
 
-    if (text != null && !text.isEmpty() && number != null) {
-      clueLabel.setText(text + " - " + number);
+      if (text != null && number != null) {
+        clueLabel.setText(text + " - " + number);
+      } else {
+        clueLabel.setText("En attente...");
+      }
     } else {
       clueLabel.setText("En attente...");
+    }
+  }
+
+  public void disableWin() {
+    if (game.isGameOver()) {
+      System.out.println("Partie terminée ClueSpyController");
+      endTurnButton.setDisable(true);
     }
   }
 
   @Override
   public void update() {
     switchTeam();
+    getClue();
+    disableWin();
   }
 }

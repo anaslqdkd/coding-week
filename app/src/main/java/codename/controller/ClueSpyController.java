@@ -1,5 +1,8 @@
 package codename.controller;
 
+import java.awt.Checkbox;
+
+import codename.Observer;
 import codename.model.Clue;
 import codename.model.Game;
 import javafx.fxml.FXML;
@@ -8,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class ClueSpyController {
+public class ClueSpyController implements Observer {
 
   private ClueAgentController clueAgentController;
   private Game game;
@@ -23,15 +26,12 @@ public class ClueSpyController {
   @FXML
   public void initialize() {
     this.game = Game.getInstance();
+    this.game.add_observer(this);
     // Interdire les espaces dans le TextField
-    textField
-        .textProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              if (newValue.contains(" ")) {
-                textField.setText(newValue.replaceAll(" ", ""));
-              }
-            });
+    textField.textProperty().addListener((observable, oldValue, newValue) -> {
+      textField.setText(newValue.replaceAll("[^a-zA-Z\\-]", ""));
+    });
+    
 
     // Transformer en majuscules automatiquement
     textField
@@ -94,12 +94,26 @@ public class ClueSpyController {
     }
   }
 
+
+  public void disableWin() {
+    if ( this.game.isGameOver() ) {
+      System.out.println("Partie terminée ClueSpyController");
+      textField.setDisable(true);
+      choiceBox.setDisable(true);
+    }
+  }
+
+
   public void reset() {
     textField.setDisable(false);
     textField.clear();
     choiceBox.setValue(null);
     labelIndice.setText("Indice :");
-    this.game.switchTurn();
     gridAgentController.resetClickCount();
+  }
+
+  @Override
+  public void update() {
+    this.disableWin();
   }
 }

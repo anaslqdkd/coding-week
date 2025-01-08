@@ -56,6 +56,17 @@ public class Board {
     cards[row][col].reveal();
   }
 
+  public boolean isAssassinRevealed() {
+    for (Card[] row : cards) {
+      for (Card card : row) {
+        if (card.getColor().equals("Assassin") && card.isRevealed()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

@@ -131,6 +131,12 @@ public class GridAgentController implements Observer {
           }
           int score = game.getBlueTeam().getScore();
           game.getBlueTeam().setScore(score - 1);
+        } else if (color.equals("Neutral")) {
+          System.out.println("Carte neutre");
+          game.switchTurn();
+        } else if (color.equals("Assassin")) {
+          System.out.println("Assassin");
+          game.switchTurn();
         }
 
         clickedCard.reveal();
@@ -144,7 +150,6 @@ public class GridAgentController implements Observer {
     } else {
       System.out.println("nb max de clicks(" + maxClicks + ").");
     }
-
     game.notify_observator();
   }
 
@@ -155,5 +160,6 @@ public class GridAgentController implements Observer {
   @Override
   public void update() {
     generate_grid_agent(gridAgent);
+    this.game.checkWinCondition();
   }
 }

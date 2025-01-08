@@ -20,6 +20,11 @@
                 <Label alignment="CENTER" prefHeight="40.0" prefWidth="376.0" text="Rouge" fx:id="currentTeam"/>
             </children>
         </StackPane>
+        <StackPane prefHeight="24.0" prefWidth="163.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="40.0" prefWidth="376.0" text="win" fx:id="win"/>
+            </children>
+        </StackPane>
         <VBox alignment="BOTTOM_CENTER" prefHeight="160.0" prefWidth="340.0" />
         <StackPane alignment="BOTTOM_CENTER" prefHeight="42.0" prefWidth="182.0">
             <children>
