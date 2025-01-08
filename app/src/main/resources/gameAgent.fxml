@@ -4,7 +4,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GameController">
    <center>
-      <fx:include source="gridAgent.fxml" />
+      <fx:include source="gridAgent.fxml" fx:id="gridAgent" />
    </center>
    <left>
       <fx:include source="infoAgent.fxml" />
