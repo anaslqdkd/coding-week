@@ -2,6 +2,8 @@ package codename;
 
 import codename.controller.*;
 import codename.model.Game;
+import codename.model.WordList;
+
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
@@ -16,33 +18,7 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
-      List<String> words =
-          Arrays.asList(
-              "Anchor",
-              "Beacon",
-              "Castle",
-              "Desert",
-              "Eclipse",
-              "Falcon",
-              "Glacier",
-              "Harbor",
-              "Ivory",
-              "Jaguar",
-              "Kingdom",
-              "Lantern",
-              "Mirage",
-              "Nebula",
-              "Oasis",
-              "Prism",
-              "Quasar",
-              "Raven",
-              "Summit",
-              "Twilight",
-              "Umbra",
-              "Vortex",
-              "Warden",
-              "Xenon",
-              "Zephyr");
+      List<String> words = WordList.getWordList(25, "database.txt");
       // Game game = new Game(words);
       this.game = Game.getInstance(words);
 

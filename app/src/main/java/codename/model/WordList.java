@@ -30,9 +30,8 @@ public class WordList {
   }
 
   public static List<String> getWordList(int nb, String FILE_NAME) throws IOException {
-    InputStream inputStream =
-        GridSpyController.class.getClassLoader().getResourceAsStream(FILE_NAME);
-
+    InputStream inputStream = WordList.class.getClassLoader().getResourceAsStream(FILE_NAME);
+  
     if (inputStream == null) {
       System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
       return Collections.emptyList();
@@ -42,11 +41,6 @@ public class WordList {
       List<String> words = reader.lines().collect(Collectors.toList());
       Collections.shuffle(words, new Random());
       List<String> selectedWords = words.stream().distinct().limit(nb).collect(Collectors.toList());
-
-      for (String word : selectedWords) {
-        System.out.println(word + "\n");
-      }
-      System.out.println("Liste de " + selectedWords.size() + " mots générée avec succès !");
 
       return selectedWords;
     }
