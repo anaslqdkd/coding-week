@@ -12,6 +12,7 @@ public class ClueSpyController {
 
   private ClueAgentController clueAgentController;
   private Game game;
+  private GridAgentController gridAgentController;
 
   @FXML private TextField textField;
 
@@ -54,6 +55,10 @@ public class ClueSpyController {
     this.clueAgentController = controller;
   }
 
+  public void setGridAgentController(GridAgentController gridAgentController) {
+    this.gridAgentController = gridAgentController;
+  }
+
   private void updateLabel() {
     String text = textField.getText();
     Integer number = choiceBox.getValue();
@@ -93,6 +98,7 @@ public class ClueSpyController {
     textField.clear();
     choiceBox.setValue(null);
     labelIndice.setText("Indice :");
-    game.removeClue();
+    this.game.removeClue();
+    gridAgentController.resetClickCount();
   }
 }

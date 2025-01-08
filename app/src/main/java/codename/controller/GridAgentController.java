@@ -137,6 +137,10 @@ public class GridAgentController implements Observer {
     game.notify_observator();
   }
 
+  public void resetClickCount() {
+    this.clickCount = 0;
+  }
+
   @Override
   public void update() {
     generate_grid_agent(gridAgent);

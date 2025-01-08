@@ -18,8 +18,10 @@ public class Manager {
   public void setUpClueController() {
     ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
     ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
+    GridAgentController gridAgentController = gameAgentController.getGridAgentController();
 
     clueSpyController.setClueAgentController(clueAgentController);
+    clueSpyController.setGridAgentController(gridAgentController);
     clueAgentController.setClueSpyController(clueSpyController);
   }
 
