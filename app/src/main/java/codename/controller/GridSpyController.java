@@ -12,7 +12,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class SpyGridController implements Observer {
+public class GridSpyController implements Observer {
+  private GridAgentController gridAgentController;
 
   private static final String FILE_NAME = "database.txt";
   @FXML GridPane gridSpy;
@@ -48,7 +49,7 @@ public class SpyGridController implements Observer {
 
   @FXML
   private void initialize() {
-    System.out.println("SpyGridController initialized");
+    System.out.println("GridSpyController initialized");
     this.game = Game.getInstance();
     game.add_observer(this);
     System.out.println(game);
@@ -57,6 +58,10 @@ public class SpyGridController implements Observer {
 
   public void setGame(Game game) {
     this.game = game;
+  }
+
+  public void setGridAgentController(GridAgentController gridAgentController) {
+    this.gridAgentController = gridAgentController;
   }
 
   public void generate_grid_spy(GridPane gridpane) {

@@ -6,9 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-// TODO: à supprimer info et infoSpy qui ne servent plus à rien
-// TODO: pas clickable pour l'autre équipe si pas d'indice
-
 public class InfoController implements Observer {
   private Game game;
   @FXML VBox info;

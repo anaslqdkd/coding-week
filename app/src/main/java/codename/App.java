@@ -67,6 +67,7 @@ public class App extends Application {
       Manager controllerManager =
           new Manager(spiesLoader.getController(), agentsLoader.getController());
       controllerManager.setUpClueController();
+      controllerManager.setUpGridController();
 
       agentsStage.show();
       spiesStage.show();

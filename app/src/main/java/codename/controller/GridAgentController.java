@@ -12,10 +12,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class AgentGridController implements Observer {
+public class GridAgentController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
+  private ClueAgentController clueAgentController;
+  private GridSpyController gridSpyController;
   @FXML GridPane gridAgent;
+  private String clue;
   private Game game;
   List<String> words =
       Arrays.asList(
@@ -52,6 +55,14 @@ public class AgentGridController implements Observer {
     game.add_observer(this);
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
+  }
+
+  public void setClueAgentController(ClueAgentController clueAgentController) {
+    this.clueAgentController = clueAgentController;
+  }
+
+  public void setGridSpyController(GridSpyController gridSpyController) {
+    this.gridSpyController = gridSpyController;
   }
 
   public void setGame(Game game) {
@@ -113,6 +124,13 @@ public class AgentGridController implements Observer {
   }
 
   public void handleCardClick(int row, int col) {
+    String label = clueAgentController.getClueLabel();
+    System.out.println(label);
+
+    if (label.equals("En attente...")) {
+      System.out.println("Card click ignored: Label is 'En attente...'");
+      return;
+    }
     Card[][] cards = game.getBoard().getCards();
     Card clickedCard = cards[row][col];
     if (!clickedCard.isRevealed()) {
@@ -130,6 +148,7 @@ public class AgentGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
+
     game.notify_observator();
   }
 
