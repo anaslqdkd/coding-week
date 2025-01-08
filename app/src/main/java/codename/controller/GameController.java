@@ -3,9 +3,7 @@ package codename.controller;
 import codename.Observer;
 import codename.model.Game;
 import codename.model.WordList;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,10 +43,9 @@ public class GameController implements Observer {
   private void initialize() {
     try {
       System.out.println("GameController initialized");
-      List<String> words = WordList.getWordList(25,"database.txt");
-    
+      List<String> words = WordList.getWordList(25, "database.txt");
+
       // Initialize the singleton game instance
-    
 
       Game game = Game.getInstance(words);
       game.add_observer(this);
@@ -56,6 +53,10 @@ public class GameController implements Observer {
       FXMLLoader gridAgentLoader = new FXMLLoader(getClass().getResource("/gridAgent.fxml"));
       GridPane gridPaneAgent = gridAgentLoader.load();
       agentGridController = gridAgentLoader.getController();
+      System.err.println(clueAgentController);
+      // NOTE: clueAgentController is null here
+      // J'ai besoin de faire ça dans le manager quelque part
+      agentGridController.setClueAgentController(clueAgentController);
 
       FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
       GridPane gridPaneSpy = gridSpyLoader.load();

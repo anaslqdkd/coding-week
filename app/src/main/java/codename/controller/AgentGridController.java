@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 public class AgentGridController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
+  private ClueAgentController clueAgentController;
   @FXML GridPane gridAgent;
   private Game game;
   List<String> words =
@@ -52,6 +53,11 @@ public class AgentGridController implements Observer {
     game.add_observer(this);
     System.out.println("AgentGridController initialized");
     generate_grid_agent(gridAgent);
+  }
+
+  public void setClueAgentController(ClueAgentController clueAgentController) {
+    System.out.println("333333333333");
+    this.clueAgentController = clueAgentController;
   }
 
   public void setGame(Game game) {
@@ -130,6 +136,9 @@ public class AgentGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
+    // Label clueLabel = clueAgentController.getClueLabel();
+    // System.out.println("$$$$$$$$$$$$$$$$$$$");
+    // System.out.println("the clue label is" + clueLabel);
     game.notify_observator();
   }
 
