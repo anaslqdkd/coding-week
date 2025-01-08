@@ -90,6 +90,7 @@ public class GridAgentController implements Observer {
 
         stackPane.getChildren().add(0, rectangle);
         stackPane.getChildren().add(label);
+        stackPane.setStyle("-fx-cursor: hand;");
 
         gridPane.add(stackPane, col, row);
       }
@@ -101,47 +102,47 @@ public class GridAgentController implements Observer {
     if (clue == null) {
       System.out.println("Pas de clue");
       return;
-    }
-
-    int maxClicks = clue.getNumber() + 1;
-
-    if (this.clickCount < maxClicks) {
-      String label = clue.getText();
-      System.out.println("Label: " + label);
-      System.out.println("Max Clicks: " + maxClicks);
-
-      Card[][] cards = game.getBoard().getCards();
-      Card clickedCard = cards[row][col];
-      Team currentTeam = game.whosTurn();
-      String colorTeam = currentTeam.getColor();
-
-      if (!clickedCard.isRevealed()) {
-        String color = clickedCard.getColor();
-
-        if (color.equals("Red")) {
-          if (colorTeam == "Blue") {
-            game.switchTurn();
-          }
-          int score = game.getRedTeam().getScore();
-          game.getRedTeam().setScore(score - 1);
-        }
-        if (color.equals("Blue")) {
-          if (colorTeam == "Red") {
-            game.switchTurn();
-          }
-          int score = game.getBlueTeam().getScore();
-          game.getBlueTeam().setScore(score - 1);
-        }
-
-        clickedCard.reveal();
-        System.out.println("carde revelée" + clickedCard.getWord());
-        this.clickCount++;
-
-      } else {
-        System.out.println("carte déjà revelée: " + clickedCard.getWord());
-      }
     } else {
-      System.out.println("nb max de clicks(" + maxClicks + ").");
+      int maxClicks = clue.getNumber() + 1;
+
+      if (this.clickCount < maxClicks) {
+        String label = clue.getText();
+        System.out.println("Label: " + label);
+        System.out.println("Max Clicks: " + maxClicks);
+
+        Card[][] cards = game.getBoard().getCards();
+        Card clickedCard = cards[row][col];
+        Team currentTeam = game.whosTurn();
+        String colorTeam = currentTeam.getColor();
+
+        if (!clickedCard.isRevealed()) {
+          String color = clickedCard.getColor();
+
+          if (color.equals("Red")) {
+            if (colorTeam == "Blue") {
+              game.switchTurn();
+            }
+            int score = game.getRedTeam().getScore();
+            game.getRedTeam().setScore(score - 1);
+          }
+          if (color.equals("Blue")) {
+            if (colorTeam == "Red") {
+              game.switchTurn();
+            }
+            int score = game.getBlueTeam().getScore();
+            game.getBlueTeam().setScore(score - 1);
+          }
+
+          clickedCard.reveal();
+          System.out.println("carde revelée" + clickedCard.getWord());
+          this.clickCount++;
+
+        } else {
+          System.out.println("carte déjà revelée: " + clickedCard.getWord());
+        }
+      } else {
+        System.out.println("nb max de clicks(" + maxClicks + ").");
+      }
     }
 
     game.notify_observator();
