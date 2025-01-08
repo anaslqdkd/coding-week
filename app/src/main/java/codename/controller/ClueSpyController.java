@@ -93,5 +93,6 @@ public class ClueSpyController {
     textField.clear();
     choiceBox.setValue(null);
     labelIndice.setText("Indice :");
+    game.removeClue();
   }
 }

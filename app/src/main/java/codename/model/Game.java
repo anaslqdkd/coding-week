@@ -92,6 +92,10 @@ public class Game {
     return this.currentClue;
   }
 
+  public void removeClue() {
+    this.currentClue = null;
+  }
+
   public void revealCard(int row, int col) {
     Card card = board.getCards()[row][col]; // Access the card in the 2D array by row and col
     if (card.isRevealed()) {
