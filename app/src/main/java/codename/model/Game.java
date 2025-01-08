@@ -1,12 +1,14 @@
 package codename.model;
 
-import codename.Observer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import codename.Observer;
+
 public class Game {
   private static Game instance;
+  private Parameters parameters;
   private final Board board;
   private final Team redTeam;
   private final Team blueTeam;
@@ -18,6 +20,7 @@ public class Game {
 
   public Game(List<String> words) {
     this.observers = new ArrayList<>();
+    this.parameters = new Parameters();
     this.board = new Board(words);
     this.redTeam = new Team("Red");
     this.blueTeam = new Team("Blue");
@@ -29,6 +32,10 @@ public class Game {
 
   public void add_observer(Observer observer) {
     observers.add(observer);
+  }
+
+  public Parameters getParameters() {
+    return parameters;
   }
 
   public void notify_observator() {
@@ -58,6 +65,10 @@ public class Game {
 
   public Team getRedTeam() {
     return redTeam;
+  }
+
+  public Team getBlueTeam() {
+    return blueTeam;
   }
 
   public int getMaxClicks() {

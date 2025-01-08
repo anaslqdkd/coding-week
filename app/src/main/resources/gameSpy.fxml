@@ -6,7 +6,7 @@
       <fx:include source="gridSpy.fxml" fx:id="gridSpy"/>
    </center>
    <left>
-      <fx:include source="infoSpy.fxml" />
+      <fx:include source="infoAgent.fxml" />
    </left>
    <top>
       <fx:include source="headerSpy.fxml" />

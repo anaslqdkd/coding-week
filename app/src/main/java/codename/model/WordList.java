@@ -1,5 +1,6 @@
 package codename.model;
 
+import codename.controller.GridSpyController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ public class WordList {
   }
 
   public static List<String> getDefaultList(int nb) throws IOException {
-  return getWordList(nb, "database.txt");
+    return getWordList(nb, "database.txt");
   }
 
   public static List<String> getWordList(int nb, String FILE_NAME) throws IOException {
@@ -34,17 +35,14 @@ public class WordList {
     if (inputStream == null) {
       System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
       return Collections.emptyList();
-     }
-  
+    }
+
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
       List<String> words = reader.lines().collect(Collectors.toList());
       Collections.shuffle(words, new Random());
       List<String> selectedWords = words.stream().distinct().limit(nb).collect(Collectors.toList());
 
-      for (String word : selectedWords) {
-        System.out.println(word + "\n");
-      }    
       return selectedWords;
-   }
+    }
   }
 }

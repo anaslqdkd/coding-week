@@ -2,11 +2,8 @@ package codename;
 
 import codename.controller.*;
 import codename.model.Game;
-
 import java.util.Arrays;
 import java.util.List;
-
-import codename.model.WordList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,8 +38,10 @@ public class App extends Application {
 
       // Récupérer les GameController des deux scènes
 
-      Manager controllerManager = new Manager(spiesLoader.getController(), agentsLoader.getController());
+      Manager controllerManager =
+          new Manager(spiesLoader.getController(), agentsLoader.getController());
       controllerManager.setUpClueController();
+      controllerManager.setUpGridController();
 
       agentsStage.show();
       spiesStage.show();
