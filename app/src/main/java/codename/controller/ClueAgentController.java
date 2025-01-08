@@ -35,7 +35,7 @@ public class ClueAgentController {
   }
 
   public Label getClueLabel() {
-    return clueLabel;
+    return this.clueLabel;
   }
 
   public void getClue(Clue clue) {

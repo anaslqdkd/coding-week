@@ -53,10 +53,6 @@ public class GameController implements Observer {
       FXMLLoader gridAgentLoader = new FXMLLoader(getClass().getResource("/gridAgent.fxml"));
       GridPane gridPaneAgent = gridAgentLoader.load();
       agentGridController = gridAgentLoader.getController();
-      System.err.println(clueAgentController);
-      // NOTE: clueAgentController is null here
-      // J'ai besoin de faire ça dans le manager quelque part
-      agentGridController.setClueAgentController(clueAgentController);
 
       FXMLLoader gridSpyLoader = new FXMLLoader(getClass().getResource("/gridSpy.fxml"));
       GridPane gridPaneSpy = gridSpyLoader.load();

@@ -136,9 +136,9 @@ public class AgentGridController implements Observer {
     } else {
       System.out.println("Card already revealed: " + clickedCard.getWord());
     }
-    // Label clueLabel = clueAgentController.getClueLabel();
-    // System.out.println("$$$$$$$$$$$$$$$$$$$");
-    // System.out.println("the clue label is" + clueLabel);
+    Label clueLabel = clueAgentController.getClueLabel();
+    System.out.println("$$$$$$$$$$$$$$$$$$$");
+    System.out.println("the clue label is" + clueLabel);
     game.notify_observator();
   }
 
