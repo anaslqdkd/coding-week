@@ -1,6 +1,7 @@
 package codename.model;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,6 +42,24 @@ public class WordList {
       Collections.shuffle(words, new Random());
       List<String> selectedWords = words.stream().distinct().limit(nb).collect(Collectors.toList());
 
+      return selectedWords;
+    }
+  }
+
+  public static List<String> getWordListGlobal(int nb, String FILE_NAME) throws IOException {
+    // InputStream inputStream = WordList.class.getClassLoader().getResourceAsStream(FILE_NAME);
+
+    // if (inputStream == null) {
+    //  System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
+    //  return Collections.emptyList();
+    // }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+      List<String> words = reader.lines().collect(Collectors.toList());
+      Collections.shuffle(words, new Random());
+      List<String> selectedWords = words.stream().distinct().limit(nb).collect(Collectors.toList());
+
+      // System.out.println(selectedWords);
       return selectedWords;
     }
   }

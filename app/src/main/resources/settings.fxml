@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.ChoiceBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
             prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" fx:controller="codename.controller.SettingsController">
@@ -38,7 +40,10 @@
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <HBox spacing="20" alignment="CENTER">
                 <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" />
-                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
+                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" onAction="#goBackToMenu"/>
+                        <ChoiceBox prefWidth="150.0" fx:id="databaseOptions" />
+                <Button fx:id="loadDatabaseButton" text="Ouvrir" prefWidth="150" style="-fx-font-size: 16px;" />
+                <Button fx:id="writeDatabase" text="write" prefWidth="150" style="-fx-font-size: 16px;" />
             </HBox>
         </VBox>
     </bottom>

@@ -12,13 +12,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    private Game game; 
+  private Stage primaryStage;
+
+  private Game game;
 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        List<String> words = WordList.getWordList(25, "database.txt");
-        this.game = Game.getInstance(words);; // Create a new game
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+
+    List<String> words = WordList.getWordList(25, "database.txt");
+    this.game = Game.getInstance(words);
+
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
