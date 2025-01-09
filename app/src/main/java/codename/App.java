@@ -14,11 +14,10 @@ import javafx.stage.Stage;
 public class App extends Application {
     private Game game; 
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         List<String> words = WordList.getWordList(25, "database.txt");
-        this.game = Game.getInstance(words);; // Create a new game
+        this.game = Game.getInstance(words); // Create a new game
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
