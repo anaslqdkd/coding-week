@@ -12,6 +12,7 @@ package codename.controller;
 import codename.App;
 import codename.Observer;
 import codename.model.Game;
+import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SettingsController implements Observer {
@@ -33,6 +35,8 @@ public class SettingsController implements Observer {
   @FXML private Slider gridColumnsSlider;
 
   @FXML private CheckBox darkModeCheckbox;
+
+  @FXML private Button loadDatabaseButton;
 
   @FXML private App app;
 
@@ -51,6 +55,38 @@ public class SettingsController implements Observer {
       e.printStackTrace();
     }
   }
+
+  @FXML
+  private void loadDatabase() {
+    // Create a FileChooser
+    FileChooser fileChooser = new FileChooser();
+
+    // Set title for the FileChooser dialog
+    fileChooser.setTitle("Select Database File");
+
+    // Set the initial directory (optional)
+    fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+    // Add file extension filters (e.g., only show .db or .sqlite files)
+    fileChooser
+        .getExtensionFilters()
+        .addAll(
+            new FileChooser.ExtensionFilter("Database Files", "*.txt"),
+            new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+    // Show the FileChooser dialog
+    File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+    // Check if a file was selected
+    if (selectedFile != null) {
+      System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+      // Add your logic here to load the selected database file
+    } else {
+      System.out.println("File selection canceled.");
+    }
+  }
+
+  // TODO: à créer fonctionnalité ouvrir une bd
 
   // @FXML
   // public void saveSettings() {
