@@ -12,11 +12,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-  // private Stage primaryStage;
-
-  private Game game;
-
-
+    private Game game; 
+    
   @Override
   public void start(Stage primaryStage) throws Exception {
 
