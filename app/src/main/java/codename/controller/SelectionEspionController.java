@@ -1,126 +1,152 @@
 package codename.controller;
 
+import codename.Manager;
+import codename.Observer;
 import codename.model.Game;
 import codename.model.Player;
+import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+public class SelectionEspionController implements Observer {
 
-public class SelectionEspionController {
+  @FXML private VBox redTeam;
 
-    private Game game;
+  @FXML private VBox blueTeam;
 
-    @FXML
-    private Button settingsButton;
+  @FXML private Button confirmButton;
 
-    @FXML
-    private Button randomButton;
+  @FXML private Button settingsButton;
 
-    @FXML
-    private Button confirmButton;
+  private Game game;
 
-    @FXML
-    private VBox playerList;
+  private void updateTeams() {
+    redTeam.getChildren().clear();
+    blueTeam.getChildren().clear();
 
-
-    private void setgame(Game game) {
-        this.game = game;
+    for (Player player : game.getRedTeam().getPlayers()) {
+      addPlayerToTeam(player, redTeam, game.getRedTeam().getPlayers());
     }
 
-    /**
-     * Initialise le contrôleur après le chargement du fichier FXML.
-     */
-    @FXML
-    private void initialize() {
-        // Configuration des actions des boutons
-        settingsButton.setOnAction(event -> openSettings());
-        randomButton.setOnAction(event -> randomizeSelection());
-        confirmButton.setOnAction(event -> {
-            try {
-                // Charger le fichier FXML
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
-                Parent root = loader.load();
+    for (Player player : game.getBlueTeam().getPlayers()) {
+      addPlayerToTeam(player, blueTeam, game.getBlueTeam().getPlayers());
+    }
+  }
 
-                // Configurer le contrôleur
-                GameController controller = loader.getController();
-                controller.setGame(this.game);
+  private void addPlayerToTeam(Player player, VBox teamBox, List<Player> teamPlayers) {
+    Label playerLabel = new Label(player.getName());
+    playerLabel.setStyle("-fx-font-size: 18px;");
+    if (player.isSpymaster()) {
+      playerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+    }
 
-                // Configurer la nouvelle scène et l'afficher
-                Stage currentStage = (Stage) confirmButton.getScene().getWindow();
-                Scene newScene = new Scene(root);
-                currentStage.setScene(newScene);
-                currentStage.show();
-
-            } catch (IOException e) {
-                System.err.println("Erreur lors du chargement de la vue 'selection_equipe.fxml'.");
-                e.printStackTrace();
-                // Optionnel : afficher une alerte à l'utilisateur
-            }
+    Button spymasterButton = new Button("Sélectionner Espion");
+    spymasterButton.setOnAction(
+        event -> {
+          for (Player p : teamPlayers) {
+            p.setSpymaster(false);
+          }
+          player.setSpymaster(true);
+          updateTeams();
         });
-    }
 
-    /**
-     * Associe l'objet `Game` à ce contrôleur.
-     *
-     * @param game L'instance du jeu à utiliser.
-     */
-    public void setGame(Game game) {
-        this.game = game;
-        updatePlayerList();
-    }
+    HBox playerBox = new HBox(10, playerLabel, spymasterButton);
+    playerBox.setAlignment(javafx.geometry.Pos.CENTER);
+    teamBox.getChildren().add(playerBox);
+  }
 
-    /**
-     * Met à jour la liste des joueurs affichée dans l'interface.
-     */
-    private void updatePlayerList() {
-        playerList.getChildren().clear(); // Nettoie la liste des joueurs
+  @FXML
+  private void initialize() {
+    System.out.println("initialize SelectionEspionController");
+    this.game = Game.getInstance();
+    updateTeams();
+    game.add_observer(this);
+    settingsButton.setOnAction(
+        event -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/settings.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) settingsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
 
-        if (game != null) {
-            game.getRedTeam().getPlayers().forEach(player -> addPlayerToView(player, "Rouge"));
-            game.getBlueTeam().getPlayers().forEach(player -> addPlayerToView(player, "Bleu"));
-        }
-    }
+    confirmButton.setOnAction(
+        event -> {
+          boolean redTeamHasSpymaster = false;
+          boolean blueTeamHasSpymaster = false;
+          Player redSpymaster = null;
+          Player blueSpymaster = null;
 
-    /**
-     * Ajoute un joueur à la liste de l'interface utilisateur.
-     *
-     * @param player Le joueur à ajouter.
-     * @param team   L'équipe du joueur ("Rouge" ou "Bleu").
-     */
-    private void addPlayerToView(Player player, String team) {
-        Label playerLabel = new Label(player.getName() + " (" + team + ")");
-        playerLabel.setStyle("-fx-font-size: 16px; -fx-padding: 5px;");
-        playerList.getChildren().add(playerLabel);
-    }
+          for (Player player : game.getRedTeam().getPlayers()) {
+            if (player.isSpymaster()) {
+              redTeamHasSpymaster = true;
+              redSpymaster = player;
+              break;
+            }
+          }
 
-    /**
-     * Action pour le bouton "Paramètres".
-     */
-    private void openSettings() {
-        System.out.println("Ouverture des paramètres...");
-        // Logique pour ouvrir les paramètres
-    }
+          for (Player player : game.getBlueTeam().getPlayers()) {
+            if (player.isSpymaster()) {
+              blueTeamHasSpymaster = true;
+              blueSpymaster = player;
+              break;
+            }
+          }
 
-    /**
-     * Action pour le bouton "Aléatoire".
-     */
-    private void randomizeSelection() {
-        System.out.println("Sélection aléatoire...");
-        // Logique pour choisir des éléments aléatoires
-    }
+          if (redTeamHasSpymaster && blueTeamHasSpymaster) {
+            // Afficher les espions dans le terminal
+            System.out.println("Espion de l'équipe rouge : " + redSpymaster.getName());
+            System.out.println("Espion de l'équipe bleue : " + blueSpymaster.getName());
 
-    /**
-     * Action pour le bouton "Confirmer".
-     */
-    private void confirmSelection() {
-        System.out.println("Sélection confirmée...");
-        // Logique pour confirmer la sélection et passer à l'étape suivante
-    }
+            // Charger et lancer le jeu
+            try {
+              // Charger la fenêtre des agents (gameAgent.fxml)
+              FXMLLoader agentsLoader = new FXMLLoader(getClass().getResource("/gameAgent.fxml"));
+              Parent agentsRoot = agentsLoader.load();
+              Scene agentsScene = new Scene(agentsRoot);
+              Stage agentsStage = new Stage();
+              agentsStage.setTitle("CodeName - Agents");
+              agentsStage.setScene(agentsScene);
+
+              // Charger la fenêtre des espions (gameSpy.fxml)
+              FXMLLoader spiesLoader = new FXMLLoader(getClass().getResource("/gameSpy.fxml"));
+              Parent spiesRoot = spiesLoader.load();
+              Scene spiesScene = new Scene(spiesRoot);
+              Stage spiesStage = new Stage();
+              spiesStage.setTitle("CodeName - Espions");
+              spiesStage.setScene(spiesScene);
+
+              // Récupérer les GameController des deux scènes
+
+              Manager controllerManager =
+                  new Manager(spiesLoader.getController(), agentsLoader.getController());
+              controllerManager.setUpClueController();
+              controllerManager.setUpGridController();
+
+              agentsStage.show();
+              spiesStage.show();
+            } catch (Exception e) {
+              e.printStackTrace(); // Afficher tous les détails de l'erreur
+              System.exit(1);
+            }
+          } else {
+            System.out.println("Chaque équipe doit avoir un espion.");
+          }
+        });
+  }
+
+  @Override
+  public void update() {}
 }

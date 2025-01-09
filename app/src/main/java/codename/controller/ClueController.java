@@ -1,11 +1,12 @@
 package codename.controller;
 
+import codename.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ClueController {
+public class ClueController implements Observer {
 
     @FXML
     private TextField textField;
@@ -41,5 +42,9 @@ public class ClueController {
         } else {
             labelIndice.setText("Indice :");
         }
+    }
+
+    @Override
+    public void update() {
     }
 }

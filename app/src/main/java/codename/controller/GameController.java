@@ -1,37 +1,52 @@
 package codename.controller;
 
-import codename.Observer;
-import codename.model.Game;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
-
+import codename.Observer;
+import codename.model.Game;
+import codename.model.WordList;
+import java.io.IOException;
+import java.util.List;
+import javafx.fxml.FXML;
 
 public class GameController implements Observer {
-  private GridController gridController;
+  @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
 
-  private Game game;
+  @FXML private ClueSpyController clueSpyController; // Injecté automatiquement via fx:include
+  @FXML private GridAgentController gridAgentController; // Injecté automatiquement via fx:include
 
-  @FXML
-  public void setGame(Game game) {
-      this.game = game;
+  @FXML private GridSpyController gridSpyController; // Injecté automatiquement via fx:include
+
+  @FXML private InfoController infoController;
+
+  public ClueAgentController getClueAgentController() {
+    return clueAgentController;
+  }
+
+  public ClueSpyController getClueSpyController() {
+    return clueSpyController;
+  }
+
+  public GridAgentController getGridAgentController() {
+    return gridAgentController;
+  }
+
+  public GridSpyController getGridSpyController() {
+    return gridSpyController;
+  }
+
+  public InfoController getInfoController() {
+    return infoController;
   }
 
   @FXML
   private void initialize() {
-    try{
-      FXMLLoader gridLoader = new FXMLLoader(getClass().getResource("/grid.fxml"));
-              GridPane grid = gridLoader.load();
-              gridController = gridLoader.getController();
 
-    }catch (IOException e) {
-            e.printStackTrace();
-        }
   }
+   
+  
+  @Override
+  public void update() {
 
-  public void update() {}
+  }
 }

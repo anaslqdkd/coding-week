@@ -1,9 +1,10 @@
 package codename;
 
 import java.net.URL;
+import java.util.List;
 
-import codename.controller.MenuController;
 import codename.model.Game;
+import codename.model.WordList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,9 +15,11 @@ import javafx.stage.Stage;
 public class App extends Application {
     private Game game; 
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        game = new Game(); // Create a new game
+        List<String> words = WordList.getWordList(25, "database.txt");
+        this.game = Game.getInstance(words);; // Create a new game
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
         if (fxmlURL == null) {
@@ -25,9 +28,6 @@ public class App extends Application {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = loader.load();
-
-        MenuController menuController = loader.getController();
-        menuController.setGame(game);
 
         Scene scene = new Scene(root);
 
