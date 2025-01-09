@@ -47,12 +47,10 @@ BorderPane {
 
 .button:hover {
     -fx-background-color: #EBACA2; /* Rose pâle au survol */
-    -fx-transform: scale(1.05); /* Zoom léger */
 }
 
 .button:pressed {
     -fx-background-color: #CE6A6B; /* Rouge doux au clic */
-    -fx-transform: scale(0.95); /* Effet de clic */
 }
 
 /* Bouton secondaire (ex: Paramètres) */
@@ -82,7 +80,7 @@ BorderPane {
     -fx-text-fill: #212E53; /* Texte bleu nuit */
     -fx-alignment: center;
     -fx-padding: 10px;
-    -fx-border-top: 2px solid #212E53; /* Ligne de séparation nette */
+  /*  -fx-border-top: 2px solid #212E53;  Ligne de séparation nette */
 }
 
 #zoneRouge {
@@ -93,8 +91,7 @@ BorderPane {
     -fx-background-color: #EBACA2; 
     -fx-border-width: 3;
     -fx-text-fill: #212E53; 
-    -fx-font-size: 20px;
-
+    
 }
 
 #zoneBleue {
@@ -130,7 +127,6 @@ BorderPane {
 
 #randomButton:hover {
     -fx-background-color: #EBACA2; /* Rose pâle au survol */
-    -fx-transform: scale(1.05); /* Zoom léger */
 }
 
 
@@ -151,6 +147,5 @@ BorderPane {
 
 #confirmButton:hover {
     -fx-background-color: #EBACA2; /* Rose pâle au survol */
-    -fx-transform: scale(1.05); /* Zoom léger */
 }
 
