@@ -1,10 +1,9 @@
 package codename.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import codename.Observer;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
   private static Game instance;
@@ -18,6 +17,7 @@ public class Game {
   private int clicksRemaining;
   private boolean isGameOver;
   private Team winner;
+  private List<String> words;
   private ArrayList<Observer> observers = new ArrayList<>(10);
 
   public Game(List<String> words) {
@@ -29,6 +29,7 @@ public class Game {
     this.currentTurn = redTeam;
     this.currentClue = null;
     this.maxClicks = 0;
+    this.words = words;
     this.clicksRemaining = 0;
     this.isGameOver = false;
     this.winner = null;
@@ -55,6 +56,21 @@ public class Game {
     return instance;
   }
 
+  public void setGridSize(int rows, int columns) {
+    this.board.setGridSize(rows, columns);
+    // this.board.updateWords
+    int wordNumber = rows * columns;
+    try {
+      this.words = WordList.getWordList(wordNumber, "database.txt");
+      System.out.println("*************************");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    this.notify_observator();
+    this.board.regenerateBoard(rows, columns, words);
+    // this.board.update()
+  }
+
   public static Game getInstance() {
     if (instance == null) {
       throw new IllegalStateException(
@@ -63,9 +79,9 @@ public class Game {
     return instance;
   }
 
-// public void setBoard(Board board) {
-//     this.board = board;
-// }
+  // public void setBoard(Board board) {
+  //     this.board = board;
+  // }
 
   public Board getBoard() {
     return board;
@@ -75,17 +91,17 @@ public class Game {
     return redTeam;
   }
 
-    public Team getBlueTeam() {
-        return blueTeam;
-    }
+  public Team getBlueTeam() {
+    return blueTeam;
+  }
 
-    public void addPlayerToRedTeam(Player player) {
-        redTeam.addPlayer(player);
-    }
+  public void addPlayerToRedTeam(Player player) {
+    redTeam.addPlayer(player);
+  }
 
-    public void addPlayerToBlueTeam(Player player) {
-        blueTeam.addPlayer(player);
-    }
+  public void addPlayerToBlueTeam(Player player) {
+    blueTeam.addPlayer(player);
+  }
 
   public int getMaxClicks() {
     return maxClicks;
@@ -109,8 +125,7 @@ public class Game {
 
   private boolean isValidClue(String clue) {
     return clue != null && clue.matches("^[a-zA-Z\\-]+$");
-  } 
-
+  }
 
   public Clue getClue() {
     return this.currentClue;
@@ -147,7 +162,6 @@ public class Game {
     return this.winner;
   }
 
-
   public void checkWinCondition() {
     if (redTeam.getScore() == 0) {
       System.out.println("L'équipe rouge a gagné !");
@@ -158,13 +172,14 @@ public class Game {
       this.winner = blueTeam;
       this.isGameOver = true;
     } else if (this.board.isAssassinRevealed()) {
-      System.out.println("L'assassin a été révélé . L'équipe " + currentTurn.getColor() + " a gagné.");
+      System.out.println(
+          "L'assassin a été révélé . L'équipe " + currentTurn.getColor() + " a gagné.");
       this.winner = currentTurn;
       this.isGameOver = true;
     } else {
       this.isGameOver = false;
     }
-    
+
     System.out.println("Le jeu est fini : " + this.isGameOver);
   }
 }

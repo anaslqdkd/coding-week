@@ -42,8 +42,11 @@ public class GridAgentController implements Observer {
   }
 
   public void generate_grid_agent(GridPane gridPane) {
-    final int rows = 5;
-    final int columns = 5;
+    // final int rows = 5;
+    // final int columns = 5;
+    int rows = game.getBoard().getRows();
+    int columns = game.getBoard().getColumns();
+    // System.out.println("in generate grid agent rows and colums *************" + rows + columns);
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {
@@ -89,6 +92,7 @@ public class GridAgentController implements Observer {
 
         stackPane.getChildren().add(0, rectangle);
         stackPane.getChildren().add(label);
+        stackPane.setStyle("-fx-cursor: hand;");
 
         gridPane.add(stackPane, col, row);
       }

@@ -3,8 +3,6 @@ package codename.controller;
 import codename.Observer;
 import codename.model.Card;
 import codename.model.Game;
-import java.util.Arrays;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -36,8 +34,10 @@ public class GridSpyController implements Observer {
   }
 
   public void generate_grid_spy(GridPane gridpane) {
-    final int rows = 5;
-    final int columns = 5;
+    // final int rows = 5;
+    // final int columns = 5;
+    int rows = game.getBoard().getRows();
+    int columns = game.getBoard().getColumns();
     Card[][] matrix = game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {

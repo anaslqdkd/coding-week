@@ -1,6 +1,5 @@
 package codename.model;
 
-import codename.controller.GridSpyController;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +30,7 @@ public class WordList {
 
   public static List<String> getWordList(int nb, String FILE_NAME) throws IOException {
     InputStream inputStream = WordList.class.getClassLoader().getResourceAsStream(FILE_NAME);
-  
+
     if (inputStream == null) {
       System.out.println("Le fichier " + FILE_NAME + " est introuvable dans les ressources !");
       return Collections.emptyList();
