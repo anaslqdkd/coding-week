@@ -69,7 +69,7 @@ public class SelectionEquipeController implements Observer {
   private void initialize() {
     System.out.println("initialize SelectionEquipeController");
     this.game = Game.getInstance();
-    game.getParameters().setCurrentPage("/selectionEquipe.fxml");
+    game.getParameters().setCurrentPage("/selection_equipe.fxml");
     updateTeams();
     game.add_observer(this);
 

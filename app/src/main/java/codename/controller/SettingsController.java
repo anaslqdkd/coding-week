@@ -53,7 +53,7 @@ public class SettingsController implements Observer {
     saveSettingsButton.setOnAction(
         event -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
             Parent root = loader.load();
             int rows = (int) gridLinesSlider.getValue();
             int columns = (int) gridColumnsSlider.getValue();
@@ -63,6 +63,21 @@ public class SettingsController implements Observer {
             System.out.println("in settings controller" + rows + columns);
             
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            game.notify_observator();
+            stage.show();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+
+    cancelSettingsButton.setOnAction(
+        event -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) cancelSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
             stage.show();
