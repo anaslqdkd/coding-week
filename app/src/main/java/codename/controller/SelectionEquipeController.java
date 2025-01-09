@@ -35,35 +35,39 @@ public class SelectionEquipeController implements Observer {
   private Game game;
 
   private void updateTeams() {
-    leftTeam.getChildren().clear();
-    redTeam.getChildren().clear();
-    blueTeam.getChildren().clear();
-
     for (Player player : game.getParameters().getPlayers()) {
-      Label playerLabel = new Label(player.getName());
-      playerLabel.setStyle("-fx-font-size: 18px;");
+        Label playerLabel = new Label(player.getName());
+        Button redButton = new Button("Rouge");
+        redButton.setPrefWidth(100);
+        redButton.setOnAction(event -> {
+            if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
+                game.addPlayerToRedTeam(player);
+                game.notify_observator();
+            } else if (game.getBlueTeam().getPlayers().contains(player)) {
+                game.swicthPlayer(player);
+                game.notify_observator();
+            }
+            game.notify_observator();
+        });
 
-      Button redButton = new Button("Rouge");
-      redButton.setPrefWidth(100);
-      redButton.setOnAction(
-          event -> {
-            redTeam.getChildren().add(playerLabel);
-            leftTeam.getChildren().remove(playerLabel);
-          });
+        Button blueButton = new Button("Bleu");
+        blueButton.setPrefWidth(100);
+        blueButton.setOnAction(event -> {
+        if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
+            game.addPlayerToBlueTeam(player);
+            game.notify_observator();
+        } else if (game.getRedTeam().getPlayers().contains(player)) {
+            game.swicthPlayer(player);
+            game.notify_observator();
+        }
+        game.notify_observator();
+        });
 
-      Button blueButton = new Button("Bleu");
-      blueButton.setPrefWidth(100);
-      blueButton.setOnAction(
-          event -> {
-            blueTeam.getChildren().add(playerLabel);
-            leftTeam.getChildren().remove(playerLabel);
-          });
-
-      HBox playerBox = new HBox(20, blueButton, playerLabel, redButton);
-      playerBox.setAlignment(javafx.geometry.Pos.CENTER);
-      leftTeam.getChildren().add(playerBox);
+        HBox playerBox = new HBox(20, blueButton, playerLabel, redButton);
+        playerBox.setAlignment(javafx.geometry.Pos.CENTER);
+        leftTeam.getChildren().add(playerBox);
+        }
     }
-  }
 
   @FXML
   private void initialize() {
@@ -128,48 +132,93 @@ public class SelectionEquipeController implements Observer {
           }
         });
 
-    randomButton.setOnAction(
-        event -> {
-          // Effacer les équipes existantes
-          updateTeams();
-          // Mélanger la liste des joueurs
-          List<Player> shuffledPlayerList = new ArrayList<>(game.getParameters().getPlayers());
-          Collections.shuffle(shuffledPlayerList);
-
-          // Déterminer la taille de chaque équipe
-          int totalPlayers = shuffledPlayerList.size();
-          int redTeamSize =
-              totalPlayers / 2 + (totalPlayers % 2); // Si impair, équipe rouge en a un de plus
-          int blueTeamSize = totalPlayers / 2;
-
-          // Ajouter les joueurs à l'équipe rouge
-          for (int i = 0; i < redTeamSize; i++) {
-            Player player = shuffledPlayerList.get(i);
-            Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
-            moveToTeam(playerLabel, redTeam);
-          }
-
-          // Ajouter les joueurs restants à l'équipe bleue
-          for (int i = redTeamSize; i < totalPlayers; i++) {
-            Player player = shuffledPlayerList.get(i);
-            Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
-            moveToTeam(playerLabel, blueTeam);
-          }
+        randomButton.setOnAction(event -> {
+            // Effacer les équipes existantes
+            updateTeams();
+            game.clearTeams();
+            // Mélanger la liste des joueurs
+            List<Player> shuffledPlayerList = new ArrayList<>(game.getParameters().getPlayers());
+            Collections.shuffle(shuffledPlayerList);
+    
+            // Déterminer la taille de chaque équipe
+            int totalPlayers = shuffledPlayerList.size();
+            int redTeamSize = totalPlayers / 2 + (totalPlayers % 2); // Si impair, équipe rouge en a un de plus
+    
+            // Ajouter les joueurs à l'équipe rouge
+            for (int i = 0; i < redTeamSize; i++) {
+                Player player = shuffledPlayerList.get(i);
+                game.addPlayerToRedTeam(player);
+            }
+    
+            // Ajouter les joueurs restants à l'équipe bleue
+            for (int i = redTeamSize; i < totalPlayers; i++) {
+                Player player = shuffledPlayerList.get(i);
+                game.addPlayerToBlueTeam(player);
+            }
+            updateTeamLabel();
         });
   }
 
-  private void moveToTeam(Label playerLabel, VBox targetTeam) {
-    // Supprimer le joueur des autres équipes
-    leftTeam.getChildren().remove(playerLabel);
-    redTeam.getChildren().remove(playerLabel);
-    blueTeam.getChildren().remove(playerLabel);
+  public void updateTeamLabel() {
+    leftTeam.getChildren().clear();
+    redTeam.getChildren().clear();
+    blueTeam.getChildren().clear();
 
-    // Ajouter le joueur à l'équipe cible
-    targetTeam.getChildren().add(playerLabel);
-  }
+    for (Player player : game.getRedTeam().getPlayers()) {
+        Label playerLabel = new Label(player.getName());
+        playerLabel.setStyle("-fx-font-size: 18px;");
+        redTeam.getChildren().add(playerLabel);
+        leftTeam.getChildren().remove(playerLabel);
+    }
 
-  @Override
-  public void update() {}
+    for (Player player : game.getBlueTeam().getPlayers()) {
+        Label playerLabel = new Label(player.getName());
+        playerLabel.setStyle("-fx-font-size: 18px;");
+        blueTeam.getChildren().add(playerLabel);
+        leftTeam.getChildren().remove(playerLabel);
+    }
+
+    for (Player player : game.getParameters().getPlayers()) {
+        Label playerLabel = new Label(player.getName());
+        playerLabel.setStyle("-fx-font-size: 18px;");
+        leftTeam.getChildren().add(playerLabel);
+
+        Button redButton = new Button("Rouge");
+        redButton.setPrefWidth(100);
+        redButton.setOnAction(event -> {
+            if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
+                game.addPlayerToRedTeam(player);
+                game.notify_observator();
+            } else if (game.getBlueTeam().getPlayers().contains(player)) {
+                game.swicthPlayer(player);
+                game.notify_observator();
+            }
+            game.notify_observator();
+        });
+
+
+        Button blueButton = new Button("Bleu");
+        blueButton.setPrefWidth(100);
+        blueButton.setOnAction(event -> {
+        if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
+            game.addPlayerToBlueTeam(player);
+            game.notify_observator();
+        } else if (game.getRedTeam().getPlayers().contains(player)) {
+            game.swicthPlayer(player);
+            game.notify_observator();
+        }
+        game.notify_observator();
+        });
+
+        HBox playerBox = new HBox(20, blueButton, playerLabel, redButton);
+        playerBox.setAlignment(javafx.geometry.Pos.CENTER);
+        leftTeam.getChildren().add(playerBox);
+    }
 }
+
+@Override
+public void update() {
+    updateTeamLabel();
+}
+}
+

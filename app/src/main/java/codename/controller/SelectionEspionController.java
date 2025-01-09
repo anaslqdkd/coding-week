@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import codename.Manager;
 import codename.Observer;
@@ -27,6 +28,8 @@ public class SelectionEspionController implements Observer {
 
   @FXML private Button settingsButton;
 
+  @FXML private Button randomButton;
+
   private Game game;
 
   private void updateTeams() {
@@ -34,35 +37,34 @@ public class SelectionEspionController implements Observer {
     blueTeam.getChildren().clear();
 
     for (Player player : game.getRedTeam().getPlayers()) {
-      addPlayerToTeam(player, redTeam, game.getRedTeam().getPlayers());
+        addPlayerToTeam(player, redTeam, game.getRedTeam().getPlayers());
     }
 
     for (Player player : game.getBlueTeam().getPlayers()) {
-      addPlayerToTeam(player, blueTeam, game.getBlueTeam().getPlayers());
+        addPlayerToTeam(player, blueTeam, game.getBlueTeam().getPlayers());
     }
-  }
+}
 
-  private void addPlayerToTeam(Player player, VBox teamBox, List<Player> teamPlayers) {
+private void addPlayerToTeam(Player player, VBox teamBox, List<Player> teamPlayers) {
     Label playerLabel = new Label(player.getName());
     playerLabel.setStyle("-fx-font-size: 18px;");
     if (player.isSpymaster()) {
-      playerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        playerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
     }
 
     Button spymasterButton = new Button("Sélectionner Espion");
-    spymasterButton.setOnAction(
-        event -> {
-          for (Player p : teamPlayers) {
+    spymasterButton.setOnAction(event -> {
+        for (Player p : teamPlayers) {
             p.setSpymaster(false);
-          }
-          player.setSpymaster(true);
-          updateTeams();
-        });
+        }
+        player.setSpymaster(true);
+        updateTeams();
+    });
 
     HBox playerBox = new HBox(10, playerLabel, spymasterButton);
     playerBox.setAlignment(javafx.geometry.Pos.CENTER);
     teamBox.getChildren().add(playerBox);
-  }
+    }
 
   @FXML
   private void initialize() {
@@ -83,6 +85,43 @@ public class SelectionEspionController implements Observer {
           } catch (IOException e) {
             e.printStackTrace();
           }
+        });
+
+    randomButton.setOnAction(event -> {
+            updateTeams();
+            game.getRedTeam().clearSpy();
+            game.getBlueTeam().clearSpy();
+            Random random = new Random();
+            int randomRed= random.nextInt(game.getRedTeam().getPlayers().size());
+            int randomBlue= random.nextInt(game.getBlueTeam().getPlayers().size());
+
+            for (Player p : game.getRedTeam().getPlayers()) {
+                p.setSpymaster(false);
+            }
+
+            for (Player p : game.getBlueTeam().getPlayers()) {
+                p.setSpymaster(false);
+            }
+
+            for (Player player : game.getRedTeam().getPlayers()) {
+                if (randomRed == 0) {
+                    player.setSpymaster(true);
+                    System.out.println(player.getName());
+                    break;
+                }
+                randomRed--;
+            }
+
+            for (Player player : game.getBlueTeam().getPlayers()) {
+                if (randomBlue== 0) {
+                    player.setSpymaster(true);
+                    System.out.println(player.getName());
+                    break;
+                }
+                randomBlue--;
+            }
+
+            updateTeams();
         });
 
     confirmButton.setOnAction(
