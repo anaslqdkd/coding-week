@@ -94,6 +94,8 @@ public class SelectionEspionController implements Observer {
                 }
             }
 
+            
+
             if (redTeamHasSpymaster && blueTeamHasSpymaster) {
                 // Afficher les espions dans le terminal
                 System.out.println("Espion de l'équipe rouge : " + redSpymaster.getName());

@@ -98,7 +98,7 @@ public class SelectionEquipeController implements Observer {
             for (Player player : game.getBlueTeam().getPlayers()) {
                 System.out.println("Player: " + player.getName() + ", Spymaster: " + player.isSpymaster());
             }
-
+            
             // Charger et afficher selection_espion.fxml
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/selection_espion.fxml"));
