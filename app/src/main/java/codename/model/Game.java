@@ -195,4 +195,5 @@ public class Game {
 
     System.out.println("Le jeu est fini : " + this.isGameOver);
   }
+  // TODO: à changer le score par defaut
 }
