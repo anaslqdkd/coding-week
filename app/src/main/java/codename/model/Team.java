@@ -6,6 +6,7 @@ import java.util.List;
 public class Team {
   private final String color; // Rouge ou Bleu
   private final List<Player> players;
+  private int baseScore;
   private int score;
 
   public Team(String color) {
@@ -20,6 +21,10 @@ public class Team {
 
   public String getColor() {
     return color;
+  }
+
+  public void setBaseScore(int baseScore) {
+    this.baseScore = baseScore;
   }
 
   public void setScore(int score) {

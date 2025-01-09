@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import codename.model.Player;
 
-public class AgentHeaderController implements Observer {
+public class HeaderAgentController implements Observer {
     @FXML private Label labelAgentName;
     
     private Game game;

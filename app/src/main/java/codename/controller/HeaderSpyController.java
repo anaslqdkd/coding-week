@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import codename.model.Player;
 
-public class SpyHeaderController implements Observer {
+public class HeaderSpyController implements Observer {
     @FXML private Label labelSpyName;
     
     private Game game;

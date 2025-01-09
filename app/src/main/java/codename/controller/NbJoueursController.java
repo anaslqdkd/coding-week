@@ -47,6 +47,7 @@ public class NbJoueursController implements Observer{
     public void initialize() {
         System.out.println("initialize NbJoueursController");
         this.game = Game.getInstance();
+        game.getParameters().setCurrentPage("/Nb_joueurs.fxml");
         initializeParameters();
         game.add_observer(this);
 
