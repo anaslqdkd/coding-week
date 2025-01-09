@@ -27,7 +27,7 @@ public class ClueHeaderController implements Observer {
             break;
         }
         this.labelSpyName.setText("Maître-Espion : " + spyMasterName);
-        System.out.println("Espion de " + game.whosTurn() + " :" + spyMasterName);
+        System.out.println("Espion de " + game.whosTurn().getColor() + " :" + spyMasterName);
     } 
 
 

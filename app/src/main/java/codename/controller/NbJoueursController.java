@@ -58,12 +58,19 @@ public class NbJoueursController implements Observer{
 
         removePlayerButton.setOnAction(event -> {
             if (parameters.getNumberOfPlayers() > 2) {
+                // Réduire le nombre de joueurs dans les paramètres
                 parameters.setNumberOfPlayers(parameters.getNumberOfPlayers() - 1);
-                updateDynamicPlayers();
+        
+                // Supprimer directement le dernier champ de la VBox
+                int lastIndex = dynamicPlayers.getChildren().size() - 1;
+                if (lastIndex >= 0) {
+                    dynamicPlayers.getChildren().remove(lastIndex);
+                }
             } else {
                 System.out.println("Nombre de joueurs min atteint");
             }
         });
+        
 
         confirmButton.setOnAction(event -> {
             boolean allFieldsFilled = true;
@@ -105,18 +112,38 @@ public class NbJoueursController implements Observer{
     }
 
     private void updateDynamicPlayers() {
+        // Sauvegarder les noms des joueurs existants
+        String[] playerNames = new String[parameters.getNumberOfPlayers()];
+        for (int i = 0; i < dynamicPlayers.getChildren().size(); i++) {
+            HBox playerBox = (HBox) dynamicPlayers.getChildren().get(i);
+            TextField playerField = (TextField) playerBox.getChildren().get(1);
+            playerNames[i] = playerField.getText(); // Sauvegarde du texte
+        }
+    
+        // Effacer les anciens champs
         dynamicPlayers.getChildren().clear();
-        for (int i = 1; i <= parameters.getNumberOfPlayers(); i++) {
+    
+        // Reconstruire les champs avec les noms existants (si présents)
+        for (int i = 0; i < parameters.getNumberOfPlayers(); i++) {
             HBox playerBox = new HBox(20);
             playerBox.setAlignment(javafx.geometry.Pos.CENTER);
-            Label playerLabel = new Label("Joueur " + i + ":");
+    
+            Label playerLabel = new Label("Joueur " + (i + 1) + ":");
             playerLabel.setStyle("-fx-font-size: 18px;");
+    
             TextField playerField = new TextField();
             playerField.setPromptText("Entrez le pseudo");
+            
+            // Rétablir le texte sauvegardé (s'il existe)
+            if (i < playerNames.length && playerNames[i] != null) {
+                playerField.setText(playerNames[i]);
+            }
+    
             playerBox.getChildren().addAll(playerLabel, playerField);
             dynamicPlayers.getChildren().add(playerBox);
         }
     }
+    
 
     @Override
     public void update() {

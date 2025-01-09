@@ -34,6 +34,10 @@ public class Team {
     return score;
   }
 
+  public void removePlayer(Player player) {
+    players.remove(player);
+  }
+
   public void addPlayer(Player player) {
     players.add(player);
   }
@@ -44,6 +48,12 @@ public class Team {
 
     public void clear() {
         players.clear();
+    }
+
+    public void clearSpy() {
+        for (Player player : players) {
+            player.setSpymaster(false);
+      }
     }
 
   @Override

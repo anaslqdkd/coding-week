@@ -2,6 +2,7 @@ package codename.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import codename.Manager;
 import codename.Observer;
@@ -28,6 +29,9 @@ public class SelectionEspionController implements Observer {
 
     @FXML
     private Button confirmButton;
+
+    @FXML
+    private Button randomButton;
 
     private Game game;
 
@@ -71,6 +75,43 @@ public class SelectionEspionController implements Observer {
         this.game = Game.getInstance();
         updateTeams();
         game.add_observer(this);
+
+        randomButton.setOnAction(event -> {
+            updateTeams();
+            game.getRedTeam().clearSpy();
+            game.getBlueTeam().clearSpy();
+            Random random = new Random();
+            int randomRed= random.nextInt(game.getRedTeam().getPlayers().size());
+            int randomBlue= random.nextInt(game.getBlueTeam().getPlayers().size());
+
+            for (Player p : game.getRedTeam().getPlayers()) {
+                p.setSpymaster(false);
+            }
+
+            for (Player p : game.getBlueTeam().getPlayers()) {
+                p.setSpymaster(false);
+            }
+
+            for (Player player : game.getRedTeam().getPlayers()) {
+                if (randomRed == 0) {
+                    player.setSpymaster(true);
+                    System.out.println(player.getName());
+                    break;
+                }
+                randomRed--;
+            }
+
+            for (Player player : game.getBlueTeam().getPlayers()) {
+                if (randomBlue== 0) {
+                    player.setSpymaster(true);
+                    System.out.println(player.getName());
+                    break;
+                }
+                randomBlue--;
+            }
+
+            updateTeams();
+        });
 
         confirmButton.setOnAction(event -> {
             boolean redTeamHasSpymaster = false;

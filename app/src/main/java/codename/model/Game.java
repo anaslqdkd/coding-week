@@ -98,9 +98,26 @@ public class Game {
   public void addPlayerToRedTeam(Player player) {
     redTeam.addPlayer(player);
   }
+  
 
   public void addPlayerToBlueTeam(Player player) {
     blueTeam.addPlayer(player);
+  }
+
+  public void clearTeams() {
+    redTeam.clear();
+    blueTeam.clear();
+  }
+
+
+  public void swicthPlayer(Player player) {
+    if (redTeam.getPlayers().contains(player)) {
+      redTeam.removePlayer(player);
+      blueTeam.addPlayer(player);
+    } else if (blueTeam.getPlayers().contains(player)) {
+      blueTeam.removePlayer(player);
+      redTeam.addPlayer(player);
+    }
   }
 
   public int getMaxClicks() {

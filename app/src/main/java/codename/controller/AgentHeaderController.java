@@ -30,7 +30,7 @@ public class AgentHeaderController implements Observer {
             }
         }
         this.labelAgentName.setText("Agent : " + names);
-        System.out.println("Agent de " + game.whosTurn() + " :" + names);
+        System.out.println("Agent de " + game.whosTurn().getColor() + " : " + names);
     } 
 
     @Override
