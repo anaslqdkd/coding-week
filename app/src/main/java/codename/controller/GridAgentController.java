@@ -46,7 +46,8 @@ public class GridAgentController implements Observer {
     // final int columns = 5;
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
-    // System.out.println("in generate grid agent rows and colums *************" + rows + columns);
+    System.out.println("in generate grid agent rows and colums *************" + rows + columns);
+    // NOTE: ici pb
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {

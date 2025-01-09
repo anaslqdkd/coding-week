@@ -42,17 +42,23 @@ public class SettingsController implements Observer {
     System.out.println("Initial grid lines: " + gridLinesSlider.getValue());
     System.out.println("Initial grid columns: " + gridColumnsSlider.getValue());
     game.add_observer(this);
-
-    int rows = (int) gridLinesSlider.getValue();
-    int columns = (int) gridColumnsSlider.getValue();
+    gridColumnsSlider
+        .valueProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              System.out.println("Grid columns updated: " + newValue.intValue());
+            });
     saveSettingsButton.setOnAction(
         event -> {
           try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
             Parent root = loader.load();
+            int rows = (int) gridLinesSlider.getValue();
+            int columns = (int) gridColumnsSlider.getValue();
+            System.out.println("(((((((())))))))" + rows + columns);
 
-            // game.setGridSize(rows, columns);
-            // TODO: à voir comment changer dynamiquement la grille
+            game.setGridSize(rows, columns);
+            System.out.println("in settings controller" + rows + columns);
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
