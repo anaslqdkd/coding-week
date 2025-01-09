@@ -1,61 +1,79 @@
 /* Fond principal */
 BorderPane {
-    -fx-background-color: linear-gradient(to bottom, #BED3C3, #EBACA2); /* Dégradé harmonieux entre vert doux et rose pâle */
+    -fx-background-color: rgb(255, 253, 142); /* Dégradé entre rose pâle et vert doux */
     -fx-padding: 20px;
 }
 
-/* Boutons centraux et en haut */
-Button {
-    -fx-background-color: #4A919E; /* Bleu sarcelle */
-    -fx-text-fill: #212E53; /* Texte blanc */
-    -fx-font-size: 18px;
-    -fx-font-family: "Poppins", sans-serif;
-    -fx-font-weight: bold;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-border-width: 2px;
-    -fx-cursor: hand;
-    -fx-padding: 10px 20px;
+/* Conteneur central (effet de carte) */
+.center-pane {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #212E53; /* Bordure bleu nuit */
+    -fx-border-width: 3px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 40px;
+    -fx-max-width: 600px; /* Largeur fixe pour un design centré */
     -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.2, 0, 2);
-    -fx-transition: all 0.3s ease;
-    -fx-min-height: 25;
-    -fx-min-width: 200;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 5); /* Légère ombre douce */
 }
 
-/* Bouton Paramètres avec une icône */
-#settingsButton {
-    -fx-background-color: transparent; /* Fond transparent pour mettre en avant l'icône */
-    -fx-border-color: transparent; /* Pas de bordures */
+/* Titre principal */
+.menu-title {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212E53; /* Bleu nuit */
+    -fx-text-alignment: center;
+    -fx-padding: 10px 0;
+    -fx-border-width: 0 0 3px 0; /* Bordure inférieure */
+    -fx-border-color: #4A919E; /* Bleu sarcelle */
+}
+
+/* Style des boutons (version principale) */
+.button {
+    -fx-background-color: #CE6A6B; /* Rouge doux */
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 30px;
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 3px;
+    -fx-border-color: #212E53; /* Bleu nuit */
     -fx-cursor: hand;
-    -fx-padding: 10px;
-    -fx-effect: none; /* Pas d'ombres */
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #EBACA2; /* Rose pâle au survol */
+    -fx-transform: scale(1.05); /* Zoom léger */
+}
+
+.button:pressed {
+    -fx-background-color: #CE6A6B; /* Rouge doux au clic */
+    -fx-transform: scale(0.95); /* Effet de clic */
+}
+
+/* Bouton secondaire (ex: Paramètres) */
+#settingsButton {
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
+    -fx-text-fill: #212E53;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 3px;
+    -fx-border-color: #212E53; /* Bleu nuit */
 }
 
 #settingsButton:hover {
     -fx-background-color: #BED3C3; /* Vert doux au survol */
-    -fx-border-radius: 50%; /* Cercle parfait au survol */
 }
 
 #settingsButton:pressed {
-    -fx-background-color: #212E53; /* Bleu nuit foncé au clic */
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
 }
-
-Button:pressed {
-    -fx-background-color: #212E53; /* Bleu nuit foncé au clic */
-    -fx-border-color: #CE6A6B; /* Rouge doux pour marquer le clic */
-    -fx-transform: scale(0.95);
-}
-
-/* Style spécifique au bouton central ("Jouer") */
-#playButton {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-background-color: #CE6A6B; /* Rouge doux */
-}
-
-
-
 
 /* Pied de page */
 .menu-footer {
@@ -64,5 +82,5 @@ Button:pressed {
     -fx-text-fill: #212E53; /* Texte bleu nuit */
     -fx-alignment: center;
     -fx-padding: 10px;
-    -fx-border-top: 2px solid #4A919E; /* Ligne de séparation en bleu sarcelle */
+    -fx-border-top: 2px solid #212E53; /* Ligne de séparation nette */
 }
