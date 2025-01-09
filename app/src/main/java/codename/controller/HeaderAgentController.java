@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import codename.model.Player;
 
-public class AgentHeaderController implements Observer {
+public class HeaderAgentController implements Observer {
     @FXML private Label labelAgentName;
     
     private Game game;
@@ -30,7 +30,7 @@ public class AgentHeaderController implements Observer {
             }
         }
         this.labelAgentName.setText("Agent : " + names);
-        System.out.println("Agent de " + game.whosTurn() + " :" + names);
+        System.out.println("Agent de " + game.whosTurn().getColor() + " : " + names);
     } 
 
     @Override

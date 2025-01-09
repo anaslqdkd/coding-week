@@ -26,6 +26,7 @@ public class MenuController implements Observer{
 
         System.out.println("initialize MenuController");
         this.game = Game.getInstance();
+        game.getParameters().setCurrentPage("/menu.fxml");
         game.add_observer(this);
 
         playButton.setOnAction(event -> {

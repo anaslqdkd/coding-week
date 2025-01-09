@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
   private static Game instance;
   private Parameters parameters;
-  private final Board board;
+  private Board board;
   private final Team redTeam;
   private final Team blueTeam;
   private Team currentTurn;
@@ -19,6 +19,7 @@ public class Game {
   private Team winner;
   private List<String> words;
   private ArrayList<Observer> observers = new ArrayList<>(10);
+  private String filePath;
 
   public Game(List<String> words) {
     this.observers = new ArrayList<>();
@@ -33,6 +34,7 @@ public class Game {
     this.clicksRemaining = 0;
     this.isGameOver = false;
     this.winner = null;
+    this.filePath = getClass().getClassLoader().getResource("database/database.txt").getPath();
   }
 
   public void add_observer(Observer observer) {
@@ -56,20 +58,39 @@ public class Game {
     return instance;
   }
 
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
+
   public void setGridSize(int rows, int columns) {
     this.board.setGridSize(rows, columns);
+    // this.board.updateWords
     int wordNumber = rows * columns;
     try {
-      this.words = WordList.getWordList(wordNumber, "database.txt");
+      this.words = WordList.getWordListGlobal(wordNumber, this.filePath);
       this.getBoard().setWords(this.words);
       this.getBoard().regenerateBoard(rows, columns);
+      System.out.println("RED SCORE : " + this.getBoard().getRedTeamCount());
+      System.out.println("BLUE SCORE : " + this.getBoard().getBlueTeamCount());
+      this.redTeam.setScore(this.getBoard().getRedTeamCount());
+      this.blueTeam.setScore(this.getBoard().getBlueTeamCount());
       System.out.println("*************************");
-      System.out.println(words.size());
-      this.notify_observator();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.out.println("size for grid after " + rows + columns);
+    this.notify_observator();
+    this.board.regenerateBoard(rows, columns);
+    // this.board.update()
+  }
+
+  public void setWords(List<String> words) {
+    this.words = words;
+    this.board = new Board(words);
+    this.notify_observator();
+  }
+
+  public int getSize() {
+    return this.board.getRows() * this.board.getColumns();
   }
 
   public static Game getInstance() {
@@ -79,6 +100,10 @@ public class Game {
     }
     return instance;
   }
+
+  // public void setBoard(Board board) {
+  //     this.board = board;
+  // }
 
   public Board getBoard() {
     return board;
@@ -95,9 +120,26 @@ public class Game {
   public void addPlayerToRedTeam(Player player) {
     redTeam.addPlayer(player);
   }
+  
 
   public void addPlayerToBlueTeam(Player player) {
     blueTeam.addPlayer(player);
+  }
+
+  public void clearTeams() {
+    redTeam.clear();
+    blueTeam.clear();
+  }
+
+
+  public void swicthPlayer(Player player) {
+    if (redTeam.getPlayers().contains(player)) {
+      redTeam.removePlayer(player);
+      blueTeam.addPlayer(player);
+    } else if (blueTeam.getPlayers().contains(player)) {
+      blueTeam.removePlayer(player);
+      redTeam.addPlayer(player);
+    }
   }
 
   public int getMaxClicks() {
