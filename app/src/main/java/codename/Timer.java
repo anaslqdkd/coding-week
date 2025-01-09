@@ -8,31 +8,34 @@ public class Timer {
 
   private Timeline timeline;
   private int seconds;
+  private int initialSeconds;
   private TimerCallback callback;
 
-  public Timer(TimerCallback callback) {
+  public Timer(int initialSeconds, TimerCallback callback) {
+    this.initialSeconds = initialSeconds;
+    this.seconds = initialSeconds; // Set initial time
     this.callback = callback;
+
     this.timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> updateTimer()));
-    this.timeline.setCycleCount(Timeline.INDEFINITE);
-    this.seconds = 0;
+    this.timeline.setCycleCount(Timeline.INDEFINITE); // Keep running indefinitely
   }
 
   public void start() {
-    this.seconds = 0; // Reset timer
-    this.timeline.play(); // Start the timer
+    this.seconds = initialSeconds; // Reset timer to initial time
+    this.timeline.play(); // Start the countdown
   }
 
   public void stop() {
-    this.timeline.stop(); // Stop the timer
+    this.timeline.stop(); // Stop the countdown timer
   }
 
   public void reset() {
-    this.seconds = 0; // Reset the timer
+    this.seconds = initialSeconds; // Reset the timer to initial time
     updateTimer(); // Immediately update the time
   }
 
   private void updateTimer() {
-    this.seconds++; // Increment seconds
+    this.seconds--; // Decrement seconds
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;
 
@@ -41,14 +44,18 @@ public class Timer {
       callback.onTimeUpdate(minutes, remainingSeconds);
     }
 
-    // Check if time is up, or other logic
-    // For example, switch teams after a certain time limit
-    if (seconds >= 60) {
-      // Example: switchTeam();
+    // Check if time is up
+    if (seconds <= 0) {
+      // Call time-up logic (e.g., switch teams, end round)
+      stop();
+      callback.onTimeUp();
     }
   }
 
+  // Interface for the callback to update timer and handle time up
   public interface TimerCallback {
     void onTimeUpdate(int minutes, int seconds);
+
+    void onTimeUp(); // Called when the timer reaches 0
   }
 }

@@ -22,11 +22,23 @@ public class HeaderAgentController implements Observer {
     this.game = Game.getInstance();
     this.game.add_observer(this);
     this.game.notify_observator();
+    int initialTimeInSeconds = 10;
     gameTimer =
         new Timer(
-            (minutes, seconds) -> {
-              timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-              // Other logic that should happen when time updates, such as switching teams
+            initialTimeInSeconds,
+            new Timer.TimerCallback() {
+              @Override
+              public void onTimeUpdate(int minutes, int seconds) {
+                // Update the UI with the formatted time
+                timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
+              }
+
+              @Override
+              public void onTimeUp() {
+                // Time's up logic (e.g., switch teams, game over, etc.)
+                System.out.println("Time's up! Switching teams...");
+                // Add your logic here (e.g., switching teams)
+              }
             });
   }
 
@@ -51,36 +63,18 @@ public class HeaderAgentController implements Observer {
     this.updateAgentName();
   }
 
-  public void startGameTimer() {
-    gameTimer.start(); // Start the timer when the game starts
-  }
-
-  public void stopGameTimer() {
-    gameTimer.stop(); // Stop the timer when the game ends
-  }
-
-  public void resetGameTimer() {
-    gameTimer.reset(); // Reset the timer if needed
-  }
-
-  private void updateTimer() {
-    seconds++;
-    int minutes = seconds / 60; // Calculate minutes
-    int remainingSeconds = seconds % 60; // Calculate remaining seconds
-
-    // Update the label with the formatted time (minutes:seconds)
-    timerLabel.setText(String.format("%02d:%02d", minutes, remainingSeconds));
-
-    System.out.println("Current Time: " + String.format("%02d:%02d", minutes, remainingSeconds));
+  @FXML
+  private void startTimer() {
+    gameTimer.start(); // Start the countdown timer
   }
 
   @FXML
-  private void startButtonClicked() {
-    startGameTimer();
+  private void stopTimer() {
+    gameTimer.stop(); // Stop the countdown timer
   }
 
   @FXML
-  private void stopButtonClicked() {
-    stopGameTimer();
+  private void resetTimer() {
+    gameTimer.reset(); // Reset the timer to initial time
   }
 }

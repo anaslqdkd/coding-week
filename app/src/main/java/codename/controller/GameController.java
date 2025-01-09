@@ -43,14 +43,7 @@ public class GameController implements Observer {
   }
 
   @FXML
-  private void initialize() {
-    gameTimer =
-        new Timer(
-            (minutes, seconds) -> {
-              timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-              // Other logic that should happen when time updates, such as switching teams
-            });
-  }
+  private void initialize() {}
 
   public void startGameTimer() {
     gameTimer.start(); // Start the timer when the game starts
