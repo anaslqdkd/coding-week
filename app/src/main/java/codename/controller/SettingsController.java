@@ -45,6 +45,8 @@ public class SettingsController implements Observer {
 
   @FXML private Button backButton;
 
+  @FXML private Button writeDataBase;
+
   @FXML private ChoiceBox<String> databaseOptions;
   private Game game;
 
