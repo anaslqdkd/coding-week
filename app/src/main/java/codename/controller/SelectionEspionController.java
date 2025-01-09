@@ -1,11 +1,12 @@
 package codename.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import codename.Manager;
 import codename.Observer;
 import codename.model.Game;
 import codename.model.Player;
-import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,8 +68,10 @@ public class SelectionEspionController implements Observer {
   private void initialize() {
     System.out.println("initialize SelectionEspionController");
     this.game = Game.getInstance();
+    game.getParameters().setCurrentPage("/selectionEspion.fxml");
     updateTeams();
     game.add_observer(this);
+
     settingsButton.setOnAction(
         event -> {
           try {

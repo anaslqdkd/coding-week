@@ -1,12 +1,13 @@
 package codename.controller;
 
-import codename.Observer;
-import codename.model.Game;
-import codename.model.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import codename.Observer;
+import codename.model.Game;
+import codename.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,6 +69,7 @@ public class SelectionEquipeController implements Observer {
   private void initialize() {
     System.out.println("initialize SelectionEquipeController");
     this.game = Game.getInstance();
+    game.getParameters().setCurrentPage("/selectionEquipe.fxml");
     updateTeams();
     game.add_observer(this);
 

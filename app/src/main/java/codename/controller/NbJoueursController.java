@@ -1,10 +1,11 @@
 package codename.controller;
 
+import java.io.IOException;
+
 import codename.Observer;
 import codename.model.Game;
 import codename.model.Parameters;
 import codename.model.Player;
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,7 +43,9 @@ public class NbJoueursController implements Observer {
     System.out.println("initialize NbJoueursController");
     this.game = Game.getInstance();
     initializeParameters();
+    game.getParameters().setCurrentPage("/Nb_joueurs.fxml");
     game.add_observer(this);
+    
     settingsButton.setOnAction(
         event -> {
           try {
