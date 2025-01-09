@@ -214,8 +214,9 @@ public class SelectionEquipeController implements Observer {
             leftTeam.getChildren().add(playerLabel);
 
             Button redButton = new Button("Rouge");
-            redButton.setPrefWidth(100);
-            redButton.setOnAction(event -> {
+            redButton.setPrefWidth(140);
+            redButton.setPrefHeight(10);
+                  redButton.setOnAction(event -> {
                 if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
                     game.addPlayerToRedTeam(player);
                     game.notify_observator();
@@ -228,8 +229,24 @@ public class SelectionEquipeController implements Observer {
 
 
             Button blueButton = new Button("Bleu");
-            blueButton.setPrefWidth(100);
-            blueButton.setOnAction(event -> {
+            blueButton.setPrefWidth(140);
+            blueButton.setPrefHeight(10);
+            blueButton.setStyle("-fx-background-color: #4A919E; /* Bleu sarcelle */\n" +
+                    "-fx-text-fill: #212E53;\n" +
+                    "-fx-border-color: #212E53;");
+
+            blueButton.setOnMouseEntered(event -> {
+                blueButton.setStyle("-fx-background-color: #BED3C3; /* Bleu clair au survol */\n" +
+                                    "-fx-text-fill: #212E53;\n" +
+                                    "-fx-border-color: #212E53;");
+            });
+
+            blueButton.setOnMouseExited(event -> {
+                blueButton.setStyle("-fx-background-color: #4A919E; /* Bleu sarcelle */\n" +
+                                    "-fx-text-fill: #212E53;\n" +
+                                    "-fx-border-color: #212E53;");
+            });
+                  blueButton.setOnAction(event -> {
             if (!game.getRedTeam().getPlayers().contains(player) && !game.getBlueTeam().getPlayers().contains(player)) {
                 game.addPlayerToBlueTeam(player);
                 game.notify_observator();
