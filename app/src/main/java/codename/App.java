@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-  private Stage primaryStage;
+  // private Stage primaryStage;
 
   private Game game;
 
@@ -20,7 +20,7 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
 
-    List<String> words = WordList.getWordList(25, "database.txt");
+    List<String> words = WordList.getWordList(25, "database/database.txt");
     this.game = Game.getInstance(words);
 
 
