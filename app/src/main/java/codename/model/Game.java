@@ -67,7 +67,7 @@ public class Game {
       e.printStackTrace();
     }
     this.notify_observator();
-    this.board.regenerateBoard(rows, columns, words);
+    this.board.regenerateBoard(rows, columns);
     // this.board.update()
   }
 

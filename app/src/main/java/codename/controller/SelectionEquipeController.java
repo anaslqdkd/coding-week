@@ -182,7 +182,7 @@ public class SelectionEquipeController implements Observer {
                     game.notify_observator();
                 }
                 game.notify_observator();
-                });
+            });
 
 
             Button blueButton = new Button("Bleu");
@@ -202,10 +202,6 @@ public class SelectionEquipeController implements Observer {
             playerBox.setAlignment(javafx.geometry.Pos.CENTER);
             leftTeam.getChildren().add(playerBox);
         }
-        System.out.println("Equipe rouge : " + game.getRedTeam().getPlayers());
-        System.out.println("Equipe bleue : " + game.getBlueTeam().getPlayers());
-
-
     }
     
     @Override

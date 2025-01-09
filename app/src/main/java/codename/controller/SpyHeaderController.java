@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import codename.model.Player;
 
-public class ClueHeaderController implements Observer {
+public class SpyHeaderController implements Observer {
     @FXML private Label labelSpyName;
     
     private Game game;
@@ -23,8 +23,8 @@ public class ClueHeaderController implements Observer {
             if (player.isSpymaster()) {
                 spyMasterName = player.getName();
                 this.labelSpyName.setText("Maître-Espion :" + player.getName());
+                break;
             }
-            break;
         }
         this.labelSpyName.setText("Maître-Espion : " + spyMasterName);
         System.out.println("Espion de " + game.whosTurn().getColor() + " :" + spyMasterName);

@@ -178,7 +178,6 @@ public class SelectionEspionController implements Observer {
             }
         });
     }
-
     @Override
     public void update() {
     }

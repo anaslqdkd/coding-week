@@ -7,11 +7,21 @@ public class Parameters {
     private int numberOfPlayers;
     private String gameMode; // "multi" ou "solo"
     private List<Player> players;
+    private String currentPage;
 
     public Parameters() {
         this.numberOfPlayers = 0;
-        this.gameMode = "solo";
+        this.gameMode = "multi";
         this.players = new ArrayList<>();
+        this.currentPage = "/menu.fxml";
+    }
+
+    public String getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(String currentPage) {
+        this.currentPage = currentPage;
     }
 
     public int getNumberOfPlayers() {
