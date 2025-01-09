@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GameController">
    <center>
+   <Label fx:id="timerLabel" text="00:00" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+   <Button fx:id="startButton" text="Start Timer" onAction="#startButtonClicked" />
+<Button fx:id="stopButton" text="Stop Timer" onAction="#stopButtonClicked" />
+
       <fx:include source="gridSpy.fxml" fx:id="gridSpy"/>
    </center>
    <left>
