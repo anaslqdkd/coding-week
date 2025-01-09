@@ -40,10 +40,12 @@ public class SelectionEquipeController implements Observer {
 
     for (Player player : game.getParameters().getPlayers()) {
       Label playerLabel = new Label(player.getName());
-      playerLabel.setStyle("-fx-font-size: 18px;");
+      playerLabel.setStyle("-fx-font-size: 18px;  -fx-text-fill: #212E53;");
 
       Button redButton = new Button("Rouge");
-      redButton.setPrefWidth(100);
+      redButton.setPrefWidth(140);
+      redButton.setPrefHeight(10);
+
       redButton.setOnAction(
           event -> {
             redTeam.getChildren().add(playerLabel);
@@ -51,7 +53,24 @@ public class SelectionEquipeController implements Observer {
           });
 
       Button blueButton = new Button("Bleu");
-      blueButton.setPrefWidth(100);
+      blueButton.setStyle("-fx-background-color: #4A919E; /* Bleu sarcelle */\n" +
+                    "-fx-text-fill: #212E53;\n" +
+                    "-fx-border-color: #212E53;");
+
+      blueButton.setOnMouseEntered(event -> {
+          blueButton.setStyle("-fx-background-color: #BED3C3; /* Bleu clair au survol */\n" +
+                              "-fx-text-fill: #212E53;\n" +
+                              "-fx-border-color: #212E53;");
+      });
+
+      blueButton.setOnMouseExited(event -> {
+          blueButton.setStyle("-fx-background-color: #4A919E; /* Bleu sarcelle */\n" +
+                              "-fx-text-fill: #212E53;\n" +
+                              "-fx-border-color: #212E53;");
+      });
+
+      blueButton.setPrefWidth(140);
+      blueButton.setPrefHeight(30);
       blueButton.setOnAction(
           event -> {
             blueTeam.getChildren().add(playerLabel);
@@ -91,12 +110,15 @@ public class SelectionEquipeController implements Observer {
 
           for (int i = 0; i < redTeam.getChildren().size(); i++) {
             Label playerLabel = (Label) redTeam.getChildren().get(i);
+            playerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #212E53;");
             String playerName = playerLabel.getText();
             game.addPlayerToRedTeam(new Player(playerName, false));
           }
 
           for (int i = 0; i < blueTeam.getChildren().size(); i++) {
             Label playerLabel = (Label) blueTeam.getChildren().get(i);
+            playerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #212E53;");
+
             String playerName = playerLabel.getText();
             game.addPlayerToBlueTeam(new Player(playerName, false));
           }
@@ -144,7 +166,7 @@ public class SelectionEquipeController implements Observer {
           for (int i = 0; i < redTeamSize; i++) {
             Player player = shuffledPlayerList.get(i);
             Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
+            playerLabel.setStyle("-fx-font-size: 18px;  -fx-text-fill: #212E53;");
             moveToTeam(playerLabel, redTeam);
           }
 
@@ -152,7 +174,7 @@ public class SelectionEquipeController implements Observer {
           for (int i = redTeamSize; i < totalPlayers; i++) {
             Player player = shuffledPlayerList.get(i);
             Label playerLabel = new Label(player.getName());
-            playerLabel.setStyle("-fx-font-size: 18px;");
+            playerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #212E53;");
             moveToTeam(playerLabel, blueTeam);
           }
         });

@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;"
-            fx:controller="codename.controller.NbJoueursController">
+            prefHeight="800.0" prefWidth="1000.0" 
+            fx:controller="codename.controller.NbJoueursController" fx:id="rootPane" stylesheets="@styles/nb_joueurs.css">
 
     <!-- Barre supérieure avec un bouton pour les paramètres -->
     <top>
-        <Button fx:id="settingsButton" text="Paramètres"
-                prefWidth="100" prefHeight="30"
-                BorderPane.alignment="CENTER" />
+        <Button fx:id="settingsButton" text="Paramètres" prefWidth="150" prefHeight="40" />
+
     </top>
 
     <!-- Zone centrale -->
@@ -24,12 +23,12 @@
 
             <!-- Titre principal -->
             <Label text="Liste des joueurs"
-                   style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                   style="-fx-font-size: 40px; -fx-font-weight: bold;" />
 
             <!-- Zone où les joueurs seront ajoutés dynamiquement -->
             <VBox fx:id="dynamicPlayers" alignment="CENTER" spacing="15">
                 <HBox spacing="20" alignment="CENTER">
-                    <Label text="Joueur 1:" style="-fx-font-size: 18px;" />
+                    <Label text="Joueur 1:"  />
                     <TextField fx:id="player1Field" promptText="Entrez le pseudo" />
                 </HBox>
                 <HBox spacing="20" alignment="CENTER">
@@ -41,9 +40,9 @@
             <!-- Boutons Ajouter/Supprimer -->
             <HBox spacing="30" alignment="CENTER">
                 <Button fx:id="addPlayerButton" text="Ajouter"
-                        prefWidth="100" prefHeight="40" style="-fx-font-size: 16px;" />
+                        prefWidth="180" prefHeight="40" style="-fx-font-size: 18px;" />
                 <Button fx:id="removePlayerButton" text="Supprimer"
-                        prefWidth="100" prefHeight="40" style="-fx-font-size: 16px;" />
+                        prefWidth="180" prefHeight="40" style="-fx-font-size: 18px;" />
             </HBox>
 
         </VBox>
@@ -52,8 +51,8 @@
     <!-- Bouton Confirmer en bas -->
     <bottom>
         <Button fx:id="confirmButton" text="Confirmer"
-                prefWidth="150" prefHeight="50"
-                style="-fx-font-size: 18px;"
+                prefWidth="200" prefHeight="50"
+                style="-fx-font-size: 20px;"
                 BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>
