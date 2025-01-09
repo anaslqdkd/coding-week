@@ -5,7 +5,6 @@ import codename.controller.SettingsController;
 import codename.model.Game;
 import codename.model.WordList;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,39 +17,12 @@ public class App extends Application {
 
   private Game game;
 
-  private List<String> words =
-      Arrays.asList(
-          "Avion",
-          "Banane",
-          "Château",
-          "Forêt",
-          "Fusée",
-          "Pyramide",
-          "Robot",
-          "Glace",
-          "Océan",
-          "Marteau",
-          "Étoile",
-          "Camion",
-          "Plume",
-          "Dragon",
-          "Temple",
-          "Sirène",
-          "Diamant",
-          "Ciel",
-          "Désert",
-          "Lune",
-          "Soleil",
-          "Bateau",
-          "Volcan",
-          "Feuille",
-          "Requin");
-
   @Override
   public void start(Stage primaryStage) throws Exception {
+    ; // Create a new game
     List<String> words = WordList.getWordList(25, "database.txt");
     this.game = Game.getInstance(words);
-    ; // Create a new game
+    // this.game.setGridSize(6, 6);
 
     URL fxmlURL = getClass().getResource("/menu.fxml");
     if (fxmlURL == null) {

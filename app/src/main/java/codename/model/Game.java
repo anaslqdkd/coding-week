@@ -1,6 +1,7 @@
 package codename.model;
 
 import codename.Observer;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,7 @@ public class Game {
   private int clicksRemaining;
   private boolean isGameOver;
   private Team winner;
-  private int rows = 5;
-  private int columns = 5;
+  private List<String> words;
   private ArrayList<Observer> observers = new ArrayList<>(10);
 
   public Game(List<String> words) {
@@ -29,6 +29,7 @@ public class Game {
     this.currentTurn = redTeam;
     this.currentClue = null;
     this.maxClicks = 0;
+    this.words = words;
     this.clicksRemaining = 0;
     this.isGameOver = false;
     this.winner = null;
@@ -53,6 +54,21 @@ public class Game {
       instance = new Game(words);
     }
     return instance;
+  }
+
+  public void setGridSize(int rows, int columns) {
+    this.board.setGridSize(rows, columns);
+    // this.board.updateWords
+    int wordNumber = rows * columns;
+    try {
+      this.words = WordList.getWordList(wordNumber, "database.txt");
+      System.out.println("*************************");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    this.notify_observator();
+    this.board.regenerateBoard(rows, columns, words);
+    // this.board.update()
   }
 
   public static Game getInstance() {
@@ -165,18 +181,5 @@ public class Game {
     }
 
     System.out.println("Le jeu est fini : " + this.isGameOver);
-  }
-
-  public void setGridSize(int rows, int columns) {
-    this.rows = rows;
-    this.columns = columns;
-  }
-
-  public int getRows() {
-    return this.rows;
-  }
-
-  public int getColumns() {
-    return this.columns;
   }
 }

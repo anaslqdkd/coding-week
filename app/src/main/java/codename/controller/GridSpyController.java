@@ -34,10 +34,10 @@ public class GridSpyController implements Observer {
   }
 
   public void generate_grid_spy(GridPane gridpane) {
-    final int rows = 5;
-    final int columns = 5;
-    // int rows = game.getRows();
-    // int columns = game.getColumns();
+    // final int rows = 5;
+    // final int columns = 5;
+    int rows = game.getBoard().getRows();
+    int columns = game.getBoard().getColumns();
     Card[][] matrix = game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {

@@ -77,18 +77,19 @@ public class SettingsController implements Observer {
     this.game = Game.getInstance();
     System.out.println("Initial grid lines: " + gridLinesSlider.getValue());
     System.out.println("Initial grid columns: " + gridColumnsSlider.getValue());
+    game.add_observer(this);
     int rows = (int) gridLinesSlider.getValue();
     int columns = (int) gridColumnsSlider.getValue();
-    // game.add_observer(this);
     saveSettingsButton.setOnAction(
         event -> {
           try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
             Parent root = loader.load();
 
+            // game.setGridSize(rows, columns);
+            // TODO: à voir comment changer dynamiquement la grille
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
-            this.game.setGridSize(rows, columns);
             game.notify_observator();
             stage.show();
           } catch (IOException e) {
@@ -97,5 +98,7 @@ public class SettingsController implements Observer {
         });
   }
 
-  public void update() {}
+  public void update() {
+    System.out.println("Game update in settings controller");
+  }
 }
