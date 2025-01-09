@@ -42,12 +42,14 @@ public class SettingsController implements Observer {
     System.out.println("Initial grid lines: " + gridLinesSlider.getValue());
     System.out.println("Initial grid columns: " + gridColumnsSlider.getValue());
     game.add_observer(this);
+
     gridColumnsSlider
         .valueProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
               System.out.println("Grid columns updated: " + newValue.intValue());
             });
+
     saveSettingsButton.setOnAction(
         event -> {
           try {
@@ -59,6 +61,7 @@ public class SettingsController implements Observer {
 
             game.setGridSize(rows, columns);
             System.out.println("in settings controller" + rows + columns);
+            
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
