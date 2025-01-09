@@ -170,6 +170,14 @@ public class SettingsController implements Observer {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    try {
+      loadDatabaseButton.setOnAction(
+          event -> {
+            loadDatabase();
+          });
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private void handleChoiceSelection(String option) {
