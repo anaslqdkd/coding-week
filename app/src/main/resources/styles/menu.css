@@ -1,0 +1,68 @@
+/* Fond principal */
+BorderPane {
+    -fx-background-color: linear-gradient(to bottom, #BED3C3, #EBACA2); /* Dégradé harmonieux entre vert doux et rose pâle */
+    -fx-padding: 20px;
+}
+
+/* Boutons centraux et en haut */
+Button {
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 18px;
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.2, 0, 2);
+    -fx-transition: all 0.3s ease;
+    -fx-min-height: 25;
+    -fx-min-width: 200;
+}
+
+/* Bouton Paramètres avec une icône */
+#settingsButton {
+    -fx-background-color: transparent; /* Fond transparent pour mettre en avant l'icône */
+    -fx-border-color: transparent; /* Pas de bordures */
+    -fx-cursor: hand;
+    -fx-padding: 10px;
+    -fx-effect: none; /* Pas d'ombres */
+}
+
+#settingsButton:hover {
+    -fx-background-color: #BED3C3; /* Vert doux au survol */
+    -fx-border-radius: 50%; /* Cercle parfait au survol */
+}
+
+#settingsButton:pressed {
+    -fx-background-color: #212E53; /* Bleu nuit foncé au clic */
+}
+
+Button:pressed {
+    -fx-background-color: #212E53; /* Bleu nuit foncé au clic */
+    -fx-border-color: #CE6A6B; /* Rouge doux pour marquer le clic */
+    -fx-transform: scale(0.95);
+}
+
+/* Style spécifique au bouton central ("Jouer") */
+#playButton {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-background-color: #CE6A6B; /* Rouge doux */
+}
+
+
+
+
+/* Pied de page */
+.menu-footer {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #212E53; /* Texte bleu nuit */
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-border-top: 2px solid #4A919E; /* Ligne de séparation en bleu sarcelle */
+}
