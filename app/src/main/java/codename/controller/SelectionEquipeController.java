@@ -171,4 +171,3 @@ public class SelectionEquipeController implements Observer {
   @Override
   public void update() {}
 }
-
