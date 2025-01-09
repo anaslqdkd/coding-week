@@ -31,6 +31,9 @@ public class NbJoueursController implements Observer{
     @FXML
     private Button confirmButton;
 
+    @FXML 
+    private Button settingsButton;
+
     private Game game;
     private Parameters parameters; // Déclarez parameters ici
 
@@ -46,6 +49,19 @@ public class NbJoueursController implements Observer{
         this.game = Game.getInstance();
         initializeParameters();
         game.add_observer(this);
+
+        settingsButton.setOnAction(
+            event -> {
+              try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/settings.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) settingsButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            });
 
         addPlayerButton.setOnAction(event -> {
             if (parameters.getNumberOfPlayers() < 8) {

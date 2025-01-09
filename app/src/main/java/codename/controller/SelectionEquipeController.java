@@ -35,6 +35,9 @@ public class SelectionEquipeController implements Observer {
     @FXML
     private Button confirmButton;
 
+    @FXML
+    private Button settingsButton;
+
     private Game game;
 
     private void updateTeams() {
@@ -80,6 +83,19 @@ public class SelectionEquipeController implements Observer {
         this.game = Game.getInstance();
         updateTeams();
         game.add_observer(this);
+
+        settingsButton.setOnAction(
+            event -> {
+              try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/settings.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) settingsButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            });
 
         confirmButton.setOnAction(event -> {
             game.getRedTeam().clear();

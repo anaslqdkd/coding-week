@@ -33,6 +33,9 @@ public class SelectionEspionController implements Observer {
     @FXML
     private Button randomButton;
 
+    @FXML
+    private Button settingsButton;
+
     private Game game;
 
     private void updateTeams() {
@@ -75,6 +78,19 @@ public class SelectionEspionController implements Observer {
         this.game = Game.getInstance();
         updateTeams();
         game.add_observer(this);
+
+        settingsButton.setOnAction(
+            event -> {
+              try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/settings.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) settingsButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            });
 
         randomButton.setOnAction(event -> {
             updateTeams();
