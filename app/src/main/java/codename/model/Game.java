@@ -58,17 +58,18 @@ public class Game {
 
   public void setGridSize(int rows, int columns) {
     this.board.setGridSize(rows, columns);
-    // this.board.updateWords
     int wordNumber = rows * columns;
     try {
       this.words = WordList.getWordList(wordNumber, "database.txt");
+      this.getBoard().setWords(this.words);
+      this.getBoard().regenerateBoard(rows, columns);
       System.out.println("*************************");
+      System.out.println(words.size());
+      this.notify_observator();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    this.notify_observator();
-    this.board.regenerateBoard(rows, columns, words);
-    // this.board.update()
+    System.out.println("size for grid after " + rows + columns);
   }
 
   public static Game getInstance() {
@@ -78,10 +79,6 @@ public class Game {
     }
     return instance;
   }
-
-  // public void setBoard(Board board) {
-  //     this.board = board;
-  // }
 
   public Board getBoard() {
     return board;
