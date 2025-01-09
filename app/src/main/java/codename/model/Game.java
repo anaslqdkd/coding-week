@@ -34,7 +34,7 @@ public class Game {
     this.clicksRemaining = 0;
     this.isGameOver = false;
     this.winner = null;
-    this.filePath = getClass().getClassLoader().getResource("database.txt").getPath();
+    this.filePath = getClass().getClassLoader().getResource("database/database.txt").getPath();
   }
 
   public void add_observer(Observer observer) {

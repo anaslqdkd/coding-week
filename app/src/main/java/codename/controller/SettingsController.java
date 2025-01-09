@@ -6,17 +6,27 @@ import codename.model.Game;
 import codename.model.WordList;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+// TODO: selection thématiques (menu deroulant)
+// option, ajouter pour un menu thematique
+// option aléatoire
+// option creation depuis 0
 public class SettingsController implements Observer {
 
   @FXML private Slider gridLinesSlider;
@@ -34,6 +44,8 @@ public class SettingsController implements Observer {
   @FXML private App app;
 
   @FXML private Button backButton;
+
+  @FXML private ChoiceBox<String> databaseOptions;
   private Game game;
 
   public void setApp(App app) {
@@ -135,6 +147,71 @@ public class SettingsController implements Observer {
             e.printStackTrace();
           }
         });
+    try {
+      Path databasePath = Paths.get(getClass().getClassLoader().getResource("database").toURI());
+      databaseOptions.setValue("Thématique");
+      List<String> menuOptions =
+          Files.list(databasePath)
+              .filter(Files::isRegularFile)
+              .map(path -> path.getFileName().toString())
+              .collect(Collectors.toList());
+      for (String option : menuOptions) {
+        String addOption = removeExtension(option);
+        databaseOptions.getItems().add(addOption);
+      }
+      databaseOptions.setOnAction(
+          event -> {
+            String selectedOption = databaseOptions.getValue(); // Get selected item
+            if (selectedOption != null) {
+              handleChoiceSelection(selectedOption);
+            }
+          });
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void handleChoiceSelection(String option) {
+    System.out.println("You selected: " + option);
+
+    try {
+      String fileName = option + ".txt";
+
+      URL resourceURL = getClass().getClassLoader().getResource("database/" + fileName);
+      if (resourceURL == null) {
+        throw new IllegalStateException("File not found: " + fileName);
+      }
+
+      Path databasePath = Paths.get(resourceURL.toURI());
+
+      int rowsNumber = game.getBoard().getRows();
+      int columnsNumber = game.getBoard().getColumns();
+
+      String filePath = databasePath.toString();
+      this.game.setFilePath(filePath);
+
+      int wordNumber = rowsNumber * columnsNumber;
+      List<String> words = WordList.getWordListGlobal(wordNumber, filePath);
+
+      this.game.getBoard().setWords(words);
+      this.game.getBoard().regenerateBoard(rowsNumber, columnsNumber);
+      this.game.notify_observator();
+
+      System.out.println("Words updated from file: " + fileName);
+    } catch (Exception e) {
+      System.err.println("Error loading database file: " + option);
+      e.printStackTrace();
+    }
+  }
+
+  private String removeExtension(String filename) {
+    int dotIndex = filename.lastIndexOf('.');
+    if (dotIndex > 0) {
+      return filename.substring(0, dotIndex);
+    } else {
+      return filename;
+    }
   }
 
   public void update() {
