@@ -16,10 +16,9 @@ public class App extends Application {
     
   @Override
   public void start(Stage primaryStage) throws Exception {
-    ; // Create a new game
+
     List<String> words = WordList.getWordList(25, "database/database.txt");
     this.game = Game.getInstance(words);
-    // this.game.setGridSize(6, 6);
 
 
         URL fxmlURL = getClass().getResource("/menu.fxml");
