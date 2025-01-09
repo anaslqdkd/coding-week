@@ -1,5 +1,7 @@
 package codename.controller;
 
+import java.io.IOException;
+
 import codename.App;
 import codename.Observer;
 import codename.model.Game;
@@ -48,20 +50,11 @@ public class SettingsController implements Observer {
   @FXML private Button writeDataBase;
 
   @FXML private ChoiceBox<String> databaseOptions;
+
   private Game game;
 
-  public void setApp(App app) {
-    this.app = app;
-  }
 
-  @FXML
-  private void goBackToMenu() {
-    try {
-      app.showMenu();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+
 
   @FXML
   private void loadDatabase() {
@@ -117,6 +110,7 @@ public class SettingsController implements Observer {
   //
   //
   // }
+
   @FXML
   private void initialize() {
     System.out.println("Settings controller initialised");
@@ -124,16 +118,18 @@ public class SettingsController implements Observer {
     System.out.println("Initial grid lines: " + gridLinesSlider.getValue());
     System.out.println("Initial grid columns: " + gridColumnsSlider.getValue());
     game.add_observer(this);
+
     gridColumnsSlider
         .valueProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
               System.out.println("Grid columns updated: " + newValue.intValue());
             });
+
     saveSettingsButton.setOnAction(
         event -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
             Parent root = loader.load();
             int rows = (int) gridLinesSlider.getValue();
             int columns = (int) gridColumnsSlider.getValue();
@@ -141,6 +137,7 @@ public class SettingsController implements Observer {
 
             game.setGridSize(rows, columns);
             System.out.println("in settings controller" + rows + columns);
+            
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
@@ -149,6 +146,7 @@ public class SettingsController implements Observer {
             e.printStackTrace();
           }
         });
+
     try {
       Path databasePath = Paths.get(getClass().getClassLoader().getResource("database").toURI());
       databaseOptions.setValue("Thématique");

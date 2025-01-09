@@ -7,14 +7,16 @@ public class Board {
   private Card[][] cards;
   private int rows = 5;
   private int columns = 5;
-
+  private int redCount;
+  private int blueCount;
   private List<String> words;
 
   public Board(List<String> words) {
     if (words.size() < rows * columns) {
       throw new IllegalArgumentException("La liste de mots doit contenir au moins 25 mots.");
     }
-
+    this.redCount = 9;
+    this.blueCount = 8;
     cards = new Card[rows][columns];
     initializeBoard(words);
   }
@@ -46,6 +48,14 @@ public class Board {
     initializeBoard(this.words);
   }
 
+  public int getBlueTeamCount() {
+    return blueCount;
+  }
+
+  public int getRedTeamCount() {
+    return redCount;
+  }
+
   private void initializeBoard(List<String> words) {
     int gridSize = rows * columns;
     if (words.size() < gridSize) {
@@ -53,9 +63,11 @@ public class Board {
     }
 
     Collections.shuffle(words);
-
-    int redCount = (int) (gridSize * 0.36);
-    int blueCount = (int) (gridSize * 0.36);
+    System.out.println("Gridsize : " + gridSize);
+    this.redCount = (int) (gridSize * 0.36);
+    this.blueCount = (int) (gridSize * 0.36);
+    int redCardToPut = redCount;
+    int blueCardToPut = blueCount;
     int neutralCount = (int) (gridSize * 0.24);
     int assassinCount = 1;
 
@@ -63,12 +75,12 @@ public class Board {
 
     for (int i = 0; i < gridSize; i++) {
       String color;
-      if (redCount > 0) {
+      if (redCardToPut > 0) {
         color = "Red";
-        redCount--;
-      } else if (blueCount > 0) {
+        redCardToPut--;
+      } else if (blueCardToPut > 0) {
         color = "Blue";
-        blueCount--;
+        blueCardToPut--;
       } else if (neutralCount > 0) {
         color = "Neutral";
         neutralCount--;

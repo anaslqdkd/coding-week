@@ -23,10 +23,10 @@
             <Label text="Taille de la grille :" style="-fx-font-size: 16px;" />
             <HBox spacing="20" alignment="CENTER">
                 <Label text="Nombre de lignes :" style="-fx-font-size: 16px;" />
-                <Slider fx:id="gridLinesSlider" min="4" max="10" value="5" showTickLabels="true" showTickMarks="true" majorTickUnit="1" blockIncrement="1" snapToTicks="true" minorTickCount="0" />    </HBox>
+                <Slider fx:id="gridLinesSlider" min="5" max="10" value="5" showTickLabels="true" showTickMarks="true" majorTickUnit="1" blockIncrement="1" snapToTicks="true" minorTickCount="0" />    </HBox>
             <HBox spacing="20" alignment="CENTER">
                 <Label text="Nombre de colonnes :" style="-fx-font-size: 16px;" />
-                <Slider fx:id="gridColumnsSlider" min="4" max="10" value="5" showTickLabels="true" showTickMarks="true" majorTickUnit="1" blockIncrement="1" snapToTicks="true" minorTickCount="0" />    </HBox>
+                <Slider fx:id="gridColumnsSlider" min="5" max="10" value="5" showTickLabels="true" showTickMarks="true" majorTickUnit="1" blockIncrement="1" snapToTicks="true" minorTickCount="0" />    </HBox>
 
 
             <HBox spacing="20" alignment="CENTER">
@@ -40,7 +40,8 @@
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <HBox spacing="20" alignment="CENTER">
                 <Button fx:id="saveSettingsButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" />
-                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" onAction="#goBackToMenu"/>
+
+                <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
                         <ChoiceBox prefWidth="150.0" fx:id="databaseOptions" />
                 <Button fx:id="loadDatabaseButton" text="Ouvrir" prefWidth="150" style="-fx-font-size: 16px;" />
                 <Button fx:id="writeDatabase" text="write" prefWidth="150" style="-fx-font-size: 16px;" />
