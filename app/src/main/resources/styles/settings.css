@@ -1,0 +1,90 @@
+/* Fond principal */
+BorderPane {
+    -fx-background-color: rgb(255, 253, 142); /* Dégradé entre rose pâle et vert doux */
+    -fx-padding: 20px;
+}
+
+/* Conteneur central (effet de carte) */
+.center-pane {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #212E53; /* Bordure bleu nuit */
+    -fx-border-width: 3px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 40px;
+    -fx-max-width: 600px; /* Largeur fixe pour un design centré */
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.2, 0, 5); /* Légère ombre douce */
+}
+
+#title {
+
+    -fx-font-size: 45px; 
+    -fx-font-weight: bold; 
+    -fx-text-fill: #212E53;
+    -fx-background-color: #4A919E; /* Rouge doux */
+
+}
+
+/* Style des boutons (version principale) */
+.button {
+    -fx-background-color: #CE6A6B; /* Rouge doux */
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 30px;
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 3px;
+    -fx-border-color: #212E53; /* Bleu nuit */
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #EBACA2; /* Rose pâle au survol */
+    -fx-transform: scale(1.05); /* Zoom léger */
+}
+
+.button:pressed {
+    -fx-background-color: #CE6A6B; /* Rouge doux au clic */
+    -fx-transform: scale(0.95); /* Effet de clic */
+}
+
+/* Bouton secondaire (ex: Paramètres) */
+#settingsButton {
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
+    -fx-text-fill: #212E53;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 3px;
+    -fx-border-color: #212E53; /* Bleu nuit */
+}
+
+#settingsButton:hover {
+    -fx-background-color: #BED3C3; /* Vert doux au survol */
+}
+
+#settingsButton:pressed {
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
+}
+
+/* Pied de page */
+.menu-footer {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #212E53; /* Texte bleu nuit */
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-border-top: 2px solid #212E53; /* Ligne de séparation nette */
+}
+
+
+.label {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212E53;
+}
