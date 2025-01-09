@@ -1,19 +1,12 @@
-/*
-Pour fonctionner, a besoin de :
-
-SettingsController controller = loader.getController();
-        GridController grid_controller = new GridController();
-        grid_controller.getWordList(25);
-
-*/
-
 package codename.controller;
 
 import codename.App;
 import codename.Observer;
 import codename.model.Game;
+import codename.model.WordList;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,35 +51,38 @@ public class SettingsController implements Observer {
 
   @FXML
   private void loadDatabase() {
-    // Create a FileChooser
     FileChooser fileChooser = new FileChooser();
 
-    // Set title for the FileChooser dialog
     fileChooser.setTitle("Select Database File");
 
-    // Set the initial directory (optional)
     fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-
-    // Add file extension filters (e.g., only show .db or .sqlite files)
     fileChooser
         .getExtensionFilters()
         .addAll(
             new FileChooser.ExtensionFilter("Database Files", "*.txt"),
             new FileChooser.ExtensionFilter("All Files", "*.*"));
 
-    // Show the FileChooser dialog
     File selectedFile = fileChooser.showOpenDialog(new Stage());
 
-    // Check if a file was selected
     if (selectedFile != null) {
       System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-      // Add your logic here to load the selected database file
+      String filePath = selectedFile.getAbsolutePath();
+      int wordNumber = game.getSize();
+      int rowsNumber = game.getBoard().getRows();
+      int columnsNumber = game.getBoard().getColumns();
+      try {
+        this.game.setFilePath(filePath);
+        List<String> words = WordList.getWordListGlobal(wordNumber, filePath);
+        this.game.getBoard().setWords(words);
+        this.game.getBoard().regenerateBoard(rowsNumber, columnsNumber);
+        this.game.notify_observator();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     } else {
       System.out.println("File selection canceled.");
     }
   }
-
-  // TODO: à créer fonctionnalité ouvrir une bd
 
   // @FXML
   // public void saveSettings() {

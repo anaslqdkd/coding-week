@@ -37,6 +37,10 @@ public class Board {
     this.words = words;
   }
 
+  public List<String> getWords() {
+    return this.words;
+  }
+
   public void regenerateBoard(int rows, int columns) {
     setGridSize(rows, columns);
     initializeBoard(this.words);
