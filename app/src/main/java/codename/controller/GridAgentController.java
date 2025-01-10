@@ -5,12 +5,14 @@ import codename.model.Card;
 import codename.model.Clue;
 import codename.model.Game;
 import codename.model.Team;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class GridAgentController implements Observer {
 
@@ -18,8 +20,7 @@ public class GridAgentController implements Observer {
   private ClueSpyController clueSpyController;
   private ClueAgentController clueAgentController;
   private GridSpyController gridSpyController;
-  @FXML
-  GridPane gridAgent;
+  @FXML GridPane gridAgent;
   private Game game;
 
   @FXML
@@ -46,61 +47,86 @@ public class GridAgentController implements Observer {
   }
 
   public void generate_grid_agent(GridPane gridPane) {
-    // final int rows = 5;
-    // final int columns = 5;
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
-    // NOTE: ici pb
+
+    Image imageCiv = new Image(getClass().getResourceAsStream("/images/word_civ.png"));
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {
-        StackPane stackPane = new StackPane();
+        ImageView imageView = new ImageView(imageCiv);
+        imageView.setFitWidth(150);
+        imageView.setFitHeight(90);
 
         Card card = matrix[row][col];
+        Image image = card.getImage();
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: black;");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-label-fill: black;");
+        StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
+        label.setTranslateY(-12);
 
-        stackPane.setPrefSize(100, 100);
+        StackPane stackPane = new StackPane(imageView);
+        stackPane.getChildren().add(label);
+
+        if (card.isRevealed()) {
+          stackPane.getChildren().clear();
+
+          ImageView revealedImageView = new ImageView(image);
+          revealedImageView.setFitWidth(150);
+          revealedImageView.setFitHeight(90);
+          stackPane.getChildren().add(revealedImageView);
+          stackPane.getChildren().add(label);
+        }
+
+        stackPane.setOnMouseEntered(
+            e -> {
+              ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
+              popIn.setToX(1.2);
+              popIn.setToY(1.2);
+              popIn.playFromStart();
+            });
+
+        stackPane.setOnMouseExited(
+            e -> {
+              ScaleTransition popOut = new ScaleTransition(Duration.millis(200), stackPane);
+              popOut.setToX(1.0);
+              popOut.setToY(1.0);
+              popOut.playFromStart();
+            });
+
         final int currentRow = row;
         final int currentCol = col;
-
-        stackPane.setMinSize(50, 50);
-        stackPane.setMaxSize(200, 200);
-        Rectangle rectangle = new Rectangle(100, 60); // Width: 100, Height: 60
-        rectangle.setArcWidth(10); // Rounded corners
-        rectangle.setArcHeight(10);
-        String color = card.getColor();
-        if (card.isRevealed()) {
-          if (color == "Red") {
-            rectangle.setFill(Color.RED);
-          }
-          if (color == "Blue") {
-            rectangle.setFill(Color.BLUE);
-          }
-          if (color == "Assassin") {
-            rectangle.setFill(Color.BLACK);
-            label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: white;");
-            // mourir xd
-          }
-          if (color == "Neutral") {
-            rectangle.setFill(Color.WHEAT);
-          }
-        } else {
-          rectangle.setFill(Color.BEIGE);
-        }
         stackPane.setOnMouseClicked(
             event -> {
               handleCardClick(currentRow, currentCol);
+              imageView.setFitWidth(150);
+              imageView.setFitHeight(90);
             });
-
-        stackPane.getChildren().add(0, rectangle);
-        stackPane.getChildren().add(label);
-        stackPane.setStyle("-fx-cursor: hand;");
 
         gridPane.add(stackPane, col, row);
       }
     }
+  }
+
+  private StackPane createPopEffectStackPane(ImageView imageView) {
+    StackPane stackPane = new StackPane();
+    stackPane.setPrefSize(150, 150);
+
+    stackPane.getChildren().add(imageView);
+
+    ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
+    popIn.setToX(1.2);
+    popIn.setToY(1.2);
+
+    ScaleTransition popOut = new ScaleTransition(Duration.millis(200), stackPane);
+    popOut.setToX(1.0);
+    popOut.setToY(1.0);
+
+    stackPane.setOnMouseEntered(e -> popIn.playFromStart());
+    stackPane.setOnMouseExited(e -> popOut.playFromStart());
+
+    return stackPane;
   }
 
   public void handleCardClick(int row, int col) {
@@ -151,7 +177,6 @@ public class GridAgentController implements Observer {
           clickedCard.reveal();
           System.out.println("Carte cliquée: " + clickedCard.getWord());
           game.incrementClicksCount();
-
         }
         if (game.getClicksCount() == game.getMaxClicks()) {
           System.out.println("Max de clicks fin de tour -----------------------------");
@@ -159,7 +184,6 @@ public class GridAgentController implements Observer {
           clueSpyController.reset();
           game.setAgentTurn(false);
           game.notify_observator();
-
         }
       } else {
         System.out.println("carte déjà revelée: " + clickedCard.getWord());
