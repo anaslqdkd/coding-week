@@ -224,12 +224,12 @@ public class SettingsController implements Observer {
     }
   }
 
-  private String removeExtension(String filename) {
-    int dotIndex = filename.lastIndexOf('.');
-    if (dotIndex > 0) {
-      return filename.substring(0, dotIndex);
+  private String removeExtension(String fileName) {
+    int lastIndexOfDot = fileName.lastIndexOf('.');
+    if (lastIndexOfDot == -1) {
+        return fileName;
     } else {
-      return filename;
+        return fileName.substring(0, lastIndexOfDot);
     }
   }
 

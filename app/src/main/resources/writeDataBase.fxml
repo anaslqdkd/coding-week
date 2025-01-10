@@ -18,7 +18,11 @@
 
     <center>
         <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
-            <TextArea fx:id="databaseTextArea" prefWidth="800" prefHeight="400" wrapText="true" style="-fx-font-size: 14px;" />
+            <HBox spacing="20" alignment="CENTER">
+                <MenuButton fx:id="themeButton" text="Nouveau fichier" prefWidth="200" style="-fx-font-size: 16px;" />
+                <TextField fx:id="titleField" promptText="Titre" prefWidth="200" style="-fx-font-size: 16px;" />
+            </HBox>
+            <TextArea fx:id="databaseTextArea" prefWidth="600" prefHeight="400" wrapText="true" style="-fx-font-size: 14px;" />
         </VBox>
     </center>
 
@@ -26,8 +30,6 @@
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
             <HBox spacing="20" alignment="CENTER">
                 <Button fx:id="cancelButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
-                <MenuButton fx:id="themeButton" text="Sélection du Thème" prefWidth="150" style="-fx-font-size: 16px;" />
-                <TextField fx:id="titleField" promptText="Titre" prefWidth="200" style="-fx-font-size: 16px;" />
                 <Button fx:id="saveButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" />
             </HBox>
         </VBox>
