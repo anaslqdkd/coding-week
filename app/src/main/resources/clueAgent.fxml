@@ -7,36 +7,27 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<HBox prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueAgentController">
+<HBox stylesheets="@styles/grid.css" prefHeight="100.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueAgentController" styleClass="hbox-container">
     <children>
         <!-- Espacement gauche -->
         <Region prefWidth="50.0" />
 
         <!-- Contenu principal -->
-        <VBox prefHeight="100.0" prefWidth="700.0" spacing="10">
+        <VBox prefHeight="100.0" prefWidth="700.0" spacing="10" styleClass="vbox-container">
             <children>
                 <!-- Bandeau informatif -->
-                <HBox prefHeight="50.0" spacing="20" alignment="CENTER_LEFT">
+                <HBox prefHeight="50.0" spacing="20" alignment="CENTER_LEFT" styleClass="hbox-content">
                     <children>
-                        <Label text="Indice : " prefWidth="100.0">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="clueLabel" text="En attente..." prefWidth="400.0">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </Label>
+                        <Label text="Indice : " prefWidth="100.0" styleClass="label" />
+                        <Label fx:id="clueLabel" text="En attente..." prefWidth="400.0" styleClass="label-clue" />
                     </children>
                 </HBox>
 
                 <!-- Bouton "Fin de tour" -->
-                <HBox prefHeight="50.0" alignment="CENTER">
+                <HBox prefHeight="50.0" alignment="CENTER" styleClass="hbox-content">
                     <children>
-                        <Button fx:id="endTurnButton" text="Fin de tour" prefWidth="150.0" />
+                        <Button fx:id="endTurnButton" text="Fin de tour" prefWidth="150.0" styleClass="end-turn-button" />
                     </children>
                 </HBox>
             </children>

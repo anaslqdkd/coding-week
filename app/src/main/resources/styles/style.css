@@ -1,0 +1,58 @@
+#labelSpyName {
+    -fx-font-size: 50px; /* Taille du texte */
+    -fx-text-fill: #212E53; /* Texte bleu marine */
+    -fx-alignment: center; /* Centrage du texte */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-font-family: "Poppins", sans-serif; /* Police élégante */
+    -fx-background-color: #BED3C3; /* Fond rose pâle */
+    -fx-border-color: #212E53; /* Bordure rouge */
+    -fx-border-width: 3px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Coins arrondis */
+    -fx-background-radius: 10px; /* Coins arrondis pour le fond */
+    -fx-padding: 10px 20px; /* Espacement interne */
+    -fx-max-width: 700px; /* Limite de largeur pour rendre le label moins large */
+    -fx-pref-width: 600px; /* Largeur préférée */
+    -fx-margin-top: 100px; /* Ajout d'espace au-dessus du label */
+}
+
+#labelAgentName {
+    -fx-font-size: 50px; /* Taille du texte */
+    -fx-text-fill: #212E53; /* Texte bleu marine */
+    -fx-alignment: center; /* Centrage du texte */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-font-family: "Poppins", sans-serif; /* Police élégante */
+    -fx-background-color: #BED3C3; /* Fond rose pâle */
+    -fx-border-color: #212E53; /* Bordure rouge */
+    -fx-border-width: 3px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Coins arrondis */
+    -fx-background-radius: 10px; /* Coins arrondis pour le fond */
+    -fx-padding: 10px 20px; /* Espacement interne */
+    -fx-max-width: 700px; /* Limite de largeur pour rendre le label moins large */
+    -fx-pref-width: 600px; /* Largeur préférée */
+    -fx-margin-top: 100px; /* Ajout d'espace au-dessus du label */
+}
+
+
+/* Style des boutons (version principale) */
+.button {
+    -fx-background-color: #4A919E; /* Rouge doux */
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 10px;
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 8px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 3px;
+    -fx-border-color: #212E53; /* Bleu nuit */
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #BED3C3; /* Rose pâle au survol */
+}
+
+.button:pressed {
+    -fx-background-color: #4A919E; /* Rouge doux au clic */
+}

@@ -1,0 +1,59 @@
+/* Style général pour le HBox */
+.hbox-container {
+    -fx-alignment: center; /* Centrer les éléments */
+    -fx-spacing: 10px; /* Espacement entre les éléments */
+    -fx-padding: 10px; /* Espace intérieur (padding) */
+    -fx-background-color: #BED3C3; /* Couleur de fond */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-border-color: #212E53; /* Couleur du cadre */
+    -fx-border-width: 2px; /* Épaisseur du cadre */
+    -fx-border-radius: 10px; /* Coins arrondis du cadre */
+
+}
+
+/* Uniformiser la hauteur des éléments */
+.hbox-container .text-field,
+.hbox-container .choice-box,
+.hbox-container .button,
+.hbox-container .label {
+    -fx-pref-height: 40px; /* Hauteur uniforme */
+}
+
+/* Style pour le TextField */
+.text-field {
+    -fx-pref-width: 300px;
+    -fx-prompt-text-fill: #212E53;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #4A919E;
+    -fx-border-width: 1px;
+}
+
+/* Style pour le ChoiceBox */
+.choice-box {
+    -fx-pref-width: 120px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #4A919E;
+    -fx-border-width: 1px;
+    -fx-background-color: #4A919E;
+    -fx-text-fill: #212E53;
+}
+
+/* Style pour le Button */
+.button {
+    -fx-background-color: #4A919E;
+    -fx-text-fill: #212E53;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+}
+
+/* Style pour le Label */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212E53;
+    -fx-alignment: center; /* Centrer le texte dans le label */
+}

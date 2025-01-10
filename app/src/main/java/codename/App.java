@@ -32,7 +32,8 @@ public class App extends Application {
 
     primaryStage.setTitle("CodeName");
     primaryStage.setScene(scene);
-    // primaryStage.setResizable(false);
+    primaryStage.setFullScreen(true);
+    primaryStage.setResizable(false);
     primaryStage.show();
   }
 

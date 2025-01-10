@@ -1,5 +1,64 @@
-/* Fond principal */
-MenuBar {
-    -fx-background-color: rgb(255, 254, 196);
-    -fx-padding: 20px;
+/* BorderPane principal */
+#borderPaneSpy {
+    -fx-padding: 10px; /* Espacement interne pour une mise en page propre */
+    -fx-border-color: #212E53; /* Bordures bleues marines */
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px; /* Bordures arrondies */
+    -fx-background-color: transparent; /* Pas de fond */
+}
+
+/* Sections incluses */
+#gridSpy, #clueSpy {
+    -fx-padding: 10px;
+    -fx-border-color: #CE6A6B; /* Bordures rouges pour les sections */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-color: transparent; /* Pas de fond */
+}
+
+/* Boutons */
+.button {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212E53; /* Texte bleu marine */
+    -fx-border-color: #CE6A6B; /* Bordure rouge */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-color: transparent; /* Pas de fond */
+}
+
+/* Effet au survol des boutons */
+.button:hover {
+    -fx-background-color: #CE6A6B; /* Fond rouge au survol */
+}
+
+/* Effet au clic des boutons */
+.button:armed {
+    -fx-background-color: #CE6A6B; /* Fond rouge au clic */
+}
+
+/* Labels */
+.label {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #212E53; /* Texte bleu marine */
+}
+
+/* En-tête */
+#headerSpy {
+    -fx-padding: 10px;
+    -fx-border-color: #CE6A6B; /* Bordure rouge */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-color: transparent; /* Pas de fond */
+}
+
+/* Informations des agents */
+#infoAgent {
+    -fx-padding: 10px;
+    -fx-border-color: #212E53; /* Bordure bleue marine */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-color: transparent; /* Pas de fond */
 }

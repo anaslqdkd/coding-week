@@ -8,17 +8,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="116.0"  prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@styles/style.css" fx:controller="codename.controller.HeaderSpyController">
+<VBox  prefHeight="116.0"  prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@styles/style.css" fx:controller="codename.controller.HeaderSpyController">
     <children>
         <fx:include source="menuBar.fxml" />
-        <StackPane prefHeight="150.0" prefWidth="200.0">
+        <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-padding: 20px 0 0 0;"> <!-- Padding en haut -->
             <children>
-                <Label alignment="CENTER" prefHeight="49.0" prefWidth="1022.0" text="Maitre-Espion : Raf" fx:id="labelSpyName">
+                <Label alignment="CENTER" prefHeight="49.0" prefWidth="600.0" text="Maitre-Espion : Raf" fx:id="labelSpyName">
                     <font>
-                        <Font size="40.0" />
+                        <Font size="50.0" />
                     </font>
                 </Label>
             </children>
         </StackPane>
+
     </children>
 </VBox>

@@ -10,40 +10,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.Button?>
 
-<HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueSpyController">
+
+<HBox stylesheets="@styles/grid.css" prefHeight="100.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueSpyController" styleClass="hbox-container">
     <children>
-        <Region prefHeight="100.0" prefWidth="443.0" />
-        <VBox prefHeight="100.0" prefWidth="654.0">
-            <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <StackPane prefHeight="149.0" prefWidth="652.0">
-                            <children>
-                                <TextField prefHeight="24.0" prefWidth="378.0" fx:id="textField" promptText="Écrire un indice"/>
-                            </children>
-                        </StackPane>
-                        <StackPane prefHeight="25.0" prefWidth="571.0">
-                            <children>
-                                <Label prefHeight="25.0" prefWidth="239.0" text="Indice" fx:id="labelIndice">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </StackPane>
-                    </children>
-                </HBox>
-                <StackPane prefHeight="150.0" prefWidth="200.0">
-                    <children>
-                        <ChoiceBox prefWidth="150.0" fx:id="choiceBox"/>
-                    </children>
-                </StackPane>
-                <StackPane prefHeight="150.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Valider" fx:id="validateButton"/>
-               </children>
-            </StackPane>
-            </children>
-        </VBox>
+        <TextField prefWidth="300.0" fx:id="textField" promptText="Écrire un indice" styleClass="text-field" />
+        <ChoiceBox prefWidth="120.0" fx:id="choiceBox" styleClass="choice-box" />
+        <Button mnemonicParsing="false" text="Valider" fx:id="validateButton" prefWidth="100.0" styleClass="button" />
+        <Label text="Indice" fx:id="labelIndice" prefWidth="120.0" styleClass="label" />
     </children>
 </HBox>
+
+
+
+

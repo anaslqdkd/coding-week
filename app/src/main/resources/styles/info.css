@@ -1,0 +1,54 @@
+#info {
+    -fx-background-color: #EBACA2; /* Fond rose pâle */
+    -fx-border-color: #212E53; /* Bordure bleu marine */
+    -fx-border-width: 3px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Coins arrondis */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-padding: 10px; /* Espacement interne */
+    -fx-spacing: 10px; /* Espacement entre les enfants */
+    -fx-alignment: top-center; /* Alignement du contenu en haut et centré */
+    -fx-pref-width: 250px; /* Largeur réduite */
+    -fx-pref-height: 350px; /* Hauteur définie */
+    -fx-margin-left: 20px; /* Espace à gauche (ne fonctionne que dans un parent si configuré) */
+}
+
+/* Style des labels dans la VBox */
+#info .label {
+    -fx-font-family: "Poppins", sans-serif; /* Police élégante */
+    -fx-font-size: 14px; /* Taille du texte */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-fill: #212E53; /* Texte bleu marine */
+    -fx-alignment: center; /* Centrage du texte */
+    -fx-padding: 5px; /* Espacement interne */
+}
+
+/* Style pour le label "Au tour de l'équipe" */
+#info .label:first-of-type {
+    -fx-font-size: 16px; /* Texte légèrement plus grand */
+    -fx-text-fill: #CE6A6B; /* Texte rouge */
+    -fx-border-color: #CE6A6B; /* Bordure rouge */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #FFFFFF; /* Fond blanc */
+    -fx-padding: 8px; /* Espacement interne */
+    -fx-margin-top: 20px; /* Ajout d'espace entre le titre et le cadre */
+}
+
+/* Style des scores */
+#redScore, #blueScore {
+    -fx-font-size: 14px; /* Texte réduit */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-fill: #FFFFFF; /* Texte blanc */
+    -fx-background-color: #CE6A6B; /* Fond rouge */
+    -fx-border-color: #212E53; /* Bordure bleu marine */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px; /* Espacement interne */
+    -fx-alignment: center;
+}
+
+/* Ajout d'espace autour via padding du conteneur */
+#infoContainer {
+    -fx-padding: 0 0 0 20px; /* 20px d'espace à gauche */
+}
