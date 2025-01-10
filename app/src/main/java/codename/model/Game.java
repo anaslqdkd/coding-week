@@ -14,8 +14,10 @@ public class Game {
   private Team currentTurn;
   private Clue currentClue;
   private int maxClicks;
-  private int clicksRemaining;
+  private int clicksCount;
   private boolean isGameOver;
+  private Team lastTurn;
+  private boolean agentTurn;
   private Team winner;
   private List<String> words;
   private ArrayList<Observer> observers = new ArrayList<>(10);
@@ -28,10 +30,12 @@ public class Game {
     this.redTeam = new Team("Red");
     this.blueTeam = new Team("Blue");
     this.currentTurn = redTeam;
+    this.lastTurn = currentTurn;
     this.currentClue = null;
     this.maxClicks = 0;
+    this.agentTurn = false;
     this.words = words;
-    this.clicksRemaining = 0;
+    this.clicksCount = 0;
     this.isGameOver = false;
     this.winner = null;
     this.filePath = getClass().getClassLoader().getResource("database/database.txt").getPath();
@@ -146,8 +150,8 @@ public class Game {
     return maxClicks;
   }
 
-  public void decrementClicksRemaining() {
-    clicksRemaining--;
+  public void incrementClicksCount() {
+    clicksCount++;
   }
 
   public void proposeClue(Clue clue) {
@@ -159,7 +163,7 @@ public class Game {
     }
     this.currentClue = clue;
     this.maxClicks = clue.getNumber() + 1;
-    this.clicksRemaining = this.maxClicks;
+    this.clicksCount = 0;
   }
 
   private boolean isValidClue(String clue) {
@@ -168,6 +172,14 @@ public class Game {
 
   public Clue getClue() {
     return this.currentClue;
+  }
+
+  public boolean isAgentTurn() {
+    return this.agentTurn;
+  }
+
+  public void setAgentTurn(boolean agentTurn) {
+    this.agentTurn = agentTurn;
   }
 
   public void revealCard(int row, int col) {
@@ -182,15 +194,30 @@ public class Game {
     }
   }
 
+  public int getClicksCount() {
+    return clicksCount;
+  }
+
+  public void setClicksCount(int clicksCount) {
+    this.clicksCount = clicksCount;
+  }
+
+
+
   public boolean isGameOver() {
     return this.isGameOver;
   }
 
   public void switchTurn() {
+    this.lastTurn = currentTurn;
     currentTurn = (currentTurn == redTeam) ? blueTeam : redTeam;
     currentClue = null;
     maxClicks = 0;
-    clicksRemaining = 0;
+    clicksCount = 0;
+  }
+
+  public Team getLastTurn() {
+    return this.lastTurn;
   }
 
   public Team whosTurn() {

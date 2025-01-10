@@ -15,27 +15,29 @@ public class ClueSpyController implements Observer {
   private ClueAgentController clueAgentController;
   private Game game;
   private GridAgentController gridAgentController;
-  private boolean agentClick;
 
-  @FXML private TextField textField;
+  @FXML
+  private TextField textField;
 
-  @FXML private ChoiceBox<Integer> choiceBox;
+  @FXML
+  private ChoiceBox<Integer> choiceBox;
 
-  @FXML private Label labelIndice;
+  @FXML
+  private Label labelIndice;
 
-  @FXML private Button validateButton;
+  @FXML
+  private Button validateButton;
 
   @FXML
   public void initialize() {
     this.game = Game.getInstance();
     this.game.add_observer(this);
-    this.agentClick = false;
     // Interdire les espaces dans le TextField
     textField.textProperty().addListener((observable, oldValue, newValue) -> {
       textField.setText(newValue.replaceAll("[^a-zA-Z\\-]", ""));
     });
-    
-    validateButton.setOnAction(event ->{
+
+    validateButton.setOnAction(event -> {
       String text = textField.getText();
       Integer number = choiceBox.getValue();
 
@@ -44,12 +46,13 @@ public class ClueSpyController implements Observer {
         textField.clear();
         textField.setDisable(true);
         validateButton.setDisable(true);
-        setAgentClick(true);
+        game.setAgentTurn(true);
         labelIndice.setText("Indice : " + text + " - " + number);
         clueAgentController.switchButton();
       }
       this.game.proposeClue(new Clue(text, number));
       clueAgentController.getClue();
+      game.notify_observator();
     });
 
     // Transformer en majuscules automatiquement
@@ -91,14 +94,6 @@ public class ClueSpyController implements Observer {
     }
   }
 
-  public boolean agentClick() {
-    return this.agentClick;
-  }
-
-  public void setAgentClick(boolean agentClick) {
-    this.agentClick = agentClick;
-  }
-
   private void handleEnterKey(KeyEvent event) {
     switch (event.getCode()) {
       case ENTER:
@@ -111,20 +106,21 @@ public class ClueSpyController implements Observer {
           textField.clear();
           textField.setDisable(true);
           validateButton.setDisable(true);
+          game.setAgentTurn(true);
           labelIndice.setText("Indice : " + text + " - " + number);
           clueAgentController.switchButton();
         }
         this.game.proposeClue(new Clue(text, number));
         clueAgentController.getClue();
+        game.notify_observator();
         break;
       default:
         break;
     }
   }
 
-
   public void disableWin() {
-    if ( this.game.isGameOver() ) {
+    if (this.game.isGameOver()) {
       System.out.println("Partie terminée ClueSpyController");
       textField.setDisable(true);
       choiceBox.setDisable(true);
@@ -132,13 +128,12 @@ public class ClueSpyController implements Observer {
     }
   }
 
-
   public void reset() {
     textField.setDisable(false);
     textField.clear();
     choiceBox.setValue(null);
     validateButton.setDisable(false);
-    setAgentClick(false);
+    game.setAgentTurn(false);
     labelIndice.setText("Indice :");
     gridAgentController.resetClickCount();
   }
