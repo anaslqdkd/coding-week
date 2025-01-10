@@ -1,5 +1,8 @@
 package codename.controller;
 
+import codename.Observer;
+import codename.model.Game;
+import codename.model.WordList;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -8,10 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import codename.Observer;
-import codename.model.Game;
-import codename.model.WordList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -97,20 +96,27 @@ public class SettingsController implements Observer {
     gridColumnsSlider.setValue(game.getBoard().getColumns());
 
     // Ajouter des écouteurs aux sliders
-    gridLinesSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-        System.out.println("Grid lines updated: " + newValue.intValue());
-        // Mettre à jour la valeur des lignes dans le jeu
-    });
+    gridLinesSlider
+        .valueProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              System.out.println("Grid lines updated: " + newValue.intValue());
+              // Mettre à jour la valeur des lignes dans le jeu
+            });
 
-    gridColumnsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-        System.out.println("Grid columns updated: " + newValue.intValue());
-        // Mettre à jour la valeur des colonnes dans le jeu
-    });
+    gridColumnsSlider
+        .valueProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              System.out.println("Grid columns updated: " + newValue.intValue());
+              // Mettre à jour la valeur des colonnes dans le jeu
+            });
 
     saveSettingsButton.setOnAction(
         event -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
+            FXMLLoader loader =
+                new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
             Parent root = loader.load();
             int rows = (int) gridLinesSlider.getValue();
             int columns = (int) gridColumnsSlider.getValue();
@@ -118,7 +124,7 @@ public class SettingsController implements Observer {
 
             game.setGridSize(rows, columns);
             System.out.println("in settings controller" + rows + columns);
-            
+
             Stage stage = (Stage) saveSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
@@ -131,9 +137,10 @@ public class SettingsController implements Observer {
     cancelSettingsButton.setOnAction(
         event -> {
           try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
+            FXMLLoader loader =
+                new FXMLLoader(getClass().getResource(game.getParameters().getCurrentPage()));
             Parent root = loader.load();
-            
+
             Stage stage = (Stage) cancelSettingsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             game.notify_observator();
@@ -141,21 +148,22 @@ public class SettingsController implements Observer {
           } catch (IOException e) {
             e.printStackTrace();
           }
-        });    
+        });
 
     // Gestion du bouton writeDatabaseButton
-    writeDatabaseButton.setOnAction(event -> {
-      try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/writeDataBase.fxml"));
-          Parent root = loader.load();
+    writeDatabaseButton.setOnAction(
+        event -> {
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/writeDataBase.fxml"));
+            Parent root = loader.load();
 
-          Stage stage = (Stage) writeDatabaseButton.getScene().getWindow();
-          stage.setScene(new Scene(root));
-          stage.show();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-    });
+            Stage stage = (Stage) writeDatabaseButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
 
     try {
       Path databasePath = Paths.get(getClass().getClassLoader().getResource("database").toURI());
@@ -227,13 +235,15 @@ public class SettingsController implements Observer {
   private String removeExtension(String fileName) {
     int lastIndexOfDot = fileName.lastIndexOf('.');
     if (lastIndexOfDot == -1) {
-        return fileName;
+      return fileName;
     } else {
-        return fileName.substring(0, lastIndexOfDot);
+      return fileName.substring(0, lastIndexOfDot);
     }
   }
 
   public void update() {
+    this.game.getBoard().setImageToCards();
+
     System.out.println("Game update in settings controller");
   }
 }

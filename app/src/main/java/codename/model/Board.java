@@ -142,10 +142,10 @@ public class Board implements java.io.Serializable {
     Collections.shuffle(words);
     System.out.println("Gridsize : " + gridSize);
     this.redCount = (int) (gridSize * 0.36);
-    this.blueCount = (int) (gridSize * 0.36)-1;
+    this.blueCount = (int) (gridSize * 0.36) - 1;
     int redCardToPut = redCount;
     int blueCardToPut = blueCount;
-    int neutralCount = (int) (gridSize * 0.24)+1;
+    int neutralCount = (int) (gridSize * 0.24) + 1;
     int assassinCount = 1;
 
     int currentIndex = 0;

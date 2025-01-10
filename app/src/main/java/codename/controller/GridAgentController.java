@@ -71,7 +71,7 @@ public class GridAgentController implements Observer {
 
         if (card.isRevealed()) {
           imageView.setImage(image); // Replace the default image with revealed image
-          label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
+          // label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
         }
 
         // Add scaling effects on mouse enter/exit
