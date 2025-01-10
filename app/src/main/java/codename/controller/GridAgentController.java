@@ -5,12 +5,14 @@ import codename.model.Card;
 import codename.model.Clue;
 import codename.model.Game;
 import codename.model.Team;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class GridAgentController implements Observer {
 
@@ -42,62 +44,66 @@ public class GridAgentController implements Observer {
   }
 
   public void generate_grid_agent(GridPane gridPane) {
-    // final int rows = 5;
-    // final int columns = 5;
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
     System.out.println("in generate grid agent rows and colums *************" + rows + columns);
-    // NOTE: ici pb
+
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {
-        StackPane stackPane = new StackPane();
-
         Card card = matrix[row][col];
         Label label = new Label(card.getWord());
         label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: black;");
 
-        stackPane.setPrefSize(100, 100);
-        final int currentRow = row;
-        final int currentCol = col;
-
-        stackPane.setMinSize(50, 50);
-        stackPane.setMaxSize(200, 200);
-        Rectangle rectangle = new Rectangle(100, 60); // Width: 100, Height: 60
-        rectangle.setArcWidth(10); // Rounded corners
+        Rectangle rectangle = new Rectangle(100, 60);
+        rectangle.setArcWidth(10);
         rectangle.setArcHeight(10);
-        String color = card.getColor();
+
         if (card.isRevealed()) {
-          if (color == "Red") {
-            rectangle.setFill(Color.RED);
-          }
-          if (color == "Blue") {
-            rectangle.setFill(Color.BLUE);
-          }
-          if (color == "Assassin") {
-            rectangle.setFill(Color.BLACK);
-            label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: white;");
-            // mourir xd
-          }
-          if (color == "Neutral") {
-            rectangle.setFill(Color.WHEAT);
+          switch (card.getColor()) {
+            case "Red" -> rectangle.setFill(Color.RED);
+            case "Blue" -> rectangle.setFill(Color.BLUE);
+            case "Assassin" -> {
+              rectangle.setFill(Color.BLACK);
+              label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: white;");
+            }
+            case "Neutral" -> rectangle.setFill(Color.WHEAT);
           }
         } else {
           rectangle.setFill(Color.BEIGE);
         }
-        stackPane.setOnMouseClicked(
-            event -> {
-              handleCardClick(currentRow, currentCol);
-            });
 
-        stackPane.getChildren().add(0, rectangle);
+        StackPane stackPane = createPopEffectStackPane(rectangle);
         stackPane.getChildren().add(label);
-        stackPane.setStyle("-fx-cursor: hand;");
+
+        final int currentRow = row;
+        final int currentCol = col;
+        stackPane.setOnMouseClicked(event -> handleCardClick(currentRow, currentCol));
 
         gridPane.add(stackPane, col, row);
       }
     }
+  }
+
+  private StackPane createPopEffectStackPane(Rectangle rectangle) {
+    StackPane stackPane = new StackPane();
+    stackPane.setPrefSize(100, 100);
+
+    stackPane.getChildren().add(rectangle);
+
+    ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
+    popIn.setToX(1.2);
+    popIn.setToY(1.2);
+
+    ScaleTransition popOut = new ScaleTransition(Duration.millis(200), stackPane);
+    popOut.setToX(1.0);
+    popOut.setToY(1.0);
+
+    stackPane.setOnMouseEntered(e -> popIn.playFromStart());
+    stackPane.setOnMouseExited(e -> popOut.playFromStart());
+
+    return stackPane;
   }
 
   public void handleCardClick(int row, int col) {
