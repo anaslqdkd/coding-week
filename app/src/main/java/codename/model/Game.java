@@ -78,6 +78,10 @@ public class Game implements Serializable {
     }
   }
 
+  public List<Observer> getObservers() {
+    return observers;
+  }
+
   public static synchronized Game getInstance(List<String> words) {
     if (instance == null) {
       instance = new Game(words);
