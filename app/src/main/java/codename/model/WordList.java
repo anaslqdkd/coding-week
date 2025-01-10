@@ -26,7 +26,7 @@ public class WordList {
   }
 
   public static List<String> getDefaultList(int nb) throws IOException {
-    return getWordList(nb, "database.txt");
+    return getWordList(nb, "database/database.txt");
   }
 
   public static List<String> getWordList(int nb, String FILE_NAME) throws IOException {

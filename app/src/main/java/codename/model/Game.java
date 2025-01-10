@@ -1,9 +1,10 @@
 package codename.model;
 
-import codename.Observer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import codename.Observer;
 
 public class Game {
   private static Game instance;
@@ -53,6 +54,10 @@ public class Game {
     for (Observer observers : this.observers) {
       observers.update();
     }
+  }
+
+  public List<Observer> getObservers() {
+    return observers;
   }
 
   public static synchronized Game getInstance(List<String> words) {
