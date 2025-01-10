@@ -8,9 +8,10 @@ import codename.model.Team;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -44,15 +45,23 @@ public class GridAgentController implements Observer {
   }
 
   public void generate_grid_agent(GridPane gridPane) {
+    // gridPane.setGridLinesVisible(true);
+
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
-    System.out.println("in generate grid agent rows and colums *************" + rows + columns);
+
+    Image imageCiv = new Image(getClass().getResourceAsStream("/images/word_civ.png"));
 
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {
+        ImageView imageView = new ImageView(imageCiv);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(60);
         Card card = matrix[row][col];
+        card.getColor();
+        Image image = card.getImage();
         Label label = new Label(card.getWord());
         label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: black;");
 
@@ -62,19 +71,31 @@ public class GridAgentController implements Observer {
 
         if (card.isRevealed()) {
           switch (card.getColor()) {
-            case "Red" -> rectangle.setFill(Color.RED);
-            case "Blue" -> rectangle.setFill(Color.BLUE);
-            case "Assassin" -> {
-              rectangle.setFill(Color.BLACK);
-              label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: white;");
+            case "Red" -> {
+              imageView = new ImageView(image);
+              imageView.setFitWidth(100);
+              imageView.setFitHeight(60);
             }
-            case "Neutral" -> rectangle.setFill(Color.WHEAT);
+            case "Blue" -> {
+              imageView = new ImageView(image);
+              imageView.setFitWidth(100);
+              imageView.setFitHeight(60);
+            }
+            case "Assassin" -> {
+              imageView = new ImageView(image);
+              imageView.setFitWidth(100);
+              imageView.setFitHeight(60);
+            }
+            case "Neutral" -> {
+              imageView = new ImageView(image);
+              imageView.setFitWidth(100);
+              imageView.setFitHeight(60);
+            }
           }
-        } else {
-          rectangle.setFill(Color.BEIGE);
         }
 
         StackPane stackPane = createPopEffectStackPane(rectangle);
+        stackPane.getChildren().add(imageView);
         stackPane.getChildren().add(label);
 
         final int currentRow = row;
