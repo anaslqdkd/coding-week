@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -70,7 +71,7 @@ public class WriteDataBaseController implements Observer {
 
     private void loadDatabaseFiles() {
         try {
-            Path databaseDir = Paths.get("/home/raph/Documents/semestre_3/codingweek/grp29/app/src/main/resources/database");
+            Path databaseDir = Paths.get(getClass().getClassLoader().getResource("database").toURI());
             Files.list(databaseDir)
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toString().endsWith(".txt"))
@@ -89,7 +90,7 @@ public class WriteDataBaseController implements Observer {
             });
             themeButton.getItems().add(newFileItem);
 
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -130,11 +131,16 @@ public class WriteDataBaseController implements Observer {
 
         // Chemin du fichier à enregistrer
         if (selectedFilePath == null) {
-            selectedFilePath = Paths.get("/home/raph/Documents/semestre_3/codingweek/grp29/app/src/main/resources/database", title + ".txt");
+            try {
+                selectedFilePath = Paths.get(getClass().getClassLoader().getResource("database").toURI()).resolve(title + ".txt");
 
-            // Vérifier si le fichier existe déjà
-            if (Files.exists(selectedFilePath)) {
-                System.out.println("Un fichier avec ce nom existe déjà. Enregistrement annulé pour éviter d'écraser le fichier existant.");
+                // Vérifier si le fichier existe déjà
+                if (Files.exists(selectedFilePath)) {
+                    System.out.println("Un fichier avec ce nom existe déjà. Enregistrement annulé pour éviter d'écraser le fichier existant.");
+                    return;
+                }
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
                 return;
             }
         }
