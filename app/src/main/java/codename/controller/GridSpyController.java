@@ -51,46 +51,48 @@ public class GridSpyController implements Observer {
 
         Card card = matrix[row][col];
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: black;");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: black;");
+        StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
+        label.setTranslateY(-12);
 
-        stackPane.setPrefSize(100, 100);
+        // stackPane.setPrefSize(150, 150);
         final int currentRow = row;
         final int currentCol = col;
 
         stackPane.setMinSize(50, 50);
         stackPane.setMaxSize(200, 200);
-        Rectangle rectangle = new Rectangle(100, 60);
+        Rectangle rectangle = new Rectangle(150, 90);
         rectangle.setArcWidth(10);
         rectangle.setArcHeight(10);
         String color = card.getColor();
         ImageView imageView = new ImageView();
         if (color == "Red") {
           imageView = new ImageView(imageRed);
-          imageView.setFitWidth(100);
-          imageView.setFitHeight(60);
+          imageView.setFitWidth(150);
+          imageView.setFitHeight(90);
         }
         if (color == "Blue") {
           imageView = new ImageView(imageBlue);
-          imageView.setFitWidth(100);
-          imageView.setFitHeight(60);
+          imageView.setFitWidth(150);
+          imageView.setFitHeight(90);
         }
         if (color == "Assassin") {
           rectangle.setFill(Color.BLACK);
           imageView = new ImageView(imageBlack);
-          imageView.setFitWidth(100);
-          imageView.setFitHeight(60);
-          label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;");
+          imageView.setFitWidth(150);
+          imageView.setFitHeight(90);
+          label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
         }
         if (color == "Neutral") {
           imageView = new ImageView(imageNeutral);
-          imageView.setFitWidth(100);
-          imageView.setFitHeight(60);
+          imageView.setFitWidth(150);
+          imageView.setFitHeight(90);
         }
         if (card.isRevealed()) {
           Image image = card.getImage();
           imageView = new ImageView(image);
-          imageView.setFitWidth(100);
-          imageView.setFitHeight(60);
+          imageView.setFitWidth(150);
+          imageView.setFitHeight(90);
         }
 
         stackPane.getChildren().add(imageView);

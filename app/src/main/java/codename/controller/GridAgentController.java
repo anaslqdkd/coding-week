@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class GridAgentController implements Observer {
@@ -45,73 +44,73 @@ public class GridAgentController implements Observer {
   }
 
   public void generate_grid_agent(GridPane gridPane) {
-    // gridPane.setGridLinesVisible(true);
-
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
 
     Image imageCiv = new Image(getClass().getResourceAsStream("/images/word_civ.png"));
-
     Card[][] matrix = this.game.getBoard().getCards();
 
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < columns; col++) {
         ImageView imageView = new ImageView(imageCiv);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(60);
+        imageView.setFitWidth(150);
+        imageView.setFitHeight(90);
+
         Card card = matrix[row][col];
-        card.getColor();
         Image image = card.getImage();
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-label-fill: black;");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-label-fill: black;");
+        StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
+        label.setTranslateY(-12);
 
-        Rectangle rectangle = new Rectangle(100, 60);
-        rectangle.setArcWidth(10);
-        rectangle.setArcHeight(10);
+        StackPane stackPane = new StackPane(imageView);
+        stackPane.getChildren().add(label);
 
         if (card.isRevealed()) {
-          switch (card.getColor()) {
-            case "Red" -> {
-              imageView = new ImageView(image);
-              imageView.setFitWidth(100);
-              imageView.setFitHeight(60);
-            }
-            case "Blue" -> {
-              imageView = new ImageView(image);
-              imageView.setFitWidth(100);
-              imageView.setFitHeight(60);
-            }
-            case "Assassin" -> {
-              imageView = new ImageView(image);
-              imageView.setFitWidth(100);
-              imageView.setFitHeight(60);
-            }
-            case "Neutral" -> {
-              imageView = new ImageView(image);
-              imageView.setFitWidth(100);
-              imageView.setFitHeight(60);
-            }
-          }
+          stackPane.getChildren().clear();
+
+          ImageView revealedImageView = new ImageView(image);
+          revealedImageView.setFitWidth(150);
+          revealedImageView.setFitHeight(90);
+          stackPane.getChildren().add(revealedImageView);
+          stackPane.getChildren().add(label);
         }
 
-        StackPane stackPane = createPopEffectStackPane(rectangle);
-        stackPane.getChildren().add(imageView);
-        stackPane.getChildren().add(label);
+        stackPane.setOnMouseEntered(
+            e -> {
+              ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
+              popIn.setToX(1.2);
+              popIn.setToY(1.2);
+              popIn.playFromStart();
+            });
+
+        stackPane.setOnMouseExited(
+            e -> {
+              ScaleTransition popOut = new ScaleTransition(Duration.millis(200), stackPane);
+              popOut.setToX(1.0);
+              popOut.setToY(1.0);
+              popOut.playFromStart();
+            });
 
         final int currentRow = row;
         final int currentCol = col;
-        stackPane.setOnMouseClicked(event -> handleCardClick(currentRow, currentCol));
+        stackPane.setOnMouseClicked(
+            event -> {
+              handleCardClick(currentRow, currentCol);
+              imageView.setFitWidth(150);
+              imageView.setFitHeight(90);
+            });
 
         gridPane.add(stackPane, col, row);
       }
     }
   }
 
-  private StackPane createPopEffectStackPane(Rectangle rectangle) {
+  private StackPane createPopEffectStackPane(ImageView imageView) {
     StackPane stackPane = new StackPane();
-    stackPane.setPrefSize(100, 100);
+    stackPane.setPrefSize(150, 150);
 
-    stackPane.getChildren().add(rectangle);
+    stackPane.getChildren().add(imageView);
 
     ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
     popIn.setToX(1.2);
