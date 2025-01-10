@@ -1,11 +1,10 @@
 package codename.controller;
 
-import java.awt.Checkbox;
-
 import codename.Observer;
 import codename.model.Clue;
 import codename.model.Game;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,11 +16,17 @@ public class ClueSpyController implements Observer {
   private Game game;
   private GridAgentController gridAgentController;
 
-  @FXML private TextField textField;
+  @FXML
+  private TextField textField;
 
-  @FXML private ChoiceBox<Integer> choiceBox;
+  @FXML
+  private ChoiceBox<Integer> choiceBox;
 
-  @FXML private Label labelIndice;
+  @FXML
+  private Label labelIndice;
+
+  @FXML
+  private Button validateButton;
 
   @FXML
   public void initialize() {
@@ -31,7 +36,24 @@ public class ClueSpyController implements Observer {
     textField.textProperty().addListener((observable, oldValue, newValue) -> {
       textField.setText(newValue.replaceAll("[^a-zA-Z\\-]", ""));
     });
-    
+
+    validateButton.setOnAction(event -> {
+      String text = textField.getText();
+      Integer number = choiceBox.getValue();
+
+      if (text != null && !text.isEmpty() && number != null) {
+        // Vider et désactiver le champ texte
+        textField.clear();
+        textField.setDisable(true);
+        validateButton.setDisable(true);
+        game.setAgentTurn(true);
+        labelIndice.setText("Indice : " + text + " - " + number);
+        clueAgentController.switchButton();
+      }
+      this.game.proposeClue(new Clue(text, number));
+      clueAgentController.getClue();
+      game.notify_observator();
+    });
 
     // Transformer en majuscules automatiquement
     textField
@@ -83,31 +105,35 @@ public class ClueSpyController implements Observer {
           // Vider et désactiver le champ texte
           textField.clear();
           textField.setDisable(true);
+          validateButton.setDisable(true);
+          game.setAgentTurn(true);
           labelIndice.setText("Indice : " + text + " - " + number);
           clueAgentController.switchButton();
         }
         this.game.proposeClue(new Clue(text, number));
         clueAgentController.getClue();
+        game.notify_observator();
         break;
       default:
         break;
     }
   }
 
-
   public void disableWin() {
-    if ( this.game.isGameOver() ) {
+    if (this.game.isGameOver()) {
       System.out.println("Partie terminée ClueSpyController");
       textField.setDisable(true);
       choiceBox.setDisable(true);
+      validateButton.setDisable(true);
     }
   }
-
 
   public void reset() {
     textField.setDisable(false);
     textField.clear();
     choiceBox.setValue(null);
+    validateButton.setDisable(false);
+    game.setAgentTurn(false);
     labelIndice.setText("Indice :");
     gridAgentController.resetClickCount();
   }

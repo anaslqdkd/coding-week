@@ -50,5 +50,4 @@ Festival
 Editing  
 Dub  
 Subtitles  
-Critic  
-
+Critic

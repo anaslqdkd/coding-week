@@ -1,12 +1,6 @@
 package codename.controller;
 
-import java.io.IOException;
-
 import codename.Observer;
-import codename.model.Game;
-import codename.model.WordList;
-import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
 
 public class GameController implements Observer {
@@ -40,13 +34,8 @@ public class GameController implements Observer {
   }
 
   @FXML
-  private void initialize() {
+  private void initialize() {}
 
-  }
-   
-  
   @Override
-  public void update() {
-
-  }
+  public void update() {}
 }
