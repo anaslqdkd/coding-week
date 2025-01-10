@@ -5,6 +5,13 @@ import codename.Timer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 
 public class GameController implements Observer {
   @FXML private ClueAgentController clueAgentController; // Injecté automatiquement via fx:include
@@ -17,6 +24,8 @@ public class GameController implements Observer {
   @FXML private InfoController infoController;
   @FXML private Button startButton;
   @FXML private Button stopButton;
+  @FXML private BorderPane borderPaneSpy;
+  @FXML private BorderPane borderPaneAgent;
   private int seconds = 0;
 
   @FXML private Label timerLabel;
@@ -43,7 +52,27 @@ public class GameController implements Observer {
   }
 
   @FXML
-  private void initialize() {}
+  private void initialize() {
+
+    if (borderPaneAgent != null) {
+      setBackground(borderPaneAgent);
+    }
+    if (borderPaneSpy != null) {
+      setBackground(borderPaneSpy);
+    }
+  }
+
+  private void setBackground(BorderPane pane) {
+    Image image = new Image(getClass().getResourceAsStream("/images/background.png"));
+    BackgroundImage backgroundImage =
+        new BackgroundImage(
+            image,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER,
+            BackgroundSize.DEFAULT);
+    pane.setBackground(new Background(backgroundImage));
+  }
 
   public void startGameTimer() {
     gameTimer.start(); // Start the timer when the game starts
