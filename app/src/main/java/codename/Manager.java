@@ -26,11 +26,13 @@ public class Manager {
   }
 
   public void setUpGridController() {
+    ClueSpyController clueSpyController = gameSpyController.getClueSpyController();
     ClueAgentController clueAgentController = gameAgentController.getClueAgentController();
     GridAgentController gridAgentController = gameAgentController.getGridAgentController();
     GridSpyController gridSpyController = gameSpyController.getGridSpyController();
     gridSpyController.setGridAgentController(gridAgentController);
     gridAgentController.setGridSpyController(gridSpyController);
+    gridAgentController.setClueSpyController(clueSpyController);
     gridAgentController.setClueAgentController(clueAgentController);
   }
 }

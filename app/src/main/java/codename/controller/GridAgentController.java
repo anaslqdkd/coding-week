@@ -17,18 +17,21 @@ import javafx.util.Duration;
 public class GridAgentController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
+  private ClueSpyController clueSpyController;
   private ClueAgentController clueAgentController;
   private GridSpyController gridSpyController;
   @FXML GridPane gridAgent;
-  private String clue;
   private Game game;
-  private int clickCount = 0;
 
   @FXML
   private void initialize() {
     this.game = Game.getInstance();
     game.add_observer(this);
     generate_grid_agent(gridAgent);
+  }
+
+  public void setClueSpyController(ClueSpyController clueSpyController) {
+    this.clueSpyController = clueSpyController;
   }
 
   public void setClueAgentController(ClueAgentController clueAgentController) {
@@ -136,12 +139,10 @@ public class GridAgentController implements Observer {
       return;
     }
 
-    int maxClicks = clue.getNumber() + 1;
-
-    if (this.clickCount < maxClicks) {
+    if (game.isAgentTurn()) {
       String label = clue.getText();
       System.out.println("Label: " + label);
-      System.out.println("Max Clicks: " + maxClicks);
+      System.out.println("Max Clicks: " + game.getMaxClicks());
 
       Card[][] cards = game.getBoard().getCards();
       Card clickedCard = cards[row][col];
@@ -149,51 +150,73 @@ public class GridAgentController implements Observer {
       String colorTeam = currentTeam.getColor();
 
       if (!clickedCard.isRevealed()) {
-        String color = clickedCard.getColor();
+        if (game.getClicksCount() < game.getMaxClicks()) {
+          String color = clickedCard.getColor();
 
-        if (color.equals("Red")) {
-          if (colorTeam != "Red") {
-            System.out.println("Switching turn");
+          if (color.equals("Red")) {
+            if (colorTeam != "Red") {
+              game.switchTurn();
+              System.out.println("Trompé de couleur on change d'équipe");
+              clueSpyController.reset();
+              game.getTimer().reset();
+              game.getTimer().start();
+              game.setAgentTurn(false);
+            }
+            int score = game.getRedTeam().getScore();
+            game.getRedTeam().setScore(score - 1);
+          } else if (color.equals("Blue")) {
+            if (colorTeam != "Blue") {
+              game.switchTurn();
+              System.out.println("Trompé de couleur on change d'équipe");
+              clueSpyController.reset();
+              game.getTimer().reset();
+              game.getTimer().start();
+              game.setAgentTurn(false);
+            }
+            int score = game.getBlueTeam().getScore();
+            game.getBlueTeam().setScore(score - 1);
+          } else if (color.equals("Neutral")) {
             game.switchTurn();
-          }
-          int score = game.getRedTeam().getScore();
-          game.getRedTeam().setScore(score - 1);
-        } else if (color.equals("Blue")) {
-          if (colorTeam != "Blue") {
-            System.out.println("Switching turn");
+            clueSpyController.reset();
+            game.getTimer().reset();
+            game.getTimer().start();
+            game.setAgentTurn(false);
+          } else if (color.equals("Assassin")) {
             game.switchTurn();
+            game.setAgentTurn(false);
           }
-          int score = game.getBlueTeam().getScore();
-          game.getBlueTeam().setScore(score - 1);
-        } else if (color.equals("Neutral")) {
-          System.out.println("Carte neutre");
-          game.switchTurn();
-        } else if (color.equals("Assassin")) {
-          System.out.println("Assassin");
-          game.switchTurn();
+          clickedCard.reveal();
+          System.out.println("Carte cliquée: " + clickedCard.getWord());
         }
+        game.incrementClicksCount();
+        if (game.getClicksCount() == game.getMaxClicks()) {
+          System.out.println("Max de clicks fin de tour -----------------------------");
+          game.switchTurn();
+          clueSpyController.reset();
+          game.setAgentTurn(false);
+          game.getTimer().reset();
+          game.getTimer().start();
+          game.notify_observator();
 
-        clickedCard.reveal();
-        System.out.println("Couleur revelée : " + color);
-        System.out.println("Team: " + colorTeam);
-        this.clickCount++;
-
+        }
       } else {
         System.out.println("carte déjà revelée: " + clickedCard.getWord());
       }
-    } else {
-      System.out.println("nb max de clicks(" + maxClicks + ").");
     }
     game.notify_observator();
   }
 
   public void resetClickCount() {
-    this.clickCount = 0;
+    game.setClicksCount(0);
   }
+
 
   @Override
   public void update() {
+    System.out.println("Tour des agents : " + game.isAgentTurn());
     generate_grid_agent(gridAgent);
+    System.out.println("Max Clicks: " + game.getMaxClicks());
+    System.out.println("Clicks Count: " + game.getClicksCount());
     this.game.checkWinCondition();
   }
 }

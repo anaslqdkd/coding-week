@@ -22,7 +22,4 @@
             </children>
         </StackPane>
     </children>
-   <Label fx:id="timerLabel" text="00:00" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-       <Button fx:id="startButton" text="Start Timer" onAction="#startTimer" />
-       <Button fx:id="stopButton" text="Start Timer" onAction="#stopTimer" />
 </VBox>

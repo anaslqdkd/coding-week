@@ -190,6 +190,10 @@ public class SelectionEspionController implements Observer {
                 e.printStackTrace(); // Afficher tous les détails de l'erreur
                 System.exit(1);
                 }
+
+                // Fermer la fenêtre actuelle
+                Stage currentStage = (Stage) confirmButton.getScene().getWindow();
+                currentStage.close();
             } else {
                 System.out.println("Chaque équipe doit avoir un espion.");
             }

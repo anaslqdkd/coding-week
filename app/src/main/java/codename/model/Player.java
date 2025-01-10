@@ -1,8 +1,10 @@
 package codename.model;
 
-public class Player {
-  private final String name;
-  private boolean isSpymaster;
+public class Player implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    private final String name;
+    private boolean isSpymaster;
+
 
   public Player(String name, boolean isSpymaster) {
     this.name = name;

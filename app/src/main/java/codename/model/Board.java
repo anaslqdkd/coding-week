@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Random;
 import javafx.scene.image.Image;
 
-public class Board {
+public class Board implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
   private Card[][] cards;
   private int rows = 5;
   private int columns = 5;
@@ -141,10 +142,10 @@ public class Board {
     Collections.shuffle(words);
     System.out.println("Gridsize : " + gridSize);
     this.redCount = (int) (gridSize * 0.36);
-    this.blueCount = (int) (gridSize * 0.36);
+    this.blueCount = (int) (gridSize * 0.36)-1;
     int redCardToPut = redCount;
     int blueCardToPut = blueCount;
-    int neutralCount = (int) (gridSize * 0.24);
+    int neutralCount = (int) (gridSize * 0.24)+1;
     int assassinCount = 1;
 
     int currentIndex = 0;
