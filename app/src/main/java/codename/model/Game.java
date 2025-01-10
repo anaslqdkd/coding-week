@@ -124,7 +124,6 @@ public class Game {
   public void addPlayerToRedTeam(Player player) {
     redTeam.addPlayer(player);
   }
-  
 
   public void addPlayerToBlueTeam(Player player) {
     blueTeam.addPlayer(player);
@@ -134,7 +133,6 @@ public class Game {
     redTeam.clear();
     blueTeam.clear();
   }
-
 
   public void swicthPlayer(Player player) {
     if (redTeam.getPlayers().contains(player)) {
@@ -248,5 +246,4 @@ public class Game {
 
     System.out.println("Le jeu est fini : " + this.isGameOver);
   }
-  // TODO: à changer le score par defaut
 }

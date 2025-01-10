@@ -3,19 +3,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@styles/selection_espion.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GameController">
+<BorderPane fx:id="borderPaneSpy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@styles/selection_espion.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.GameController">
    <center>
-
       <fx:include source="gridSpy.fxml" fx:id="gridSpy"/>
    </center>
    <left>
       <fx:include source="infoAgent.fxml" />
    </left>
    <top>
-
       <fx:include source="headerSpy.fxml" />
    </top>
    <bottom>
       <fx:include source="clueSpy.fxml" fx:id="clueSpy" />
    </bottom>
+   <right>
+   </right>
 </BorderPane>

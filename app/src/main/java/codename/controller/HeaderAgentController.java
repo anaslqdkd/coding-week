@@ -54,7 +54,13 @@ public class HeaderAgentController implements Observer {
         count++;
       }
     }
-    this.labelAgentName.setText("Agent : " + names);
+    if (count == 0) {
+      names = "Personne";
+    } else if (count == 1) {
+      this.labelAgentName.setText("Agent : " + names);
+    } else {
+      this.labelAgentName.setText("Agents : " + names);
+    }
     System.out.println("Agent de " + game.whosTurn().getColor() + " : " + names);
   }
 
