@@ -3,7 +3,8 @@ package codename.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parameters {
+public class Parameters implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private int numberOfPlayers;
     private String gameMode; // "multi" ou "solo"
     private List<Player> players;

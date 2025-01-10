@@ -1,6 +1,7 @@
 package codename.model;
 
-public class Clue {
+public class Clue implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private String text;
     private Integer number;
 

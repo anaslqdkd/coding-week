@@ -128,6 +128,8 @@ public class GridAgentController implements Observer {
             if (colorTeam != "Red") {
               game.switchTurn();
               clueSpyController.reset();
+              game.getTimer().reset();
+              game.getTimer().start();
               game.setAgentTurn(false);
             }
             int score = game.getRedTeam().getScore();
@@ -135,6 +137,8 @@ public class GridAgentController implements Observer {
           } else if (color.equals("Blue")) {
             if (colorTeam != "Blue") {
               game.switchTurn();
+              game.getTimer().reset();
+              game.getTimer().start();
               clueSpyController.reset();
               game.setAgentTurn(false);
             }
@@ -143,6 +147,8 @@ public class GridAgentController implements Observer {
           } else if (color.equals("Neutral")) {
             game.switchTurn();
             clueSpyController.reset();
+            game.getTimer().reset();
+            game.getTimer().start();
             game.setAgentTurn(false);
           } else if (color.equals("Assassin")) {
             game.switchTurn();
@@ -153,13 +159,14 @@ public class GridAgentController implements Observer {
           game.incrementClicksCount();
 
         }
-        if (game.getClicksCount() == game.getMaxClicks()) {
+        if (game.getClicksCount() >= game.getMaxClicks()) {
           System.out.println("Max de clicks fin de tour -----------------------------");
           game.switchTurn();
           clueSpyController.reset();
           game.setAgentTurn(false);
+          game.getTimer().reset();
+          game.getTimer().start();
           game.notify_observator();
-
         }
       } else {
         System.out.println("carte déjà revelée: " + clickedCard.getWord());
@@ -171,6 +178,7 @@ public class GridAgentController implements Observer {
   public void resetClickCount() {
     game.setClicksCount(0);
   }
+
 
   @Override
   public void update() {

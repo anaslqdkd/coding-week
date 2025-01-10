@@ -1,7 +1,7 @@
 package codename.controller;
 
 import codename.Observer;
-import codename.model.Team;
+import codename.model.Clue;
 import codename.model.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,6 +31,8 @@ public class ClueAgentController implements Observer {
           clueLabel.setText("En attente...");
           clueSpyController.reset();
           this.game.switchTurn();
+          game.getTimer().reset();
+          game.getTimer().start();
           this.game.notify_observator();
         });
   }
@@ -80,11 +82,18 @@ public class ClueAgentController implements Observer {
     }
   }
 
+  public void enableEndTurnButton() {
+    endTurnButton.setDisable(false);
+  }
+
+
+
   @Override
   public void update() {
     switchTeam();
+    switchButton();
     getClue();
-    System.out.println("agentTurn" + game.isAgentTurn());
+    System.out.println("agentTurn is : " + game.isAgentTurn());
     System.out.println(game.getClue());
     disableWin();
   }

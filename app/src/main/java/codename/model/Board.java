@@ -3,7 +3,8 @@ package codename.model;
 import java.util.Collections;
 import java.util.List;
 
-public class Board {
+public class Board implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
   private Card[][] cards;
   private int rows = 5;
   private int columns = 5;

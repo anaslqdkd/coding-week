@@ -1,6 +1,7 @@
 package codename.model;
 
-public class Card {
+public class Card implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     private final String word;    // Le mot de la carte
     private final String color;  // Rouge, Bleu, Neutre, Assassin
     private boolean revealed;    // Indique si la carte a été révélée

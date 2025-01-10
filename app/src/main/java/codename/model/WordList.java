@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class WordList {
+public class WordList implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
   private List<String> words;
 
   public WordList() {

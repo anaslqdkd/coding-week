@@ -8,8 +8,8 @@
     <menus>
         <Menu text="Partie">
             <items>
-                <MenuItem text="Sauvegarder" fx:id="save" />
-                <MenuItem text="Charger" fx:id="load" />
+                <MenuItem text="Sauvegarder" fx:id="saveButton" />
+                <MenuItem text="Charger" fx:id="loadButton" />
             </items>
         </Menu>
     </menus>
