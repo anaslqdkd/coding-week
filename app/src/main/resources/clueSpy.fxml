@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
 
 <HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codename.controller.ClueSpyController">
     <children>
@@ -37,6 +38,11 @@
                         <ChoiceBox prefWidth="150.0" fx:id="choiceBox"/>
                     </children>
                 </StackPane>
+                <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Valider" fx:id="validateButton"/>
+               </children>
+            </StackPane>
             </children>
         </VBox>
     </children>

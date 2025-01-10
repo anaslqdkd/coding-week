@@ -15,10 +15,11 @@ import javafx.scene.shape.Rectangle;
 public class GridAgentController implements Observer {
 
   private static final String FILE_NAME = "database.txt";
+  private ClueSpyController clueSpyController;
   private ClueAgentController clueAgentController;
   private GridSpyController gridSpyController;
-  @FXML GridPane gridAgent;
-  private String clue;
+  @FXML
+  GridPane gridAgent;
   private Game game;
   private int clickCount = 0;
 
@@ -27,6 +28,10 @@ public class GridAgentController implements Observer {
     this.game = Game.getInstance();
     game.add_observer(this);
     generate_grid_agent(gridAgent);
+  }
+
+  public void setClueSpyController(ClueSpyController clueSpyController) {
+    this.clueSpyController = clueSpyController;
   }
 
   public void setClueAgentController(ClueAgentController clueAgentController) {
@@ -46,7 +51,6 @@ public class GridAgentController implements Observer {
     // final int columns = 5;
     int rows = game.getBoard().getRows();
     int columns = game.getBoard().getColumns();
-    System.out.println("in generate grid agent rows and colums *************" + rows + columns);
     // NOTE: ici pb
     Card[][] matrix = this.game.getBoard().getCards();
 
@@ -109,53 +113,54 @@ public class GridAgentController implements Observer {
 
     int maxClicks = clue.getNumber() + 1;
 
-    if (this.clickCount < maxClicks) {
-      String label = clue.getText();
-      System.out.println("Label: " + label);
-      System.out.println("Max Clicks: " + maxClicks);
+    if (clueSpyController.agentClick()) {
+      if (this.clickCount < maxClicks - 1) {
+        String label = clue.getText();
+        System.out.println("Label: " + label);
+        System.out.println("Max Clicks: " + maxClicks);
 
-      Card[][] cards = game.getBoard().getCards();
-      Card clickedCard = cards[row][col];
-      Team currentTeam = game.whosTurn();
-      String colorTeam = currentTeam.getColor();
+        Card[][] cards = game.getBoard().getCards();
+        Card clickedCard = cards[row][col];
+        Team currentTeam = game.whosTurn();
+        String colorTeam = currentTeam.getColor();
 
-      if (!clickedCard.isRevealed()) {
-        String color = clickedCard.getColor();
+        if (!clickedCard.isRevealed()) {
+          if (this.clickCount <= maxClicks) {
+            String color = clickedCard.getColor();
 
-        if (color.equals("Red")) {
-          if (colorTeam != "Red") {
-            System.out.println("Switching turn");
-            game.switchTurn();
+            if (color.equals("Red")) {
+              if (colorTeam != "Red") {
+                game.switchTurn();
+              }
+              int score = game.getRedTeam().getScore();
+              game.getRedTeam().setScore(score - 1);
+            } else if (color.equals("Blue")) {
+              if (colorTeam != "Blue") {
+                game.switchTurn();
+              }
+              int score = game.getBlueTeam().getScore();
+              game.getBlueTeam().setScore(score - 1);
+            } else if (color.equals("Neutral")) {
+              game.switchTurn();
+            } else if (color.equals("Assassin")) {
+              game.switchTurn();
+            }
+
+            clickedCard.reveal();
+
+            if (this.clickCount == maxClicks) {
+              game.switchTurn();
+              System.out.println("clickCount: " + this.clickCount);
+            }
+            this.clickCount++;
+
+          } else {
+            System.out.println("carte déjà revelée: " + clickedCard.getWord());
           }
-          int score = game.getRedTeam().getScore();
-          game.getRedTeam().setScore(score - 1);
-        } else if (color.equals("Blue")) {
-          if (colorTeam != "Blue") {
-            System.out.println("Switching turn");
-            game.switchTurn();
-          }
-          int score = game.getBlueTeam().getScore();
-          game.getBlueTeam().setScore(score - 1);
-        } else if (color.equals("Neutral")) {
-          System.out.println("Carte neutre");
-          game.switchTurn();
-        } else if (color.equals("Assassin")) {
-          System.out.println("Assassin");
-          game.switchTurn();
         }
-
-        clickedCard.reveal();
-        System.out.println("Couleur revelée : " + color);
-        System.out.println("Team: " + colorTeam);
-        this.clickCount++;
-
-      } else {
-        System.out.println("carte déjà revelée: " + clickedCard.getWord());
       }
-    } else {
-      System.out.println("nb max de clicks(" + maxClicks + ").");
+      game.notify_observator();
     }
-    game.notify_observator();
   }
 
   public void resetClickCount() {

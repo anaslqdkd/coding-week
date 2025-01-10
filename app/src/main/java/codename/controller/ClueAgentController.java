@@ -36,9 +36,10 @@ public class ClueAgentController implements Observer {
           clueLabel.setText("En attente..."); // Réinitialiser le label
           if (clueSpyController != null) {
             clueSpyController.reset();
+            endTurnButton.setDisable(true);
             this.game.switchTurn();
+            switchButton();
             this.game.notify_observator();
-            this.switchButton();
           }
         });
   }
@@ -54,9 +55,8 @@ public class ClueAgentController implements Observer {
 
   public void switchTeam() {
     if (this.lastTeam != game.whosTurn()) {
-      System.out.println("Switching team");
-      switchButton();
       this.lastTeam = game.whosTurn();
+      switchButton();
       this.clueSpyController.reset();
     }
   }
@@ -87,7 +87,6 @@ public class ClueAgentController implements Observer {
 
   public void disableWin() {
     if (game.isGameOver()) {
-      System.out.println("Partie terminée ClueSpyController");
       endTurnButton.setDisable(true);
     }
   }
