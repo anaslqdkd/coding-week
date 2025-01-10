@@ -2,14 +2,50 @@ package codename.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import javafx.scene.image.Image;
 
-public class Board {
+public class Board implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
   private Card[][] cards;
   private int rows = 5;
   private int columns = 5;
   private int redCount;
   private int blueCount;
   private List<String> words;
+
+  private Image[] imagesRed = {
+    new Image(getClass().getResourceAsStream("/images/card_red_1.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_2.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_3.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_4.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_5.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_6.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_7.png")),
+    new Image(getClass().getResourceAsStream("/images/card_red_8.png"))
+  };
+
+  private Image[] imagesBlue = {
+    new Image(getClass().getResourceAsStream("/images/card_blue_1.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_2.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_3.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_4.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_5.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_6.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_7.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_8.png")),
+    new Image(getClass().getResourceAsStream("/images/card_blue_9.png"))
+  };
+
+  private Image[] imagesCivImages = {
+    new Image(getClass().getResourceAsStream("/images/card_civ_1.png")),
+    new Image(getClass().getResourceAsStream("/images/card_civ_2.png")),
+    new Image(getClass().getResourceAsStream("/images/card_civ_3.png")),
+    new Image(getClass().getResourceAsStream("/images/card_civ_4.png")),
+    new Image(getClass().getResourceAsStream("/images/card_civ_5.png")),
+    new Image(getClass().getResourceAsStream("/images/card_civ_6.png"))
+  };
+  private Image imageBlack = new Image(getClass().getResourceAsStream("/images/card_black.png"));
 
   public Board(List<String> words) {
     if (words.size() < rows * columns) {
@@ -19,6 +55,47 @@ public class Board {
     this.blueCount = 8;
     cards = new Card[rows][columns];
     initializeBoard(words);
+    setImageToCards();
+  }
+
+  public void setImageToCards() {
+    Random random = new Random();
+
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < columns; col++) {
+        Card card = cards[row][col];
+        String color = card.getColor();
+
+        switch (color) {
+          case "Red":
+            int redIndex = random.nextInt(imagesRed.length);
+            card.setImage(imagesRed[redIndex]);
+            break;
+          case "Blue":
+            int blueIndex = random.nextInt(imagesBlue.length);
+            card.setImage(imagesBlue[blueIndex]);
+            break;
+          case "Neutral":
+            int civIndex = random.nextInt(imagesCivImages.length);
+            card.setImage(imagesCivImages[civIndex]);
+            break;
+          case "Assassin":
+            card.setImage(imageBlack);
+            break;
+          default:
+            card.setImage(imagesCivImages[0]);
+            break;
+        }
+      }
+    }
+  }
+
+  public int getBlueCount() {
+    return blueCount;
+  }
+
+  public int getRedCount() {
+    return redCount;
   }
 
   public int getRows() {
@@ -65,10 +142,10 @@ public class Board {
     Collections.shuffle(words);
     System.out.println("Gridsize : " + gridSize);
     this.redCount = (int) (gridSize * 0.36);
-    this.blueCount = (int) (gridSize * 0.36);
+    this.blueCount = (int) (gridSize * 0.36)-1;
     int redCardToPut = redCount;
     int blueCardToPut = blueCount;
-    int neutralCount = (int) (gridSize * 0.24);
+    int neutralCount = (int) (gridSize * 0.24)+1;
     int assassinCount = 1;
 
     int currentIndex = 0;

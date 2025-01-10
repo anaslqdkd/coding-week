@@ -1,38 +1,55 @@
 package codename.model;
 
-public class Card {
-    private final String word;    // Le mot de la carte
-    private final String color;  // Rouge, Bleu, Neutre, Assassin
-    private boolean revealed;    // Indique si la carte a été révélée
+import javafx.scene.image.Image;
 
-    public Card(String word, String color) {
-        this.word = word;
-        this.color = color;
-        this.revealed = false;
-    }
+public class Card implements java.io.Serializable {
+  private static final long serialVersionUID = 1L;
+  private final String word; // Le mot de la carte
+  private final String color; // Rouge, Bleu, Neutre, Assassin
+  private boolean revealed; // Indique si la carte a été révélée
+  private Image image;
 
-    public String getWord() {
-        return word;
-    }
+  public Card(String word, String color) {
+    this.word = word;
+    this.color = color;
+    this.revealed = false;
+  }
 
-    public String getColor() {
-        return color;
-    }
+  public void setImage(Image image) {
+    this.image = image;
+  }
 
-    public boolean isRevealed() {
-        return revealed;
-    }
+  public String getWord() {
+    return word;
+  }
 
-    public void reveal() {
-        this.revealed = true;
-    }
+  public Image getImage() {
+    return image;
+  }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "word='" + word + '\'' +
-                ", color='" + color + '\'' +
-                ", revealed=" + revealed +
-                '}';
-    }
+  public String getColor() {
+    return color;
+  }
+
+  public boolean isRevealed() {
+    return revealed;
+  }
+
+  public void reveal() {
+    this.revealed = true;
+  }
+
+  @Override
+  public String toString() {
+    return "Card{"
+        + "word='"
+        + word
+        + '\''
+        + ", color='"
+        + color
+        + '\''
+        + ", revealed="
+        + revealed
+        + '}';
+  }
 }

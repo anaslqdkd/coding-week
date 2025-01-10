@@ -1,9 +1,11 @@
 package codename.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements Serializable {
+  private static final long serialVersionUID = 1L;
   private final String color; // Rouge ou Bleu
   private final List<Player> players;
   private int baseScore;

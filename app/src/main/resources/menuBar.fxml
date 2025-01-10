@@ -4,21 +4,12 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:id="menuBar">
+<MenuBar xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:id="menuBar" fx:controller="codename.controller.MenuBarController">
     <menus>
-        <Menu text="File">
+        <Menu text="Partie">
             <items>
-                <MenuItem text="Close" />
-            </items>
-        </Menu>
-        <Menu text="Edit">
-            <items>
-                <MenuItem text="Delete" />
-            </items>
-        </Menu>
-        <Menu text="Help">
-            <items>
-                <MenuItem text="About" />
+                <MenuItem text="Sauvegarder" fx:id="saveButton" />
+                <MenuItem text="Charger" fx:id="loadButton" />
             </items>
         </Menu>
     </menus>
