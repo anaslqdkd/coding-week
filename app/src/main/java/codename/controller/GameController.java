@@ -1,7 +1,8 @@
 package codename.controller;
 
 import codename.Observer;
-import codename.Timer;
+import codename.model.Game;
+import codename.model.Team;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,10 +27,9 @@ public class GameController implements Observer {
   @FXML private Button stopButton;
   @FXML private BorderPane borderPaneSpy;
   @FXML private BorderPane borderPaneAgent;
-  private int seconds = 0;
+  private Game game;
 
   @FXML private Label timerLabel;
-  private Timer gameTimer;
 
   public ClueAgentController getClueAgentController() {
     return clueAgentController;
@@ -54,6 +54,8 @@ public class GameController implements Observer {
   @FXML
   private void initialize() {
 
+    this.game = Game.getInstance();
+    this.game.add_observer(this);
     if (borderPaneAgent != null) {
       setBackground(borderPaneAgent);
     }
@@ -63,7 +65,12 @@ public class GameController implements Observer {
   }
 
   private void setBackground(BorderPane pane) {
-    Image image = new Image(getClass().getResourceAsStream("/images/background.png"));
+    Team team = game.whosTurn();
+    Image image;
+
+    if (team.getColor() == "Red") {
+      image = new Image(getClass().getResourceAsStream("/images/background_red.png"));
+    } else image = new Image(getClass().getResourceAsStream("/images/background_blue.png"));
     BackgroundImage backgroundImage =
         new BackgroundImage(
             image,
@@ -74,39 +81,13 @@ public class GameController implements Observer {
     pane.setBackground(new Background(backgroundImage));
   }
 
-  public void startGameTimer() {
-    gameTimer.start(); // Start the timer when the game starts
-  }
-
-  public void stopGameTimer() {
-    gameTimer.stop(); // Stop the timer when the game ends
-  }
-
-  public void resetGameTimer() {
-    gameTimer.reset(); // Reset the timer if needed
-  }
-
-  private void updateTimer() {
-    seconds++;
-    int minutes = seconds / 60; // Calculate minutes
-    int remainingSeconds = seconds % 60; // Calculate remaining seconds
-
-    // Update the label with the formatted time (minutes:seconds)
-    timerLabel.setText(String.format("%02d:%02d", minutes, remainingSeconds));
-
-    System.out.println("Current Time: " + String.format("%02d:%02d", minutes, remainingSeconds));
-  }
-
-  @FXML
-  private void startButtonClicked() {
-    startGameTimer();
-  }
-
-  @FXML
-  private void stopButtonClicked() {
-    stopGameTimer();
-  }
-
   @Override
-  public void update() {}
+  public void update() {
+    if (borderPaneAgent != null) {
+      setBackground(borderPaneAgent);
+    }
+    if (borderPaneSpy != null) {
+      setBackground(borderPaneSpy);
+    }
+  }
 }
