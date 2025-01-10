@@ -39,7 +39,7 @@ public class NbJoueursController implements Observer{
 
     private void initializeParameters() {
         parameters = game.getParameters(); // Initialisez parameters ici
-        parameters.setNumberOfPlayers(2); // Initialiser à 2 joueurs par défaut
+        parameters.setNumberOfPlayers(4); // Initialiser à 4 joueurs par défaut
         updateDynamicPlayers();
     }
 
@@ -74,7 +74,7 @@ public class NbJoueursController implements Observer{
         });
 
         removePlayerButton.setOnAction(event -> {
-            if (parameters.getNumberOfPlayers() > 2) {
+            if (parameters.getNumberOfPlayers() > 4) {
                 // Réduire le nombre de joueurs dans les paramètres
                 parameters.setNumberOfPlayers(parameters.getNumberOfPlayers() - 1);
         
