@@ -72,8 +72,8 @@ public class GridAgentController implements Observer {
           ImageView revealedImageView = new ImageView(image);
           revealedImageView.setFitWidth(150);
           revealedImageView.setFitHeight(90);
-          stackPane.getChildren().add(revealedImageView);
           stackPane.getChildren().add(label);
+          stackPane.getChildren().add(revealedImageView);
         }
 
         stackPane.setOnMouseEntered(
