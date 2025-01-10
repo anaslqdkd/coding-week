@@ -1,6 +1,6 @@
 /* Fond principal */
 BorderPane {
-    -fx-background-color: rgb(255, 253, 142); /* Dégradé entre rose pâle et vert doux */
+    -fx-background-color: rgb(255, 254, 196); /* Dégradé entre rose pâle et vert doux */
     -fx-padding: 20px;
 }
 
@@ -54,7 +54,26 @@ BorderPane {
 
 
 .label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212E53;
+}
+
+#lab {
     -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-text-fill: #212E53;
+}
+
+#databaseOptions {
+    -fx-background-color: #4A919E; /* Bleu sarcelle */
+    -fx-text-fill: #212E53;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #212E53; /* Bleu nuit */
+    -fx-border-width: 3px;
+
+
 }

@@ -90,8 +90,14 @@ BorderPane {
     -fx-padding: 15; 
     -fx-background-color: #EBACA2; 
     -fx-border-width: 3;
-    -fx-text-fill: #212E53; 
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 18px;
+    -fx-font-family: "Poppins", sans-serif;
+}
     
+.label {
+    -fx-font-size: 25px;
+    -fx-text-fill: #212E53;
 }
 
 #zoneBleue {
@@ -101,7 +107,9 @@ BorderPane {
     -fx-padding: 15; 
     -fx-background-color: #BED3C3; 
     -fx-border-width: 3;
-    -fx-text-fill: #212E53; 
+    -fx-text-fill: #212E53; /* Texte blanc */
+    -fx-font-size: 18px;
+    -fx-font-family: "Poppins", sans-serif;
 }
 
 #blueButton {
@@ -110,10 +118,11 @@ BorderPane {
     -fx-border-color: #212E53; /* Bleu nuit */
 }
 
+
 #randomButton {
     -fx-background-color: #CE6A6B; /* Rouge doux */
     -fx-text-fill: #212E53; /* Texte blanc */
-    -fx-font-size: 30px;
+    -fx-font-size: 18px;
     -fx-font-family: "Poppins", sans-serif;
     -fx-font-weight: bold;
     -fx-padding: 15px 30px;
@@ -133,7 +142,7 @@ BorderPane {
 #confirmButton {
     -fx-background-color: #CE6A6B; /* Rouge doux */
     -fx-text-fill: #212E53; /* Texte blanc */
-    -fx-font-size: 30px;
+    -fx-font-size: 18px;
     -fx-font-family: "Poppins", sans-serif;
     -fx-font-weight: bold;
     -fx-padding: 15px 30px;
@@ -149,3 +158,13 @@ BorderPane {
     -fx-background-color: #EBACA2; /* Rose pâle au survol */
 }
 
+#titre {
+    -fx-font-weight: bold; 
+    -fx-text-fill: #212E53;  
+}
+
+#gros_titre {
+    -fx-font-size: 40px;  
+    -fx-font-weight: bold;  
+    -fx-text-fill: #212E53; 
+}

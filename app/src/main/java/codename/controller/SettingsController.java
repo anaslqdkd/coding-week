@@ -137,7 +137,7 @@ public class SettingsController implements Observer {
 
     try {
       Path databasePath = Paths.get(getClass().getClassLoader().getResource("database").toURI());
-      databaseOptions.setValue("Thématique");
+      databaseOptions.setValue("");
       List<String> menuOptions =
           Files.list(databasePath)
               .filter(Files::isRegularFile)

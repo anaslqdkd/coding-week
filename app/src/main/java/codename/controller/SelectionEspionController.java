@@ -58,7 +58,18 @@ public class SelectionEspionController implements Observer {
             playerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
         }
 
-        Button spymasterButton = new Button("Sélectionner Espion");
+        Button spymasterButton = new Button("Sélectionner");
+        spymasterButton.setStyle("-fx-font-size: 14px; -fx-background-color: rgb(255, 254, 196);");
+
+        spymasterButton.setOnMouseEntered(event -> {
+            spymasterButton.setStyle("-fx-font-size: 14px; -fx-background-color: rgb(255, 253, 150);"); // Couleur légèrement plus foncée
+        });
+
+        spymasterButton.setOnMouseExited(event -> {
+            spymasterButton.setStyle("-fx-font-size: 14px; -fx-background-color: rgb(255, 254, 196);"); // Retour à la couleur d'origine
+        });
+
+
         spymasterButton.setOnAction(event -> {
             for (Player p : teamPlayers) {
                 p.setSpymaster(false);

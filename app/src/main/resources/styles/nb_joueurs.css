@@ -1,6 +1,6 @@
 /* Fond principal */
 BorderPane {
-    -fx-background-color: rgb(255, 253, 142); /* Dégradé entre rose pâle et vert doux */
+    -fx-background-color: rgb(255, 254, 196); /* Dégradé entre rose pâle et vert doux */
     -fx-padding: 20px;
 }
 
