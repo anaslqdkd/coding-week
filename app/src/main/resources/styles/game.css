@@ -1,0 +1,5 @@
+/* Fond principal */
+MenuBar {
+    -fx-background-color: rgb(255, 254, 196);
+    -fx-padding: 20px;
+}

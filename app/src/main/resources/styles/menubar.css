@@ -1,0 +1,45 @@
+/* Fond principal */
+MenuBar {
+    -fx-background-color: #EBACA2;
+    -fx-border-color: #212E53;
+    -fx-border-width: 3px; /* Ligne en bas uniquement */
+    -fx-border-style: solid;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+
+}s
+
+/* Style des menus */
+.menu {
+    -fx-font-family: "Poppins", sans-serif;
+    -fx-text-fill: #212E53;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent; /* Important pour éviter le flash */
+}
+
+/* Survol des menus dans la barre */
+.menu:hover,
+.menu:focused {
+    -fx-background-color: #CE6A6B; /* Rouge au survol ou lorsque le menu est ouvert */
+    -fx-text-fill: white; /* Couleur du texte contrastée */
+}
+
+/* Style des éléments de menu */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #212E53;
+    -fx-font-size: 12px;
+}
+
+/* Effet au survol des éléments de menu */
+.menu-item:hover {
+    -fx-background-color: #CE6A6B; /* Rouge au survol */
+    -fx-text-fill: white; /* Couleur du texte contrastée */
+}
+
+/* Effet de clic sur les éléments de menu */
+.menu-item:armed {
+    -fx-background-color: #CE6A6B;
+    -fx-text-fill: white;
+}
