@@ -11,10 +11,6 @@ import javafx.scene.control.Label;
 public class HeaderAgentController implements Observer {
   @FXML private Label labelAgentName;
 
-  @FXML private Label timerLabel;
-  @FXML private Button startButton;
-  private int seconds = 0;
-  private Timer gameTimer;
 
   private Game game;
 
@@ -22,25 +18,10 @@ public class HeaderAgentController implements Observer {
     this.game = Game.getInstance();
     this.game.add_observer(this);
     this.game.notify_observator();
-    int initialTimeInSeconds = 10;
-    gameTimer =
-        new Timer(
-            initialTimeInSeconds,
-            new Timer.TimerCallback() {
-              @Override
-              public void onTimeUpdate(int minutes, int seconds) {
-                // Update the UI with the formatted time
-                timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-              }
 
-              @Override
-              public void onTimeUp() {
-                // Time's up logic (e.g., switch teams, game over, etc.)
-                System.out.println("Time's up! Switching teams...");
-                // Add your logic here (e.g., switching teams)
-              }
-            });
   }
+  // Démarrer le timer pour un test
+
 
   public void updateAgentName() {
     String names = "";
@@ -67,20 +48,5 @@ public class HeaderAgentController implements Observer {
   @Override
   public void update() {
     this.updateAgentName();
-  }
-
-  @FXML
-  private void startTimer() {
-    gameTimer.start(); // Start the countdown timer
-  }
-
-  @FXML
-  private void stopTimer() {
-    gameTimer.stop(); // Stop the countdown timer
-  }
-
-  @FXML
-  private void resetTimer() {
-    gameTimer.reset(); // Reset the timer to initial time
   }
 }

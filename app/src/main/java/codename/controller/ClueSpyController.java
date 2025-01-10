@@ -52,6 +52,7 @@ public class ClueSpyController implements Observer {
       }
       this.game.proposeClue(new Clue(text, number));
       clueAgentController.getClue();
+      game.getTimer().stop();
       game.notify_observator();
     });
 
@@ -108,6 +109,7 @@ public class ClueSpyController implements Observer {
           validateButton.setDisable(true);
           game.setAgentTurn(true);
           labelIndice.setText("Indice : " + text + " - " + number);
+          game.getTimer().stop();
           clueAgentController.switchButton();
         }
         this.game.proposeClue(new Clue(text, number));
@@ -138,8 +140,27 @@ public class ClueSpyController implements Observer {
     gridAgentController.resetClickCount();
   }
 
+
+  public void blockOnTimer() {
+    if (game.getTimer().isTimeUp()) {
+      game.proposeClue(new Clue("Passez-le-tour", 0));
+      clueAgentController.getClue();
+      game.setAgentTurn(true);
+      clueAgentController.enableEndTurnButton();
+      game.setClicksCount(100);         
+      textField.setDisable(true);
+      textField.clear();
+      choiceBox.setValue(null);
+      validateButton.setDisable(true);
+      labelIndice.setText("Indice :");
+    }
+  }
+
+
+
   @Override
   public void update() {
     this.disableWin();
+    this.blockOnTimer();
   }
 }

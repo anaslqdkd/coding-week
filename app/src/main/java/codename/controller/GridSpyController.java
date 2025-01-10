@@ -82,6 +82,9 @@ public class GridSpyController implements Observer {
           imageView.setFitWidth(150);
           imageView.setFitHeight(90);
           label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
+          // label.setStyle(
+          //    "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: black; "
+          //        + "-fx-stroke: white; -fx-stroke-width: 2px;");
         }
         if (color == "Neutral") {
           imageView = new ImageView(imageNeutral);
@@ -99,7 +102,26 @@ public class GridSpyController implements Observer {
         if (!card.isRevealed()) {
           stackPane.getChildren().add(label);
         }
+        if (card.isRevealed()) {
+          stackPane.setOnMouseEntered(
+              event -> {
+                if (!stackPane.getChildren().contains(label)) {
+                  // label.setStyle(
+                  // "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #7cfc89;");
+                  // label.setStyle(
+                  //    "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
+                  label.setStyle(
+                      "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white; "
+                          + "-fx-background-color: gray;");
+                  stackPane.getChildren().add(label);
+                }
+              });
 
+          stackPane.setOnMouseExited(
+              event -> {
+                stackPane.getChildren().remove(label); // Remove label when mouse exits
+              });
+        }
         gridpane.add(stackPane, col, row);
       }
     }

@@ -1,11 +1,15 @@
 package codename.model;
 
 import codename.Observer;
+
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import codename.Timer;
 
-public class Game {
+public class Game implements Serializable {
+  private static final long serialVersionUID = 1L;
   private static Game instance;
   private Parameters parameters;
   private Board board;
@@ -20,8 +24,9 @@ public class Game {
   private boolean agentTurn;
   private Team winner;
   private List<String> words;
-  private ArrayList<Observer> observers = new ArrayList<>(10);
+  private transient ArrayList<Observer> observers = new ArrayList<>(10);
   private String filePath;
+  public Timer timer;
 
   public Game(List<String> words) {
     this.observers = new ArrayList<>();
@@ -39,7 +44,17 @@ public class Game {
     this.isGameOver = false;
     this.winner = null;
     this.filePath = getClass().getClassLoader().getResource("database/database.txt").getPath();
+    this.timer = null;
   }
+
+  public void initializeTimer(int initialSeconds, Timer.TimerCallback callback) {
+    timer = new Timer(initialSeconds, callback);
+  }
+
+  public Timer getTimer() {
+    return timer;
+  }
+
 
   public void add_observer(Observer observer) {
     observers.add(observer);
@@ -49,17 +64,33 @@ public class Game {
     return parameters;
   }
 
+  public ArrayList<Observer> getObservers() {
+    return observers;
+  }
+
+  public void setObservers(ArrayList<Observer> observers) {
+    this.observers = observers;
+  }
+
   public void notify_observator() {
     for (Observer observers : this.observers) {
       observers.update();
     }
   }
-
   public static synchronized Game getInstance(List<String> words) {
     if (instance == null) {
       instance = new Game(words);
     }
     return instance;
+  }
+
+  public static synchronized void setInstance(Game newGame) {
+    if (newGame == null) {
+      throw new IllegalArgumentException("La nouvelle instance du jeu ne peut pas être null.");
+    }
+
+    instance = newGame; // Remplacer l'instance actuelle par la nouvelle
+    newGame.notify_observator(); // Notifier les observateurs pour refléter les changements
   }
 
   public void setFilePath(String filePath) {
@@ -106,7 +137,7 @@ public class Game {
   }
 
   // public void setBoard(Board board) {
-  //     this.board = board;
+  // this.board = board;
   // }
 
   public Board getBoard() {
@@ -156,7 +187,7 @@ public class Game {
     if (!isValidClue(clue.getText())) {
       throw new IllegalArgumentException("Le mot-clé est invalide.");
     }
-    if (clue.getNumber() < 1 || clue.getNumber() > 25) {
+    if (clue.getNumber() < 0 || clue.getNumber() > 9) {
       throw new IllegalArgumentException("Le nombre doit être compris entre 1 et 25.");
     }
     this.currentClue = clue;
@@ -199,8 +230,6 @@ public class Game {
   public void setClicksCount(int clicksCount) {
     this.clicksCount = clicksCount;
   }
-
-
 
   public boolean isGameOver() {
     return this.isGameOver;

@@ -53,6 +53,23 @@
     -fx-background-color: #BED3C3; /* Rose pâle au survol */
 }
 
-.button:pressed {
-    -fx-background-color: #4A919E; /* Rouge doux au clic */
+
+    /* Timer Label */
+#timerLabel {
+    -fx-font-family: "Poppins", sans-serif; /* Modern, clean font */
+    -fx-font-size: 40px; /* Large text */
+    -fx-font-weight: bold; /* Bold style */
+    -fx-text-fill: white; /* White text */
+    -fx-alignment: center; /* Center alignment */
+    -fx-padding: 10px; /* Padding for breathing space */
+    -fx-background-color: #CE6A6B; /* Soft red background */
+    -fx-border-color: #212E53; /* Midnight blue border */
+    -fx-border-width: 3px; /* Border thickness */
+    -fx-border-radius: 10px; /* Rounded corners */
 }
+
+/* Button Pressed State */
+.button:pressed {
+    -fx-background-color: #4A919E; /* Soft blue when clicked */
+}
+

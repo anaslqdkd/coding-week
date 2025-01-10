@@ -135,27 +135,6 @@ public class SelectionEquipeController implements Observer {
               && redTeam.getChildren().size() >= 2
               && blueTeam.getChildren().size() >= 2) {
 
-            for (int i = 0; i < redTeam.getChildren().size(); i++) {
-              Label playerLabel = (Label) redTeam.getChildren().get(i);
-              playerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #212E53;");
-              String playerName = playerLabel.getText();
-              game.addPlayerToRedTeam(new Player(playerName, false));
-            }
-
-            for (int i = 0; i < blueTeam.getChildren().size(); i++) {
-              Label playerLabel = (Label) blueTeam.getChildren().get(i);
-              playerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #212E53;");
-
-              String playerName = playerLabel.getText();
-              game.addPlayerToBlueTeam(new Player(playerName, false));
-            }
-
-            for (int i = 0; i < blueTeam.getChildren().size(); i++) {
-              Label playerLabel = (Label) blueTeam.getChildren().get(i);
-              String playerName = playerLabel.getText();
-              game.addPlayerToBlueTeam(new Player(playerName, false));
-            }
-
             System.out.println("Composition de l'équipe rouge :");
             for (Player player : game.getRedTeam().getPlayers()) {
               System.out.println(
@@ -294,4 +273,3 @@ public class SelectionEquipeController implements Observer {
     updateTeamLabel();
   }
 }
-

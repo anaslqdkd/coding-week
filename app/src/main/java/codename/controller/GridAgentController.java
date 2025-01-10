@@ -62,7 +62,7 @@ public class GridAgentController implements Observer {
         Card card = matrix[row][col];
         Image image = card.getImage();
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-label-fill: black;");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: black;");
         StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
         label.setTranslateY(-12);
 
@@ -70,22 +70,25 @@ public class GridAgentController implements Observer {
         stackPane.getChildren().add(label);
 
         if (card.isRevealed()) {
-          stackPane.getChildren().clear();
-
-          ImageView revealedImageView = new ImageView(image);
-          revealedImageView.setFitWidth(150);
-          revealedImageView.setFitHeight(90);
-          stackPane.getChildren().add(label);
-
-          stackPane.getChildren().add(revealedImageView);
+          imageView.setImage(image); // Replace the default image with revealed image
+          label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
         }
 
+        // Add scaling effects on mouse enter/exit
         stackPane.setOnMouseEntered(
             e -> {
               ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
               popIn.setToX(1.2);
               popIn.setToY(1.2);
               popIn.playFromStart();
+
+              if (card.isRevealed() && !stackPane.getChildren().contains(label)) {
+                label.setStyle(
+                    "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white; "
+                        + "-fx-background-color: gray;");
+
+                stackPane.getChildren().add(label); // Show label on hover
+              }
             });
 
         stackPane.setOnMouseExited(
@@ -94,16 +97,15 @@ public class GridAgentController implements Observer {
               popOut.setToX(1.0);
               popOut.setToY(1.0);
               popOut.playFromStart();
+
+              if (card.isRevealed()) {
+                stackPane.getChildren().remove(label); // Hide label when mouse exits
+              }
             });
 
         final int currentRow = row;
         final int currentCol = col;
-        stackPane.setOnMouseClicked(
-            event -> {
-              handleCardClick(currentRow, currentCol);
-              imageView.setFitWidth(150);
-              imageView.setFitHeight(90);
-            });
+        stackPane.setOnMouseClicked(event -> handleCardClick(currentRow, currentCol));
 
         gridPane.add(stackPane, col, row);
       }
@@ -148,13 +150,16 @@ public class GridAgentController implements Observer {
       String colorTeam = currentTeam.getColor();
 
       if (!clickedCard.isRevealed()) {
-        if (game.getClicksCount() <= game.getMaxClicks()) {
+        if (game.getClicksCount() < game.getMaxClicks()) {
           String color = clickedCard.getColor();
 
           if (color.equals("Red")) {
             if (colorTeam != "Red") {
               game.switchTurn();
+              System.out.println("Trompé de couleur on change d'équipe");
               clueSpyController.reset();
+              game.getTimer().reset();
+              game.getTimer().start();
               game.setAgentTurn(false);
             }
             int score = game.getRedTeam().getScore();
@@ -162,7 +167,10 @@ public class GridAgentController implements Observer {
           } else if (color.equals("Blue")) {
             if (colorTeam != "Blue") {
               game.switchTurn();
+              System.out.println("Trompé de couleur on change d'équipe");
               clueSpyController.reset();
+              game.getTimer().reset();
+              game.getTimer().start();
               game.setAgentTurn(false);
             }
             int score = game.getBlueTeam().getScore();
@@ -170,6 +178,8 @@ public class GridAgentController implements Observer {
           } else if (color.equals("Neutral")) {
             game.switchTurn();
             clueSpyController.reset();
+            game.getTimer().reset();
+            game.getTimer().start();
             game.setAgentTurn(false);
           } else if (color.equals("Assassin")) {
             game.switchTurn();
@@ -177,13 +187,15 @@ public class GridAgentController implements Observer {
           }
           clickedCard.reveal();
           System.out.println("Carte cliquée: " + clickedCard.getWord());
-          game.incrementClicksCount();
         }
+        game.incrementClicksCount();
         if (game.getClicksCount() == game.getMaxClicks()) {
           System.out.println("Max de clicks fin de tour -----------------------------");
           game.switchTurn();
           clueSpyController.reset();
           game.setAgentTurn(false);
+          game.getTimer().reset();
+          game.getTimer().start();
           game.notify_observator();
         }
       } else {

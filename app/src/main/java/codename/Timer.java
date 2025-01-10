@@ -29,6 +29,10 @@ public class Timer {
     this.timeline.stop(); // Stop the countdown timer
   }
 
+  public boolean isTimeUp() {
+    return this.seconds <= 0;
+  }
+
   public void reset() {
     this.seconds = initialSeconds; // Reset the timer to initial time
     updateTimer(); // Immediately update the time

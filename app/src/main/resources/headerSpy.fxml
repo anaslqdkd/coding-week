@@ -22,4 +22,5 @@
         </StackPane>
 
     </children>
+    <Label fx:id="timerLabel" text="00:00" />
 </VBox>

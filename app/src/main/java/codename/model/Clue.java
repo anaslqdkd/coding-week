@@ -1,8 +1,9 @@
 package codename.model;
 
-public class Clue {
-  private String text;
-  private Integer number;
+public class Clue implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+    private String text;
+    private Integer number;
 
   public Clue(String text, Integer number) {
     this.text = text;
