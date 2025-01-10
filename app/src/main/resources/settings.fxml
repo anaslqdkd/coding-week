@@ -43,7 +43,7 @@
                 <Button fx:id="cancelSettingsButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
                         <ChoiceBox prefWidth="150.0" fx:id="databaseOptions" />
                 <Button fx:id="loadDatabaseButton" text="Ouvrir" prefWidth="150" style="-fx-font-size: 16px;" />
-                <Button fx:id="writeDatabase" text="write" prefWidth="150" style="-fx-font-size: 16px;" />
+                <Button fx:id="writeDatabase" text="Écrire" prefWidth="150" style="-fx-font-size: 16px;" />
             </HBox>
         </VBox>
     </bottom>

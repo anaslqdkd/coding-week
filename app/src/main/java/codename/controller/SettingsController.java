@@ -92,12 +92,20 @@ public class SettingsController implements Observer {
     System.out.println("Initial grid columns: " + gridColumnsSlider.getValue());
     game.add_observer(this);
 
-    gridColumnsSlider
-        .valueProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              System.out.println("Grid columns updated: " + newValue.intValue());
-            });
+    // Initialiser les sliders avec les valeurs de rows et columns du Board
+    gridLinesSlider.setValue(game.getBoard().getRows());
+    gridColumnsSlider.setValue(game.getBoard().getColumns());
+
+    // Ajouter des écouteurs aux sliders
+    gridLinesSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        System.out.println("Grid lines updated: " + newValue.intValue());
+        // Mettre à jour la valeur des lignes dans le jeu
+    });
+
+    gridColumnsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        System.out.println("Grid columns updated: " + newValue.intValue());
+        // Mettre à jour la valeur des colonnes dans le jeu
+    });
 
     saveSettingsButton.setOnAction(
         event -> {
