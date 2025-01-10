@@ -155,3 +155,6 @@ app/bin/main/*.txt
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,gradle,visualstudiocode
 .settings/org.eclipse.buildship.core.prefs
 
+
+app/bin/main/database
+
