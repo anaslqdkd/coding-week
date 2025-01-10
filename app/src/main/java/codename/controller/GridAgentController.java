@@ -59,7 +59,7 @@ public class GridAgentController implements Observer {
         Card card = matrix[row][col];
         Image image = card.getImage();
         Label label = new Label(card.getWord());
-        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-label-fill: black;");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: black;");
         StackPane.setAlignment(label, javafx.geometry.Pos.BOTTOM_CENTER);
         label.setTranslateY(-12);
 
@@ -67,21 +67,25 @@ public class GridAgentController implements Observer {
         stackPane.getChildren().add(label);
 
         if (card.isRevealed()) {
-          stackPane.getChildren().clear();
-
-          ImageView revealedImageView = new ImageView(image);
-          revealedImageView.setFitWidth(150);
-          revealedImageView.setFitHeight(90);
-          stackPane.getChildren().add(label);
-          stackPane.getChildren().add(revealedImageView);
+          imageView.setImage(image); // Replace the default image with revealed image
+          label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white;");
         }
 
+        // Add scaling effects on mouse enter/exit
         stackPane.setOnMouseEntered(
             e -> {
               ScaleTransition popIn = new ScaleTransition(Duration.millis(200), stackPane);
               popIn.setToX(1.2);
               popIn.setToY(1.2);
               popIn.playFromStart();
+
+              if (card.isRevealed() && !stackPane.getChildren().contains(label)) {
+                label.setStyle(
+                    "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: white; "
+                        + "-fx-background-color: gray;");
+
+                stackPane.getChildren().add(label); // Show label on hover
+              }
             });
 
         stackPane.setOnMouseExited(
@@ -90,16 +94,15 @@ public class GridAgentController implements Observer {
               popOut.setToX(1.0);
               popOut.setToY(1.0);
               popOut.playFromStart();
+
+              if (card.isRevealed()) {
+                stackPane.getChildren().remove(label); // Hide label when mouse exits
+              }
             });
 
         final int currentRow = row;
         final int currentCol = col;
-        stackPane.setOnMouseClicked(
-            event -> {
-              handleCardClick(currentRow, currentCol);
-              imageView.setFitWidth(150);
-              imageView.setFitHeight(90);
-            });
+        stackPane.setOnMouseClicked(event -> handleCardClick(currentRow, currentCol));
 
         gridPane.add(stackPane, col, row);
       }
