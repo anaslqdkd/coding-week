@@ -44,7 +44,7 @@ public class SettingsController implements Observer {
 
   @FXML private Button backButton;
 
-  @FXML private Button writeDataBase;
+  @FXML private Button writeDatabaseButton;
 
   @FXML private ChoiceBox<String> databaseOptions;
   private Game game;
@@ -142,6 +142,20 @@ public class SettingsController implements Observer {
             e.printStackTrace();
           }
         });    
+
+    // Gestion du bouton writeDatabaseButton
+    writeDatabaseButton.setOnAction(event -> {
+      try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/writeDataBase.fxml"));
+          Parent root = loader.load();
+
+          Stage stage = (Stage) writeDatabaseButton.getScene().getWindow();
+          stage.setScene(new Scene(root));
+          stage.show();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+    });
 
     try {
       Path databasePath = Paths.get(getClass().getClassLoader().getResource("database").toURI());

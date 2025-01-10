@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuButton?>
+
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #abe2ff;" fx:controller="codename.controller.WriteDataBaseController">
+    <top>
+        <VBox alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
+            <Label text="Écrire une Database" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #004d40;" alignment="CENTER" />
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+            <TextArea fx:id="databaseTextArea" prefWidth="800" prefHeight="400" wrapText="true" style="-fx-font-size: 14px;" />
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #e0f7fa;">
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="cancelButton" text="Annuler" prefWidth="150" style="-fx-font-size: 16px;" />
+                <MenuButton fx:id="themeButton" text="Sélection du Thème" prefWidth="150" style="-fx-font-size: 16px;" />
+                <TextField fx:id="titleField" promptText="Titre" prefWidth="200" style="-fx-font-size: 16px;" />
+                <Button fx:id="saveButton" text="Enregistrer" prefWidth="150" style="-fx-font-size: 16px;" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>
