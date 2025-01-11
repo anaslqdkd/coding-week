@@ -259,6 +259,9 @@ public class SelectionEquipeController implements Observer {
                 && !game.getBlueTeam().getPlayers().contains(player)) {
               game.addPlayerToBlueTeam(player);
               game.notify_observator();
+            } else if (game.getRedTeam().getPlayers().contains(player)) {
+              game.swicthPlayer(player);
+              game.notify_observator();
             }
           });
 
