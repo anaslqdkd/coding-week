@@ -5,6 +5,9 @@
 
 Cette application est un projet Java utilisant JavaFX pour l'interface graphique. Ce guide explique comment exécuter l'exécutable `.jar` généré avec Gradle.
 
+## Lien vers la video de presentation
+https://youtu.be/2J5VUwWEcpk
+
 ---
 
 ## Prérequis
@@ -28,6 +31,7 @@ Avant d'exécuter l'application, assurez-vous d'avoir les éléments suivants in
 
 ## Compilation et Génération du JAR
 
+
 Si vous souhaitez recompiler le projet ou régénérer le JAR, procédez comme suit :
 
 1. Clonez le projet :
@@ -44,5 +48,6 @@ Le fichier se trouvera dans :
 
 **Utilisez la commande suivante pour lancer l'exécution du .jar :**
 java --module-path "path_to_javafx"/javafx-sdk-23.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics -jar app/exec/codenames.jar
+
 
 
